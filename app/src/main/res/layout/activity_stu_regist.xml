@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.hiwhuUI.Activity.stu_registActivity">
+
+    <RelativeLayout
+        android:id="@+id/p1_stu_num"
+        android:layout_width="350dp"
+        android:layout_height="60dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp">
+        <TextView
+            android:id="@+id/p1_text_stu_num"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:text="学号"
+            android:gravity="center"
+            android:textSize="17sp"/>
+        <EditText
+            android:id="@+id/p1_edit_stu_num"
+            android:layout_width="240dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:hint="请输入你的学号"
+            android:textSize="15sp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/p2_stu_username"
+        android:layout_width="350dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/p1_stu_num"
+        android:layout_centerHorizontal="true">
+        <TextView
+            android:id="@+id/p2_text_stu_username"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:text="用户名"
+            android:layout_alignParentLeft="true"
+            android:gravity="center"
+            android:textSize="17sp"/>
+        <EditText
+            android:id="@+id/p2_edit_stu_username"
+            android:layout_width="240dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:hint="请输入你的用户名"
+            android:textSize="15sp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/p3_stu_password"
+        android:layout_width="350dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/p2_stu_username"
+        android:layout_centerHorizontal="true">
+        <TextView
+            android:id="@+id/p3_text_stu_password"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:text="密码"
+            android:layout_alignParentLeft="true"
+            android:gravity="center"
+            android:textSize="17sp"/>
+        <EditText
+            android:id="@+id/p3_edit_stu_password"
+            android:layout_width="240dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:hint="请输入你的密码"
+            android:textSize="15sp"/>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/p4_stu_ident"
+        android:layout_width="350dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/p3_stu_password"
+        android:layout_centerHorizontal="true">
+        <TextView
+            android:id="@+id/p4_text_stu_ident"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:text="确认密码"
+            android:layout_alignParentLeft="true"
+            android:gravity="center"
+            android:textSize="17sp"/>
+        <EditText
+            android:id="@+id/p4_edit_stu_ident"
+            android:layout_width="240dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:hint="请确认你的密码"
+            android:textSize="15sp"/>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_stu_regist"
+        android:layout_width="250dp"
+        android:layout_height="60dp"
+        android:text="注册"
+        android:layout_marginTop="350dp"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>

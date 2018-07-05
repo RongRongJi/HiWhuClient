@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.hiwhuUI.Activity.com_registActivity">
+
+    <RelativeLayout
+        android:id="@+id/p1_com_name"
+        android:layout_width="350dp"
+        android:layout_height="60dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp">
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:gravity="center"
+            android:text="社团名称"
+            android:textSize="17dp" />
+        <EditText
+            android:layout_width="230dp"
+            android:layout_height="60dp"
+            android:layout_alignParentRight="true"
+            android:maxLines="1" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/p2_com_tele"
+        android:layout_width="350dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/p1_com_name"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:text="联系方式"
+            android:gravity="center"
+            android:textSize="17sp" />
+        <EditText
+            android:layout_width="230dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:hint="电话号码"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/p3_com_password"
+        android:layout_width="350dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/p2_com_tele"
+        android:layout_centerHorizontal="true">
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:text="密码"
+            android:textSize="17sp"
+            android:gravity="center"/>
+        <EditText
+            android:layout_width="230dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:hint="请输入你的密码"
+            android:textSize="15sp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/p4_com_ident"
+        android:layout_width="350dp"
+        android:layout_height="60dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/p3_com_password">
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:text="确认密码"
+            android:gravity="center"
+            android:textSize="17sp"/>
+        <EditText
+            android:layout_width="230dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:hint="请确认你的密码"
+            android:textSize="15sp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/p5_com_describe"
+        android:layout_width="350dp"
+        android:layout_height="60dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/p4_com_ident"
+        >
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:text="社团简介"
+            android:textSize="17sp"
+            android:gravity="center" />
+        <EditText
+            android:layout_width="230dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:hint="请简短描述您的社团"
+            android:textSize="15sp"/>
+
+    </RelativeLayout>
+    <Button
+        android:id="@+id/btn_com_regist"
+        android:layout_width="250dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="350dp"
+        android:layout_centerHorizontal="true"
+        android:text="注  册"
+        android:textSize="15sp"/>
+
+</RelativeLayout>

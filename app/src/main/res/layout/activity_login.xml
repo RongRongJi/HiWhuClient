@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/login"
+    tools:context="com.hiwhuUI.Activity.LoginActivity">
+
+    <ImageView
+        android:id="@+id/img_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/logo" />
+
+    <RelativeLayout
+        android:id="@+id/p1_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/img_logo">
+        <EditText
+            android:id="@+id/edit_username"
+            android:layout_width="240dp"
+            android:layout_height="60dp"
+            android:layout_alignParentRight="true"
+            android:background="@null"
+            android:hint="请输入您的用户名"
+            android:textSize="15sp"
+            android:maxLines="1"/>
+        <TextView
+            android:id="@+id/text_username"
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:layout_toLeftOf="@+id/edit_username"
+            android:text="用户名"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/p2_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/p1_username">
+
+        <EditText
+            android:id="@+id/edit_password"
+            android:layout_width="240dp"
+            android:layout_height="60dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:background="@null"
+            android:hint="请输入您的密码"
+            android:maxLines="1"
+            android:textSize="15sp" />
+        <TextView
+            android:id="@+id/text_password"
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:layout_toLeftOf="@+id/edit_password"
+            android:text="密码"/>
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/p2_password"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:text="登录"
+        android:textColor="#fff"
+        android:textSize="18sp" />
+
+    <RelativeLayout
+        android:id="@+id/p3_regist"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_login"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:id="@+id/text_reg_stu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="学生注册"
+            android:textSize="13sp"/>
+        <TextView
+            android:id="@+id/text_reg_com"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="社团注册"
+            android:textSize="13sp"/>
+    </RelativeLayout>
+
+</RelativeLayout>
