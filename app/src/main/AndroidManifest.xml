@@ -19,7 +19,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.hiwhuUI.Activity.com_ViewActivity"></activity>
+        <activity android:name="com.hiwhuUI.Activity.com_ViewActivity" />
+        <activity android:name="com.hiwhuUI.Activity.com_updateActivity"></activity>
     </application>
 
 </manifest>
