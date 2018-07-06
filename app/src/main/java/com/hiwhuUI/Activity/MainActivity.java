@@ -14,6 +14,8 @@ import android.support.v7.widget.Toolbar;
 
 
 import com.hiwhu.hiwhuclient.R;
+import com.hiwhuUI.Activity.util.navigationAdapter;
+import com.hiwhuUI.Activity.util.navigationFragment;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private Toolbar toolbar;
