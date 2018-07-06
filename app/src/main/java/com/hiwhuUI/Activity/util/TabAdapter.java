@@ -1,4 +1,4 @@
-package com.hiwhuUI.Activity;
+package com.hiwhuUI.Activity.util;
 
 
 import android.support.v4.app.Fragment;

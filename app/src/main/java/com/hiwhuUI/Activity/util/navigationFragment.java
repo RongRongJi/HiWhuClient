@@ -1,4 +1,4 @@
-package com.hiwhuUI.Activity;
+package com.hiwhuUI.Activity.util;
 
 
 import android.os.Bundle;

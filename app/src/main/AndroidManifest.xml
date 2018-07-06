@@ -25,6 +25,8 @@
         <activity android:name="com.hiwhuUI.Activity.LocationActivity" />
         <activity android:name="com.hiwhuUI.Activity.SearchActivity" />
         <activity android:name="com.hiwhuUI.Activity.AddActivity" />
+        <activity android:name="com.hiwhuUI.Activity.DetailsActivity" />
+        <activity android:name="com.hiwhuUI.Activity.SignupActivity" />
     </application>
 
 </manifest>
