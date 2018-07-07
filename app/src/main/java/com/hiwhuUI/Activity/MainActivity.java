@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.support.design.widget.BottomNavigationView;
 
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -44,7 +45,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         return true;
                     case R.id.add:
                         Intent intent2 = new Intent();
-                        intent2.setClass(MainActivity.this, AddActivity.class);
+                        Log.e("inhere---","here");
+                        intent2.setClass(MainActivity.this, com_updateActivity.class);
                         startActivity(intent2);
                         return true;
                 }

@@ -15,10 +15,14 @@ import com.hiwhu.hiwhuclient.R;
 import java.io.IOException;
 
 import HttpConnect.HttpUtil;
+import data.staticData;
 import okhttp3.Call;
 import okhttp3.Response;
 
 public class LoginActivity extends AppCompatActivity {
+    final int StudentLogin = 1;
+    final int SponsorLogin = 2;
+    final int LoginFailed = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,10 +69,17 @@ public class LoginActivity extends AppCompatActivity {
                     public void onResponse(Call call, Response response) throws IOException {
                         String s = response.body().string();
                         Log.e("return---", s);
-                        if (s.equals("succeed")) {
-                            Jump(true);
+                        String[] turn = s.split("\\.");
+                        if (turn.length==0){
+                            Jump(LoginFailed);
+                        } else if (turn[0].equals("1")) {
+                            Jump(StudentLogin);
+                            staticData.setStudentID(turn[1]);
+                        } else if(turn[0].equals("2")){
+                            Jump(SponsorLogin);
+                            staticData.setSponsorID(turn[1]);
                         } else {
-                            Jump(false);
+                            Jump(LoginFailed);
                         }
                     }
 
@@ -81,13 +92,15 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    public void Jump(final boolean flag){
+    public void Jump(final int flag){
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if(flag){
-                    Toast.makeText(LoginActivity.this,"登录成功！",Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(LoginActivity.this,LoginActivity.class);
+                if(StudentLogin == flag) {
+                    Toast.makeText(LoginActivity.this, "学生登录成功！", Toast.LENGTH_SHORT).show();
+                }else if(SponsorLogin == flag){
+                    Toast.makeText(LoginActivity.this, "活动方登录成功！", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(LoginActivity.this,MainActivity.class);
                     startActivity(intent);
                 }else{
                     Toast.makeText(LoginActivity.this,"登录失败！",Toast.LENGTH_LONG).show();
