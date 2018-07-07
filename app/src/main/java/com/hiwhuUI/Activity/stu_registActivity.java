@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.net.*;
 
 import HttpConnect.HttpUtil;
+import data.staticData;
 import okhttp3.Call;
 import okhttp3.Response;
 
@@ -33,7 +34,7 @@ public class stu_registActivity extends AppCompatActivity {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String url = "http://192.168.23.1:8080/AddStudentServlet";
+                String url = staticData.getUrl()+"/AddStudentServlet";
                 String studentId = stuIdtext.getText().toString();
                 String username = userNametext.getText().toString();
                 String password = passwordText.getText().toString();

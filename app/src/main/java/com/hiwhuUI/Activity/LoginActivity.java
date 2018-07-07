@@ -53,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String url = "http://192.168.23.1:8080/LoginServlet";
+                String url = staticData.getUrl()+"/LoginServlet";
                 String account = username.getText().toString();
                 String pwd = password.getText().toString();
                 try {
