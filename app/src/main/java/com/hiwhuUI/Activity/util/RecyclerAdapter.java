@@ -1,7 +1,6 @@
 package com.hiwhuUI.Activity.util;
 
 import android.content.Context;
-import com.bumptech.glide.Glide;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;

@@ -9,18 +9,32 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.hiwhu.hiwhuclient.R;
 
-public class com_updateActivity extends AppCompatActivity {
+import java.io.IOException;
 
+import HttpConnect.HttpUtil;
+import data.staticData;
+import okhttp3.Call;
+import okhttp3.Response;
+
+public class com_updateActivity extends AppCompatActivity {
+    //跳转信息
+    final static int UPDATE_SUCCEED=2;
+    final static int UPDATE_FAILED=3;
+    final static int ADD_SUCCEED=4;
+    final static int ADD_FAILED=5;
     final static int CODE = 1;
     //调用系统相册-选择图片
     private static final int IMAGE = 1;
@@ -36,9 +50,12 @@ public class com_updateActivity extends AppCompatActivity {
     private Button beginTime_signup;
     private Button endDate_signup;
     private Button endTime_signup;
+    private String begDate,begTime,enDate,enTime,begDate_signup,begTime_signup,
+                enDate_signup,enTime_signup;
 
     private RadioButton button_need;
     private ImageButton button_address;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +69,8 @@ public class com_updateActivity extends AppCompatActivity {
                 new DatePickerDialog(com_updateActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                        String theDate = String.format("%d-%d-%d",year,month+1,day);
-                        beginDate.setText(theDate);
+                        begDate = String.format("%d-%d-%d",year,month+1,day);
+                        beginDate.setText(begDate);
                     }
                 },2018,6,23).show();
             }
@@ -66,8 +83,8 @@ public class com_updateActivity extends AppCompatActivity {
                 new TimePickerDialog(com_updateActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-                        String theTime = String.format("%d:%d",hour,minute);
-                        beginTime.setText(theTime);
+                        begTime = String.format("%d:%d",hour,minute);
+                        beginTime.setText(begTime);
                     }
                 },0,0,true).show();
             }
@@ -80,8 +97,8 @@ public class com_updateActivity extends AppCompatActivity {
                 new DatePickerDialog(com_updateActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                        String theDate = String.format("%d-%d-%d",year,month+1,day);
-                        endDate.setText(theDate);
+                        enDate= String.format("%d-%d-%d",year,month+1,day);
+                        endDate.setText(enDate);
                     }
                 },2018,6,24).show();
             }
@@ -94,8 +111,8 @@ public class com_updateActivity extends AppCompatActivity {
                 new TimePickerDialog(com_updateActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-                        String theTime = String.format("%d:%d",hour,minute);
-                        endTime.setText(theTime);
+                        enTime = String.format("%d:%d",hour,minute);
+                        endTime.setText(enTime);
                     }
                 },0,0,true).show();
             }
@@ -112,8 +129,8 @@ public class com_updateActivity extends AppCompatActivity {
                     new DatePickerDialog(com_updateActivity.this, new DatePickerDialog.OnDateSetListener() {
                         @Override
                         public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                            String theDate = String.format("%d-%d-%d", year, month + 1, day);
-                            beginDate_signup.setText(theDate);
+                            begDate_signup = String.format("%d-%d-%d", year, month + 1, day);
+                            beginDate_signup.setText(begDate_signup);
                         }
                     }, 2018, 6, 23).show();
                 }
@@ -128,8 +145,8 @@ public class com_updateActivity extends AppCompatActivity {
                     new TimePickerDialog(com_updateActivity.this, new TimePickerDialog.OnTimeSetListener() {
                         @Override
                         public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-                            String theTime = String.format("%d:%d", hour, minute);
-                            beginTime_signup.setText(theTime);
+                            begTime_signup = String.format("%d:%d", hour, minute);
+                            beginTime_signup.setText(begTime_signup);
                         }
                     }, 0, 0, true).show();
                 }
@@ -144,8 +161,8 @@ public class com_updateActivity extends AppCompatActivity {
                     new DatePickerDialog(com_updateActivity.this, new DatePickerDialog.OnDateSetListener() {
                         @Override
                         public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                            String theDate = String.format("%d-%d-%d", year, month + 1, day);
-                            endDate_signup.setText(theDate);
+                            enDate_signup = String.format("%d-%d-%d", year, month + 1, day);
+                            endDate_signup.setText(enDate_signup);
                         }
                     }, 2018, 6, 24).show();
                 }
@@ -160,15 +177,108 @@ public class com_updateActivity extends AppCompatActivity {
                     new TimePickerDialog(com_updateActivity.this, new TimePickerDialog.OnTimeSetListener() {
                         @Override
                         public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-                            String theTime = String.format("%d:%d", hour, minute);
-                            endTime_signup.setText(theTime);
+                            enTime_signup = String.format("%d:%d", hour, minute);
+                            endTime_signup.setText(enTime_signup);
                         }
                     }, 0, 0, true).show();
                 }
             }
         });
+        Button submit = (Button)findViewById(R.id.button_forward);
+        final EditText actName = (EditText)findViewById(R.id.activityName);
+        final EditText desc = (EditText)findViewById(R.id.introduction);
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String url;
+                if(staticData.getCurrentActivity()==null){
+                    url = staticData.getUrl()+"/AddActivityServlet?";
+                }else{
+                    url = staticData.getUrl()+"/UpdateActivityServlet"
+                            +"?activityID="+staticData.getCurrentActivity()
+                            +"&sponsorID="+staticData.getSponsorID()+"&";
+                }
+                String title = actName.getText().toString();
+                String startTime = begDate+" "+begTime;
+                String endTime = enDate +" "+enTime;
+                String registrationStartTime = begDate_signup+" "+begTime_signup;
+                String registrationEndTime = enDate_signup+" "+enTime_signup;
+                String location=null;//还需要添加
+                String activityProfile = desc.getText().toString();
+                try {
+                    title = java.net.URLEncoder.encode(title, "UTF-8");
+                    startTime = java.net.URLEncoder.encode(startTime, "UTF-8");
+                    endTime = java.net.URLEncoder.encode(endTime, "UTF-8");
+                    registrationStartTime = java.net.URLEncoder.encode(registrationStartTime, "UTF-8");
+                    registrationEndTime = java.net.URLEncoder.encode(registrationEndTime, "UTF-8");
+                    //location = java.net.URLEncoder.encode(location,"UTF-8");
+                    activityProfile = java.net.URLEncoder.encode(activityProfile,"UTF-8");
+                    url = url+"title="+title
+                            +"&startTime="+startTime
+                            +"&endTime="+endTime
+                            +"&registrationStartTime="+registrationStartTime
+                            +"&registrationEndTime="+registrationEndTime
+                            +"&location="+location
+                            +"&activityProfile="+activityProfile
+                            +"&sponsorID="+staticData.getSponsorID();
+                    Log.e("url----", url);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                HttpUtil.sendOkHttpRequest(url, new okhttp3.Callback() {
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        String s = response.body().string();
+                        Log.e("return---", s);
+                        if(s.equals("updatesucceed")){
+                            Jump(UPDATE_SUCCEED);
+                        }else if(s.equals("updatefailed")){
+                            Jump(UPDATE_FAILED);
+                        }else{
+                            String[] turn = s.split("\\.");
+                            if(turn.length==0){
+                                Jump(ADD_FAILED);
+                            }else if(turn[0].equals("succeed")){
+                                Jump(ADD_SUCCEED);
+                                staticData.setCurrentActivity(turn[1]);
+                            }else{
+                                Jump(ADD_FAILED);
+                            }
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        Log.e("error",e.toString());
+                    }
+                });
+            }
+        });
+    }
+
+    public void Jump(final int flag){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if(ADD_SUCCEED == flag){
+                    Toast.makeText(com_updateActivity.this,"活动已创建！",Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(com_updateActivity.this,com_ViewActivity.class);
+                    startActivity(intent);
+                }else if(ADD_FAILED == flag){
+                    Toast.makeText(com_updateActivity.this,"活动创建失败！",Toast.LENGTH_LONG).show();
+                }else if(UPDATE_FAILED == flag){
+                    Toast.makeText(com_updateActivity.this,"更新失败！",Toast.LENGTH_LONG).show();
+                }else if(UPDATE_SUCCEED == flag){
+                    Toast.makeText(com_updateActivity.this,"更新成功！",Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(com_updateActivity.this,com_ViewActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
 
     }
+
 
     public void onClick(View v) {
         switch (v.getId()) {
