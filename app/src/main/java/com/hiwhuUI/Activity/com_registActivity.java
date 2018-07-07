@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.net.*;
 
 import HttpConnect.HttpUtil;
+import data.staticData;
 import okhttp3.Call;
 import okhttp3.Response;
 
@@ -33,7 +34,7 @@ public class com_registActivity extends AppCompatActivity {
         registButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String url = "http://192.168.23.1:8080/AddSponsorServlet";
+                String url = staticData.getUrl()+"/AddSponsorServlet";
                 String name = sponsorName.getText().toString();
                 String tel = phoneNum.getText().toString();
                 String pwd = passwrod.getText().toString();
