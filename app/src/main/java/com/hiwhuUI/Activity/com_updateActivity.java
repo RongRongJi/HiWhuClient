@@ -62,6 +62,15 @@ public class com_updateActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_com_update);
 
+        Button back = (Button)findViewById(R.id.button_backward);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                staticData.setCurrentActivity(null);
+                finish();
+            }
+        });
+
         beginDate = (Button)findViewById(R.id.beginDate);
         beginDate.setOnClickListener(new View.OnClickListener() {
             @Override
