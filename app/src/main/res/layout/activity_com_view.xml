@@ -17,83 +17,96 @@
         android:layout_alignParentTop="true"
         android:background="?attr/colorPrimary" />
 
-    <ImageView
-
-        android:id="@+id/activity_poster"
-        android:layout_width="420dip"
-        android:layout_height="420dip"
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:scaleType="fitStart"
-        android:src="@drawable/poster" />
+        android:layout_alignParentTop="true">
 
-    <TextView
-        android:id="@+id/activity_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/activity_poster"
-        android:paddingBottom="10dip"
-        android:layout_marginLeft="11dip"
-        android:textSize="26sp"
-        android:textColor="#555555"
-        android:text="第一届趣味知识竞赛" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
 
-    <TextView
-        android:id="@+id/activity_startTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/activity_name"
-        android:layout_marginLeft="11dip"
-        android:textSize="20sp"
-        android:textColor="#7D7D7D"
-        android:text="活动时间：2018年7月5日15:14"
-        />
+            <ImageView
 
-    <TextView
-        android:id="@+id/activity_endTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/activity_startTime"
-        android:layout_marginLeft="11dp"
-        android:textSize="20sp"
-        android:textColor="#7D7D7D"
-        android:text="结束时间：2018年7月5日15:19"
-        />
+                android:id="@+id/activity_poster"
+                android:layout_width="420dip"
+                android:layout_height="420dip"
+                android:scaleType="fitStart"
+                android:src="@drawable/poster" />
 
-    <Button
-        android:id="@+id/activity_position"
-        android:layout_width="match_parent"
-        android:layout_height="25dip"
-        android:layout_below="@id/activity_endTime"
-        android:layout_marginLeft="10dip"
-        android:background="#00000000"
-        android:textColor="#7D7D7D"
-        android:textSize="20sp"
-        android:gravity="start"
-        android:text="活动地点：经济与管理学院 教工之家"/>
+            <TextView
+                android:id="@+id/activity_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/activity_poster"
+                android:paddingBottom="10dip"
+                android:layout_marginLeft="11dip"
+                android:textSize="26sp"
+                android:textColor="#555555"
+                android:text="第一届趣味知识竞赛" />
 
+            <TextView
+                android:id="@+id/activity_startTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/activity_name"
+                android:layout_marginLeft="11dip"
+                android:textSize="20sp"
+                android:textColor="#7D7D7D"
+                android:text="活动时间：2018年7月5日15:14"
+                />
 
-    <TextView
-        android:id="@+id/join_startTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/activity_position"
-        android:layout_marginLeft="11dip"
-        android:textSize="20sp"
-        android:textColor="#7D7D7D"
-        android:text="报名时间：2018年7月4日16:09"
-        />
+            <TextView
+                android:id="@+id/activity_endTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/activity_startTime"
+                android:layout_marginLeft="11dp"
+                android:textSize="20sp"
+                android:textColor="#7D7D7D"
+                android:text="结束时间：2018年7月5日15:19"
+                />
 
-    <TextView
-        android:id="@+id/join_endTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/join_startTime"
-        android:layout_marginLeft="11dip"
-        android:textSize="20sp"
-        android:textColor="#7D7D7D"
-        android:text="报名时间：2018年7月4日16:12"/>
+            <Button
+                android:id="@+id/activity_position"
+                android:layout_width="match_parent"
+                android:layout_height="25dip"
+                android:layout_below="@id/activity_endTime"
+                android:layout_marginLeft="10dip"
+                android:background="#00000000"
+                android:textColor="#7D7D7D"
+                android:textSize="20sp"
+                android:gravity="start"
+                android:text="活动地点：经济与管理学院 教工之家"/>
+
+            <TextView
+                android:id="@+id/join_startTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/activity_position"
+                android:layout_marginLeft="11dip"
+                android:textSize="20sp"
+                android:textColor="#7D7D7D"
+                android:text="报名时间：2018年7月4日16:09"
+                />
+
+            <TextView
+                android:id="@+id/join_endTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/join_startTime"
+                android:layout_marginLeft="11dip"
+                android:textSize="20sp"
+                android:textColor="#7D7D7D"
+                android:text="报名时间：2018年7月4日16:12"/>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
 
     <ImageButton
         android:id="@+id/back"
