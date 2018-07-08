@@ -52,6 +52,7 @@
             android:layout_alignParentRight="true"
             android:background="@null"
             android:hint="请输入您的密码"
+            android:inputType="textPassword"
             android:maxLines="1"
             android:textSize="15sp" />
         <TextView
