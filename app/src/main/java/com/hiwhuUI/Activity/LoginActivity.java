@@ -75,9 +75,11 @@ public class LoginActivity extends AppCompatActivity {
                         } else if (turn[0].equals("1")) {
                             Jump(StudentLogin);
                             staticData.setStudentID(turn[1]);
+                            staticData.setUserType(1);
                         } else if(turn[0].equals("2")){
                             Jump(SponsorLogin);
                             staticData.setSponsorID(turn[1]);
+                            staticData.setUserType(2);
                         } else {
                             Jump(LoginFailed);
                         }
@@ -98,6 +100,8 @@ public class LoginActivity extends AppCompatActivity {
             public void run() {
                 if(StudentLogin == flag) {
                     Toast.makeText(LoginActivity.this, "学生登录成功！", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                    startActivity(intent);
                 }else if(SponsorLogin == flag){
                     Toast.makeText(LoginActivity.this, "活动方登录成功！", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(LoginActivity.this,MainActivity.class);

@@ -15,18 +15,17 @@ import android.widget.TextView;
 
 import com.hiwhu.hiwhuclient.R;
 import com.hiwhuUI.Activity.DetailsActivity;
-import com.hiwhuUI.Activity.MainActivity;
-import com.hiwhuUI.Activity.SearchActivity;
 import com.hiwhuUI.Activity.SignupActivity;
 
 import java.util.List;
 
-import static android.support.v4.content.ContextCompat.startActivity;
+import data.staticData;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
     private Context context;
     private List<Card> cardList;
+    private int userType = staticData.getUserType();
 
     static class ViewHolder extends RecyclerView.ViewHolder{
 
@@ -86,6 +85,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         holder.card_time.setText(card.getTime());
         holder.card_location.setText(card.getLocation());
         holder.card_btn.setEnabled(card.isSignup());
+        if(userType==2){
+            holder.card_btn.setVisibility(View.GONE);
+        }
         //Glide.with(context).load(card.getImg_id()).into(holder.card_img);
     }
 
