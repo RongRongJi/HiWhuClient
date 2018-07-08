@@ -5,7 +5,7 @@ package data;
  */
 
 public class staticData {
-    static String url = "http://192.168.191.1:8080";
+    static String url = "http://192.168.23.1:8080";
     static String studentID = null;
     static String sponsorID = null;
     static String currentActivity = null;
