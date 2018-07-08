@@ -14,8 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hiwhu.hiwhuclient.R;
+import com.hiwhuUI.Activity.DetailsActivity;
 import com.hiwhuUI.Activity.SignupActivity;
-import com.hiwhuUI.Activity.com_ViewActivity;
 
 import java.util.List;
 
@@ -25,7 +25,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     private Context context;
     private List<Card> cardList;
-    private int option; //0-tab; 1-我的（状态文字）; 2-我的（）; 3-参加过;
     private int userType = staticData.getUserType();
 
     static class ViewHolder extends RecyclerView.ViewHolder{
@@ -44,7 +43,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent();
-                    intent.setClass(view.getContext(), com_ViewActivity.class);
+                    intent.setClass(view.getContext(), DetailsActivity.class);
                     view.getContext().startActivity(intent);
                 }
             });
@@ -65,9 +64,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         }
     }
 
-    public RecyclerAdapter(List<Card> list,int option) {
+    public RecyclerAdapter(List<Card> list) {
         this.cardList = list;
-        this.option = option;
     }
 
     @NonNull
@@ -86,13 +84,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         holder.card_title.setText(card.getTitle());
         holder.card_time.setText(card.getTime());
         holder.card_location.setText(card.getLocation());
-        //Glide.with(context).load(card.getImg_id()).into(holder.card_img);
+        holder.card_btn.setEnabled(card.isSignup());
         if(userType==2){
             holder.card_btn.setVisibility(View.GONE);
-            return;
         }
-        if(card.getState()==0) holder.card_btn.setEnabled(true);
-        else holder.card_btn.setEnabled(false);
+        //Glide.with(context).load(card.getImg_id()).into(holder.card_img);
     }
 
     @Override
