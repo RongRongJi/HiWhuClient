@@ -5,15 +5,15 @@ public class Card {
     private String img_id;
     private String time;
     private String location;
-    private boolean signup;
+    private int state;  //0-未报名/审核未开始; 1-待审核/审核; 2-待参加; 3-已参加/已结束;
     //private boolean star;
 
-    public Card(String title,String img_id,String time,String location,boolean signup){
+    public Card(String title,String img_id,String time,String location,int state){
         this.title = title;
         this.img_id =img_id;
         this.time = time;
         this.location = location;
-        this.signup = signup;
+        this.state = state;
     }
 
     public String getTitle() {
@@ -32,7 +32,7 @@ public class Card {
         return location;
     }
 
-    public boolean isSignup() {
-        return signup;
+    public int getState() {
+        return state;
     }
 }

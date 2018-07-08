@@ -14,25 +14,25 @@ import com.hiwhu.hiwhuclient.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TabFragment extends Fragment {
+public class UsersFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_tabs, container, false);
+        View view = inflater.inflate(R.layout.fragment_users, container, false);
 
         List<Card> cardList=new ArrayList<>();
-
         cardList.clear();
         for (int i = 0; i <5 ; i++) {
             //获取后台活动数据
-            Card a = new Card("标题"+i+1,"@drawable/activity_small","时间"+i+1,"地点"+i+1,0);
+            Card a = new Card("标题"+i+2,"@drawable/activity_small","时间"+i+2,"地点"+i+2,0);
             cardList.add(a);
         }
 
-        RecyclerAdapter recyclerAdapter = new RecyclerAdapter(cardList,0);
+/*        RecyclerAdapter recyclerAdapter = new RecyclerAdapter(cardList);
 
         RecyclerView recyclerView=(RecyclerView)view.findViewById(R.id.tab_card_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext(),LinearLayoutManager.VERTICAL,false));
         recyclerView.setAdapter(recyclerAdapter);
+*/
 
 
         return view;
