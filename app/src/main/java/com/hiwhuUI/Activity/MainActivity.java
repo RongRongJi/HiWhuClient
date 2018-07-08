@@ -18,12 +18,15 @@ import com.hiwhu.hiwhuclient.R;
 import com.hiwhuUI.Activity.util.navigationAdapter;
 import com.hiwhuUI.Activity.util.navigationFragment;
 
+import data.staticData;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private Toolbar toolbar;
     private BottomNavigationView navigation;
     private ViewPager navigation_viewPager;
     private MenuItem menuItem;
     private navigationAdapter navigation_adapter;
+    private int userType = staticData.getUserType();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,6 +122,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onCreateOptionsMenu(Menu menu) {
         // 绑定toolbar跟menu
         getMenuInflater().inflate(R.menu.toolbar, menu);
+        if(userType==1){
+            toolbar.getMenu().findItem(R.id.add).setVisible(false);
+        }
         return true;
     }
 }
