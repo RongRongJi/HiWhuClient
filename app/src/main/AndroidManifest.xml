@@ -22,6 +22,7 @@
         </activity>
         <activity android:name="com.hiwhuUI.Activity.LocationActivity" />
         <activity android:name="com.hiwhuUI.Activity.SearchActivity" />
+        <activity android:name="com.hiwhuUI.Activity.DetailsActivity" />
         <activity android:name="com.hiwhuUI.Activity.SignupActivity" />
         <activity android:name="com.hiwhuUI.Activity.stu_dataActivity" >
             <intent-filter>
