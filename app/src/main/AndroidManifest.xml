@@ -12,12 +12,10 @@
         android:theme="@style/AppTheme">
         <activity android:name="com.hiwhuUI.Activity.com_registActivity" />
         <activity android:name="com.hiwhuUI.Activity.stu_registActivity" />
-        <activity android:name="com.hiwhuUI.Activity.MainActivity">
-
-        </activity>
+        <activity android:name="com.hiwhuUI.Activity.MainActivity"></activity>
         <activity android:name="com.hiwhuUI.Activity.com_ViewActivity" />
-        <activity android:name="com.hiwhuUI.Activity.com_updateActivity"/>
-        <activity android:name="com.hiwhuUI.Activity.LoginActivity" >
+        <activity android:name="com.hiwhuUI.Activity.com_updateActivity" />
+        <activity android:name="com.hiwhuUI.Activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,9 +26,8 @@
         <activity android:name="com.hiwhuUI.Activity.SearchActivity" />
         <activity android:name="com.hiwhuUI.Activity.DetailsActivity" />
         <activity android:name="com.hiwhuUI.Activity.SignupActivity" />
-        <activity android:name="com.hiwhuUI.Activity.stu_dataActivity" >
-
-        </activity>
+        <activity android:name="com.hiwhuUI.Activity.stu_dataActivity"></activity>
+        <activity android:name="com.hiwhuUI.Activity.stu_viewActivity"></activity>
     </application>
 
 </manifest>
