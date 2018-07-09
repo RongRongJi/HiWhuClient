@@ -32,11 +32,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     implementation 'com.github.bumptech.glide:glide:3.7.0'
     implementation 'jp.wasabeef:glide-transformations:2.0.1'
-<<<<<<< HEAD
     //noinspection GradleCompatible
-    compile 'com.android.support:percent:24.2.1'
-=======
+    //compile 'com.android.support:percent:28.2.1'
     compile 'com.google.code.gson:gson:2.7'
-
->>>>>>> ff12ce37500c03af9301158ab62d56f5e50c2910
 }
