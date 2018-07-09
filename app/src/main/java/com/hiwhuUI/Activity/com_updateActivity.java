@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,7 +30,11 @@ import data.staticData;
 import okhttp3.Call;
 import okhttp3.Response;
 
+
+
 public class com_updateActivity extends AppCompatActivity {
+
+
     //跳转信息
     final static int UPDATE_SUCCEED=2;
     final static int UPDATE_FAILED=3;
@@ -61,7 +66,11 @@ public class com_updateActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_com_update);
-
+        //隐藏默认标题栏
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null){
+            actionBar.hide();
+        }
         beginDate = (Button)findViewById(R.id.beginDate);
         beginDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -285,7 +294,7 @@ public class com_updateActivity extends AppCompatActivity {
             case R.id.button_image:
                 //调用相册
                 Intent intent = new Intent(Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(intent, IMAGE);
                 break;
             case R.id.button_address:

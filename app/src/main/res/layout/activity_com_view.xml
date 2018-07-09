@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/support_view"
-    android:orientation="vertical"
+    android:id="@+id/id_scrollView"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="wrap_content"
+    >
+    <RelativeLayout
+        android:id="@+id/support_view"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -38,7 +42,17 @@
         android:textSize="26sp"
         android:textColor="#555555"
         android:text="第一届趣味知识竞赛" />
+        <View
+            android:id="@+id/anchor"
+            android:layout_width="match_parent"
+            android:layout_height="400dip"
+            android:minHeight="400dip" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/anchor"
+            android:orientation="vertical">
     <TextView
         android:id="@+id/activity_startTime"
         android:layout_width="wrap_content"
@@ -94,7 +108,23 @@
         android:textSize="20sp"
         android:textColor="#7D7D7D"
         android:text="报名时间：2018年7月4日16:12"/>
-
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="11dip"
+                android:textSize="20sp"
+                android:textColor="#7D7D7D"
+                android:text="活动信息："/>
+            <TextView
+                android:id="@+id/activity_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="11dip"
+                android:textSize="18sp"
+                android:textColor="#7D7D7D"
+                android:text="@string/act_message"
+                android:layout_marginBottom="20dip"/>
+        </LinearLayout>
     <ImageButton
         android:id="@+id/back"
         android:layout_width="wrap_content"
@@ -115,5 +145,5 @@
         android:layout_marginEnd="15dip"
         android:layout_marginRight="15dip"
         app:srcCompat="@android:drawable/ic_menu_edit" />
-
-</RelativeLayout>
+    </RelativeLayout>
+</ScrollView>
