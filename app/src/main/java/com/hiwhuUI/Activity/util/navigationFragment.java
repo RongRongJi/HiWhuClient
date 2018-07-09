@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,16 +32,19 @@ public class navigationFragment extends Fragment {
         if(getArguments().getString("info").equals("主页")){
             TabLayout tabs = (TabLayout) view.findViewById(R.id.tabs);
             tabs.addTab(tabs.newTab().setText("推荐").setTag(0));
-            tabs.addTab(tabs.newTab().setText("X1类").setTag(1));
-            tabs.addTab(tabs.newTab().setText("X2类").setTag(2));
-            tabs.addTab(tabs.newTab().setText("X3类").setTag(3));
-            tabs.addTab(tabs.newTab().setText("X4类").setTag(4));
-            tabs.addTab(tabs.newTab().setText("X5类").setTag(5));
+            tabs.addTab(tabs.newTab().setText("竞赛").setTag(1));
+            tabs.addTab(tabs.newTab().setText("体育").setTag(2));
+            tabs.addTab(tabs.newTab().setText("文艺").setTag(3));
+            tabs.addTab(tabs.newTab().setText("公益").setTag(4));
+            tabs.addTab(tabs.newTab().setText("讲座").setTag(5));
+            tabs.addTab(tabs.newTab().setText("其他").setTag(6));
 
             ViewPager tab_viewPager = (ViewPager) view.findViewById(R.id.tab_viewPager);
             TabAdapter tab_adapter = new TabAdapter(getChildFragmentManager());
             for(int i=0;i<tabs.getTabCount();i++){
-                tab_adapter.addFragment(new TabFragment());
+                TabFragment tab = new TabFragment();
+                tab.setTAG(i);
+                tab_adapter.addFragment(tab);
             }
 
 

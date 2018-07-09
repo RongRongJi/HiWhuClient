@@ -1,6 +1,6 @@
 package Dao;
 
-import pojo.Student;
+import entity.Student;
 
 import java.util.List;
 
