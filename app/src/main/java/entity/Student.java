@@ -1,4 +1,4 @@
-package pojo;
+package entity;
 
 /**
  * Created by lsr on 2018/7/5.
