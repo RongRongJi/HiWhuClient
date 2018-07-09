@@ -89,7 +89,6 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:background="@drawable/card_btn"
-            android:text="@string/card_btn"
             android:textColor="#ffffff"
             android:textSize="14sp"
             android:layout_alignParentRight="true" />

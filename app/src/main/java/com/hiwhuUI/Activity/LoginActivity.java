@@ -103,12 +103,10 @@ public class LoginActivity extends AppCompatActivity {
             public void run() {
                 if(StudentLogin == flag) {
                     Toast.makeText(LoginActivity.this, "学生登录成功！", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-                    startActivity(intent);
+                    finish();
                 }else if(SponsorLogin == flag){
                     Toast.makeText(LoginActivity.this, "活动方登录成功！", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-                    startActivity(intent);
+                    finish();
                 }else{
                     Toast.makeText(LoginActivity.this,"登录失败！",Toast.LENGTH_LONG).show();
                 }

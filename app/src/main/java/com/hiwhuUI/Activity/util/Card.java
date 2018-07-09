@@ -6,7 +6,7 @@ public class Card {
     private String time;
     private String location;
     private boolean signup;
-    //private boolean star;
+    private boolean star;
 
     public Card(String title,String img_id,String time,String location,boolean signup){
         this.title = title;
@@ -14,6 +14,7 @@ public class Card {
         this.time = time;
         this.location = location;
         this.signup = signup;
+        //this.star = star;
     }
 
     public String getTitle() {
@@ -35,4 +36,12 @@ public class Card {
     public boolean isSignup() {
         return signup;
     }
+
+/*    public void setStar(boolean star) {
+        this.star = star;
+    }
+
+    public boolean isStar() {
+        return star;
+    }*/
 }
