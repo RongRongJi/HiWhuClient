@@ -1,11 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/signup" />
+    <RelativeLayout
+        android:id="@+id/p1_stu_num"
+        android:layout_width="350dp"
+        android:layout_height="60dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp">
+        <TextView
+            android:id="@+id/p1_text_stu_num"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:text="姓名"
+            android:gravity="center"
+            android:textSize="17sp"/>
+        <EditText
+            android:id="@+id/p1_edit_stu_num"
+            android:layout_width="240dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:hint="请输入你的姓名"
+            android:background="@drawable/edittext"
+            android:textSize="15sp"/>
+    </RelativeLayout>
 
-</android.support.constraint.ConstraintLayout>
+    <RelativeLayout
+        android:id="@+id/p2_stu_username"
+        android:layout_width="350dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/p1_stu_num"
+        android:layout_centerHorizontal="true">
+        <TextView
+            android:id="@+id/p2_text_stu_username"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:text="学号"
+            android:layout_alignParentLeft="true"
+            android:gravity="center"
+            android:textSize="17sp"/>
+        <EditText
+            android:id="@+id/p2_edit_stu_username"
+            android:layout_width="240dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:hint="请输入你的学号"
+            android:background="@drawable/edittext"
+            android:textSize="15sp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/p3_stu_password"
+        android:layout_width="350dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/p2_stu_username"
+        android:layout_centerHorizontal="true">
+        <TextView
+            android:id="@+id/p3_text_stu_password"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:text="电话"
+            android:layout_alignParentLeft="true"
+            android:gravity="center"
+            android:textSize="17sp"/>
+        <EditText
+            android:id="@+id/p3_edit_stu_password"
+            android:layout_width="240dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:hint="请输入你的电话"
+            android:background="@drawable/edittext"
+            android:textSize="15sp"/>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/p4_stu_ident"
+        android:layout_width="350dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/p3_stu_password"
+        android:layout_centerHorizontal="true">
+        <TextView
+            android:id="@+id/p4_text_stu_ident"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:text="Q Q"
+            android:layout_alignParentLeft="true"
+            android:gravity="center"
+            android:textSize="17sp"/>
+        <EditText
+            android:id="@+id/p4_edit_stu_ident"
+            android:layout_width="240dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:hint="请输入你的QQ"
+            android:background="@drawable/edittext"
+            android:textSize="15sp"/>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_confirm"
+        android:layout_width="129dp"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="140dp"
+        android:layout_marginStart="50dp"
+        android:text="提交"
+        android:textColor="#40a114"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="50dp" />
+
+    <Button
+        android:id="@+id/btn_cancel"
+        android:layout_width="129dp"
+        android:layout_height="60dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/btn_confirm"
+        android:layout_marginEnd="50dp"
+        android:text="取消"
+        android:textColor="#d50000"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="50dp" />
+
+</RelativeLayout>
