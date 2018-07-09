@@ -20,9 +20,12 @@ import data.staticData;
 import okhttp3.Call;
 import okhttp3.Response;
 
+import android.widget.TextView;
+import android.widget.ScrollView;
 
 public class com_ViewActivity extends AppCompatActivity {
-
+    private TextView tv = null;
+    private ScrollView scrollView = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,5 +123,10 @@ public class com_ViewActivity extends AppCompatActivity {
             }
         });
 
+    }
+    private void initViews() {
+        tv = (TextView) findViewById(R.id.activity_message);
+        tv.setText(getResources().getString(R.string.act_message));
+        scrollView = (ScrollView) findViewById(R.id.id_scrollView);
     }
 }

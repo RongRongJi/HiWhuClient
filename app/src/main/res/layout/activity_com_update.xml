@@ -1,228 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/id_scrollView"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.hiwhuUI.Activity.com_updateActivity">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+<include layout="@layout/activity_com_update_title"/>
 
     <RelativeLayout
-        android:id="@+id/title"
-        android:layout_width="368dp"
-        android:layout_height="0dp"
-        android:background="@color/colorAccent"
-        app:layout_constraintBottom_toTopOf="@+id/guideline6"
-        app:layout_constraintEnd_toStartOf="@+id/guideline17"
-        app:layout_constraintStart_toStartOf="@+id/guideline17"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="8dp">
-
-        <TextView
-            android:id="@+id/text_title"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:ellipsize="marquee"
-            android:gravity="center"
-            android:singleLine="true"
-            android:text="上传活动"
-            android:textColor="#fff"
-            android:textSize="21sp" />
-
-        <Button
-            android:id="@+id/button_backward"
-            android:layout_width="70dp"
-            android:layout_height="match_parent"
-            android:background="@color/colorAccent"
-            android:drawablePadding="6dp"
-            android:ellipsize="end"
-            android:gravity="center"
-
-            android:paddingLeft="5dp"
-            android:singleLine="true"
-            android:text="◀"
-            android:textColor="#ffffffff"
-            android:textSize="18dp" />
-
-        <Button
-            android:id="@+id/button_forward"
-            android:layout_width="70dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:background="@color/colorAccent"
-            android:drawablePadding="6dp"
-            android:ellipsize="end"
-            android:gravity="center"
-
-            android:paddingLeft="5dp"
-            android:singleLine="true"
-            android:text="提交"
-            android:textColor="#ffffffff"
-            android:textSize="18dp" />
-    </RelativeLayout>
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="60dp"
-        tools:layout_editor_absoluteY="60dp"
-        tools:layout_editor_absoluteX="0dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="100dp"
-        tools:layout_editor_absoluteY="100dp"
-        tools:layout_editor_absoluteX="0dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="135dp"
-        tools:layout_editor_absoluteY="135dp"
-        tools:layout_editor_absoluteX="0dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="170dp"
-        tools:layout_editor_absoluteY="170dp"
-        tools:layout_editor_absoluteX="0dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="205dp"
-        tools:layout_editor_absoluteY="205dp"
-        tools:layout_editor_absoluteX="0dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="240dp"
-        tools:layout_editor_absoluteY="240dp"
-        tools:layout_editor_absoluteX="0dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="275dp"
-        tools:layout_editor_absoluteY="275dp"
-        tools:layout_editor_absoluteX="0dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline13"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="310dp"
-        tools:layout_editor_absoluteY="310dp"
-        tools:layout_editor_absoluteX="0dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline14"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="345dp"
-        tools:layout_editor_absoluteY="345dp"
-        tools:layout_editor_absoluteX="0dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="380dp"
-        tools:layout_editor_absoluteY="380dp"
-        tools:layout_editor_absoluteX="0dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="415dp"
-        tools:layout_editor_absoluteY="415dp"
-        tools:layout_editor_absoluteX="0dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline15"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="45dp"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="45dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline16"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="120dp"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="120dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline17"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="192dp"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="192dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline18"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="50dp"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="334dp" />
-
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <TextView
         android:id="@+id/text_Name"
-        android:layout_width="77dp"
-        android:layout_height="35dp"
-        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="100dip"
+        android:layout_marginTop="50dip"
         android:text="活动名称:"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline8"
-        app:layout_constraintStart_toStartOf="@+id/guideline15"
-        app:layout_constraintTop_toTopOf="@+id/guideline7"
-        tools:layout_editor_absoluteX="45dp" />
+        android:textSize="18sp" />
 
     <EditText
         android:id="@+id/activityName"
-        android:layout_width="212dp"
-        android:layout_height="34dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/text_Name"
+        android:maxLines="1"
         android:gravity="center_vertical"
+        android:layout_marginRight="100dip"
         android:background="@drawable/edittext"
         android:hint="请输入活动名称"
-        android:singleLine="true"
-        app:layout_constraintBottom_toTopOf="@+id/guideline8"
-        app:layout_constraintEnd_toStartOf="@+id/guideline18"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/text_Name"
-        app:layout_constraintTop_toTopOf="@+id/guideline7"
-        app:layout_constraintVertical_bias="1.0"
-        tools:layout_editor_absoluteX="122dp" />
+        android:singleLine="true"/>
 
     <TextView
         android:id="@+id/text_bDate"
@@ -231,10 +40,8 @@
         android:layout_marginBottom="8dp"
         android:gravity="center"
         android:text="开始时间:"
-        app:layout_constraintBottom_toTopOf="@+id/guideline9"
-        app:layout_constraintEnd_toStartOf="@+id/guideline16"
+
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline15"
         app:layout_constraintTop_toBottomOf="@+id/text_Name"
         app:layout_constraintVertical_bias="0.0"
         tools:layout_editor_absoluteX="45dp" />
@@ -245,7 +52,7 @@
         android:layout_height="48dp"
         android:layout_marginBottom="8dp"
         android:text="0000-00-00"
-        app:layout_constraintBottom_toTopOf="@+id/guideline9"
+
         app:layout_constraintEnd_toStartOf="@+id/beginTime"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/text_Name"
@@ -258,9 +65,9 @@
         android:layout_width="92dp"
         android:layout_height="0dp"
         android:text="00:00"
-        app:layout_constraintBottom_toTopOf="@+id/guideline9"
+
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/guideline17"
+
         app:layout_constraintTop_toBottomOf="@+id/activityName"
         tools:layout_editor_absoluteX="243dp" />
 
@@ -270,11 +77,9 @@
         android:layout_height="34dp"
         android:layout_marginBottom="8dp"
         android:gravity="center"
-        android:text="结束时间:"
-        app:layout_constraintBottom_toTopOf="@+id/guideline10"
-        app:layout_constraintEnd_toStartOf="@+id/guideline16"
+
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline15"
+
         app:layout_constraintTop_toBottomOf="@+id/text_bDate"
         app:layout_constraintVertical_bias="0.0"
         tools:layout_editor_absoluteX="45dp" />
@@ -287,7 +92,7 @@
         app:layout_constraintEnd_toEndOf="@+id/beginDate"
         app:layout_constraintStart_toStartOf="@+id/beginDate"
         app:layout_constraintTop_toBottomOf="@+id/beginDate"
-        app:layout_constraintBottom_toTopOf="@+id/guideline10"
+
         tools:layout_editor_absoluteX="122dp" />
 
     <Button
@@ -295,9 +100,9 @@
         android:layout_width="88dp"
         android:layout_height="0dp"
         android:text="00:00"
-        app:layout_constraintBottom_toTopOf="@+id/guideline10"
+
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline17"
+
         app:layout_constraintTop_toBottomOf="@+id/beginTime"
         tools:layout_editor_absoluteX="244dp" />
 
@@ -307,10 +112,10 @@
         android:layout_height="0dp"
         android:gravity="center"
         android:text="需要报名:"
-        app:layout_constraintBottom_toTopOf="@+id/guideline11"
+
         app:layout_constraintEnd_toStartOf="@+id/endDate"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline15"
+
         app:layout_constraintTop_toBottomOf="@+id/endDate"
         app:layout_constraintVertical_bias="0.0"
         tools:layout_editor_absoluteX="45dp" />
@@ -322,7 +127,7 @@
         android:layout_marginBottom="1dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="@+id/text_Signup"
-        app:layout_constraintEnd_toStartOf="@+id/guideline18"
+
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/text_Signup"
         app:layout_constraintTop_toBottomOf="@+id/text_eDate"
@@ -352,10 +157,9 @@
         android:layout_marginTop="8dp"
         android:gravity="center"
         android:text="报名时间:"
-        app:layout_constraintBottom_toTopOf="@+id/guideline13"
-        app:layout_constraintEnd_toStartOf="@+id/guideline16"
+
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline15"
+
         app:layout_constraintTop_toBottomOf="@+id/text_Signup"
         app:layout_constraintVertical_bias="1.0"
         tools:layout_editor_absoluteX="45dp" />
@@ -370,7 +174,7 @@
         app:layout_constraintStart_toEndOf="@+id/text_Signup"
         app:layout_constraintTop_toBottomOf="@+id/text_Signup"
         app:layout_constraintVertical_bias="0.0"
-        app:layout_constraintBottom_toTopOf="@+id/guideline12"
+
         tools:layout_editor_absoluteX="122dp" />
 
     <Button
@@ -380,7 +184,7 @@
         android:layout_marginBottom="1dp"
         android:layout_marginTop="1dp"
         android:text="00:00"
-        app:layout_constraintBottom_toTopOf="@+id/guideline12"
+
         app:layout_constraintEnd_toEndOf="@+id/endTime"
         app:layout_constraintStart_toStartOf="@+id/endTime"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup"
@@ -394,9 +198,6 @@
         android:layout_marginTop="34dp"
         android:gravity="center"
         android:text="截止时间:"
-        app:layout_constraintBottom_toTopOf="@+id/guideline14"
-        app:layout_constraintEnd_toStartOf="@+id/guideline16"
-        app:layout_constraintStart_toStartOf="@+id/guideline15"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup"
         tools:layout_editor_absoluteX="45dp" />
 
@@ -407,9 +208,7 @@
         android:layout_marginBottom="1dp"
         android:layout_marginTop="1dp"
         android:text="0000-00-00"
-        app:layout_constraintBottom_toTopOf="@+id/guideline13"
         app:layout_constraintEnd_toEndOf="@+id/beginDate_signup"
-        app:layout_constraintStart_toStartOf="@+id/guideline16"
         app:layout_constraintTop_toTopOf="@+id/text_endTime"
         tools:layout_editor_absoluteX="120dp" />
 
@@ -418,9 +217,7 @@
         android:layout_width="89dp"
         android:layout_height="0dp"
         android:text="00:00"
-        app:layout_constraintBottom_toTopOf="@+id/guideline13"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/guideline17"
         app:layout_constraintTop_toBottomOf="@+id/beginTime_signup"
         tools:layout_editor_absoluteX="244dp" />
 
@@ -430,10 +227,7 @@
         android:layout_height="0dp"
         android:gravity="center"
         android:text="活动地点:"
-        app:layout_constraintEnd_toStartOf="@+id/guideline16"
-        app:layout_constraintStart_toStartOf="@+id/guideline15"
         app:layout_constraintTop_toBottomOf="@+id/text_endTime"
-        app:layout_constraintBottom_toTopOf="@+id/guideline14"
         tools:layout_editor_absoluteX="45dp" />
 
     <ImageButton
@@ -444,9 +238,9 @@
         android:layout_marginTop="1dp"
         app:layout_constraintEnd_toEndOf="@+id/endDate_signup"
         app:layout_constraintStart_toStartOf="@+id/text_map"
-        app:layout_constraintTop_toTopOf="@+id/guideline13"
+
         app:srcCompat="@android:drawable/ic_dialog_map"
-        app:layout_constraintBottom_toTopOf="@+id/guideline14"
+
         tools:layout_editor_absoluteX="122dp" />
 
     <TextView
@@ -458,10 +252,8 @@
         android:gravity="center_vertical"
         android:text="请选择地点"
         android:background="@drawable/edittext"
-        app:layout_constraintBottom_toTopOf="@+id/guideline14"
-        app:layout_constraintEnd_toStartOf="@+id/guideline18"
+
         app:layout_constraintStart_toEndOf="@+id/button_address"
-        app:layout_constraintTop_toTopOf="@+id/guideline13"
         tools:layout_editor_absoluteX="162dp" />
 
     <TextView
@@ -470,10 +262,9 @@
         android:layout_height="0dp"
         android:gravity="center"
         android:text="封面图片:"
-        app:layout_constraintEnd_toEndOf="@+id/guideline16"
-        app:layout_constraintStart_toStartOf="@+id/guideline15"
+
         app:layout_constraintTop_toBottomOf="@+id/text_map"
-        app:layout_constraintBottom_toTopOf="@+id/guideline"
+
         tools:layout_editor_absoluteX="45dp" />
 
     <ImageButton
@@ -483,9 +274,9 @@
         android:onClick="onClick"
         app:layout_constraintEnd_toEndOf="@+id/button_address"
         app:layout_constraintStart_toStartOf="@+id/button_address"
-        app:layout_constraintTop_toTopOf="@+id/guideline14"
+
         app:srcCompat="@android:drawable/ic_menu_gallery"
-        app:layout_constraintBottom_toTopOf="@+id/guideline"
+
         tools:layout_editor_absoluteX="122dp" />
 
     <TextView
@@ -498,7 +289,7 @@
         android:text="请选择图片"
         android:background="@drawable/edittext"
         app:layout_constraintBottom_toBottomOf="@+id/button_image"
-        app:layout_constraintEnd_toStartOf="@+id/guideline18"
+
         app:layout_constraintStart_toStartOf="@+id/text_address"
         app:layout_constraintTop_toBottomOf="@+id/text_address"
         tools:layout_editor_absoluteX="162dp" />
@@ -512,22 +303,24 @@
         android:text="活动简介:"
         android:gravity="center"
         app:layout_constraintEnd_toEndOf="@+id/text_pic"
-        app:layout_constraintStart_toStartOf="@+id/guideline15"
+
         app:layout_constraintTop_toBottomOf="@+id/text_image"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+
         tools:layout_editor_absoluteX="45dp" />
 
     <EditText
         android:id="@+id/introduction"
         android:layout_width="290dp"
-        android:layout_height="158dp"
+        android:layout_height="match_parent"
         android:hint="请输入活动简介..."
         android:gravity="left|top"
         android:background="@drawable/edittext"
         android:inputType="textMultiLine"
-        app:layout_constraintEnd_toStartOf="@+id/guideline18"
+
         app:layout_constraintHorizontal_bias="0.529"
-        app:layout_constraintStart_toStartOf="@+id/guideline15"
+
         app:layout_constraintTop_toBottomOf="@+id/text_intro"
         tools:layout_editor_absoluteX="44dp" />
-</android.support.constraint.ConstraintLayout>
+
+    </RelativeLayout>
+</LinearLayout>
