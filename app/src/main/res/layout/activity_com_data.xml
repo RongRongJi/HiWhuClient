@@ -4,142 +4,144 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.hiwhuUI.Activity.stu_dataActivity">
+    android:background="#DCDCDC"
+    tools:context="com.hiwhuUI.Activity.com_dataActivity">
 
     <TextView
-        android:id="@+id/stu_top"
+        android:id="@+id/com_top"
         android:layout_width="match_parent"
         android:layout_height="45dip"
-        android:text="个 人 中 心"
+        android:text="社 团 中 心"
         android:textSize="17sp"
-        android:background="#0000CD"
+        android:background="#4682B4"
         android:gravity="center"/>
     <RelativeLayout
-        android:id="@+id/stu_data_back"
+        android:id="@+id/com_data_back"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/stu_top">
+        android:layout_below="@+id/com_top">
         <ImageView
-            android:id="@+id/stu_h_back"
+            android:id="@+id/com_h_back"
             android:layout_width="match_parent"
             android:layout_height="200dp" />
         <ImageView
-            android:id="@+id/stu_h_head"
+            android:id="@+id/com_h_head"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_centerInParent="true" />
         <TextView
-            android:id="@+id/stu_data_username"
+            android:id="@+id/com_data_username"
             android:layout_width="wrap_content"
             android:layout_height="70dip"
-            android:layout_alignBottom="@+id/stu_h_back"
-            android:text="金春利"
+            android:layout_alignBottom="@+id/com_h_back"
+            android:text="国际软件学院体育部"
             android:textSize="17dp"
             android:layout_centerHorizontal="true"
             android:gravity="center" />
     </RelativeLayout>
-    <RelativeLayout
-        android:id="@+id/stu_data_unchecked"
-        android:layout_width="match_parent"
-        android:layout_height="50dip"
-        android:layout_below="@+id/stu_data_back">
-        <ImageView
-            android:id="@+id/image_stu_data_unchecked"
-            android:layout_width="45dip"
-            android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
-            android:src="@drawable/unchecked"
-            android:background="@drawable/bottom_border"/>
-        <TextView
-            android:id="@+id/text_stu_data_unchecked"
-            android:layout_width="280dip"
-            android:layout_height="match_parent"
-            android:layout_toRightOf="@+id/image_stu_data_unchecked"
-            android:text="待审核的活动"
-            android:gravity="center_vertical|left"
-            android:textSize="17sp"
-            android:layout_centerVertical="true"/>
-        <ImageView
-            android:layout_width="45dip"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:src="@drawable/jump1"/>
-    </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/stu_data_checked"
+        android:id="@+id/com_data_describe"
         android:layout_width="match_parent"
         android:layout_height="50dip"
-        android:layout_below="@+id/stu_data_unchecked"
+        android:layout_below="@+id/com_data_back"
         android:background="@drawable/bottom_border">
         <ImageView
-            android:id="@+id/image_stu_data_checked"
-            android:layout_width="45dip"
-            android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
-            android:src="@drawable/checked"/>
-        <TextView
-            android:id="@+id/text_stu_data_checked"
-            android:layout_width="280dip"
-            android:layout_height="match_parent"
-            android:layout_toRightOf="@+id/image_stu_data_checked"
-            android:text="待参加的活动"
-            android:gravity="center_vertical|left"
-            android:textSize="17sp"
-            android:layout_centerVertical="true"/>
-        <ImageView
-            android:layout_width="45dip"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:src="@drawable/jump1"/>
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/stu_data_taken"
-        android:layout_width="match_parent"
-        android:layout_height="50dip"
-        android:layout_below="@+id/stu_data_checked"
-        android:background="@drawable/bottom_border">
-        <ImageView
-            android:id="@+id/image_stu_data_taken"
-            android:layout_width="45dip"
-            android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
-            android:src="@drawable/taken"/>
-        <TextView
-            android:id="@+id/text_stu_data_taken"
-            android:layout_width="280dip"
-            android:layout_height="match_parent"
-            android:layout_toRightOf="@+id/image_stu_data_taken"
-            android:text="参加过的活动"
-            android:gravity="center_vertical|left"
-            android:textSize="17sp"
-            android:layout_centerVertical="true"/>
-        <ImageView
-            android:layout_width="45dip"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:src="@drawable/jump1"/>
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/stu_data_store"
-        android:layout_width="match_parent"
-        android:layout_height="50dip"
-        android:layout_below="@+id/stu_data_taken"
-        android:background="@drawable/bottom_border">
-        <ImageView
-            android:id="@+id/image_stu_data_store"
+            android:id="@+id/image_com_data_describe"
             android:layout_width="45dip"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:src="@drawable/store"/>
         <TextView
-            android:id="@+id/text_stu_data_store"
+            android:id="@+id/text_com_data_describe"
             android:layout_width="280dip"
             android:layout_height="match_parent"
-            android:layout_toRightOf="@+id/image_stu_data_store"
-            android:text="我收藏的活动"
+            android:layout_toRightOf="@+id/image_com_data_describe"
+            android:text="社团简介"
+            android:gravity="center_vertical|left"
+            android:textSize="17sp"
+            android:layout_centerVertical="true"/>
+        <ImageView
+            android:layout_width="45dip"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/jump1"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/com_data_unchecked"
+        android:layout_width="match_parent"
+        android:layout_height="50dip"
+        android:layout_below="@+id/com_data_describe"
+        android:background="@drawable/bottom_border">
+        <ImageView
+            android:id="@+id/image_com_data_unchecked"
+            android:layout_width="45dip"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/unchecked"/>
+        <TextView
+            android:id="@+id/text_com_data_unchecked"
+            android:layout_width="280dip"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/image_com_data_unchecked"
+            android:text="审核报名人员"
+            android:gravity="center_vertical|left"
+            android:textSize="17sp"
+            android:layout_centerVertical="true"/>
+        <ImageView
+            android:layout_width="45dip"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/jump1"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/com_data_review"
+        android:layout_width="match_parent"
+        android:layout_height="50dip"
+        android:layout_below="@+id/com_data_unchecked"
+        android:background="@drawable/bottom_border">
+        <ImageView
+            android:id="@+id/image_com_data_review"
+            android:layout_width="45dip"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/checked"/>
+        <TextView
+            android:id="@+id/text_com_data_review"
+            android:layout_width="280dip"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/image_com_data_review"
+            android:text="活动回顾"
+            android:gravity="center_vertical|left"
+            android:textSize="17sp"
+            android:layout_centerVertical="true"/>
+        <ImageView
+            android:layout_width="45dip"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/jump1"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/com_data_history"
+        android:layout_width="match_parent"
+        android:layout_height="50dip"
+        android:layout_below="@+id/com_data_review"
+        android:background="@drawable/bottom_border">
+        <ImageView
+            android:id="@+id/image_com_data_history"
+            android:layout_width="45dip"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/checked"/>
+        <TextView
+            android:id="@+id/text_com_data_history"
+            android:layout_width="280dip"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/image_com_data_history"
+            android:text="发布历史"
             android:gravity="center_vertical|left"
             android:textSize="17sp"
             android:layout_centerVertical="true"/>
@@ -151,14 +153,13 @@
     </RelativeLayout>
 
     <Button
-        android:id="@+id/stu_data_cancel"
-        android:layout_marginTop="470dp"
+        android:id="@+id/btn_com_data_cancel"
         android:layout_width="240dip"
         android:layout_height="47dip"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="470dip"
         android:text="退 出 登 录"
         android:background="#696969"
         android:textSize="17sp"/>
-
 
 </RelativeLayout>
