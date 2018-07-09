@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.hiwhu.hiwhuclient.R;
 import com.hiwhuUI.Activity.DetailsActivity;
 import com.hiwhuUI.Activity.SignupActivity;
+import com.hiwhuUI.Activity.stu_viewActivity;
 
 import java.util.List;
 
@@ -43,7 +44,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent();
-                    intent.setClass(view.getContext(), DetailsActivity.class);
+                    intent.setClass(view.getContext(), stu_viewActivity.class);
                     view.getContext().startActivity(intent);
                 }
             });
