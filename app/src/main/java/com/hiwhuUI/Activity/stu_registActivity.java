@@ -73,8 +73,7 @@ public class stu_registActivity extends AppCompatActivity {
             public void run() {
                 if(flag){
                     Toast.makeText(stu_registActivity.this,"您已经成功注册！",Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(stu_registActivity.this,LoginActivity.class);
-                    startActivity(intent);
+                    finish();
                 }else{
                     Toast.makeText(stu_registActivity.this,"注册失败！",Toast.LENGTH_LONG).show();
                 }
