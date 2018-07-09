@@ -8,6 +8,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import data.staticData;
+
 
 public class TabAdapter extends FragmentPagerAdapter {
     private final List<Fragment> fragmentList = new ArrayList<>();
@@ -30,10 +32,20 @@ public class TabAdapter extends FragmentPagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         switch (position) {
-            case 0:
+            case staticData.TUIJIAN:
                 return "推荐";
+            case staticData.GONGYI:
+                return "公益";
+            case staticData.JIANGZUO:
+                return "讲座";
+            case staticData.TIYU:
+                return "体育";
+            case staticData.JINGSAI:
+                return "竞赛";
+            case staticData.WENYI:
+                return "文艺";
             default:
-                return "X"+ position +"类";
+                return "其他";
         }
     }
 

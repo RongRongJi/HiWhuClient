@@ -14,6 +14,7 @@ import com.hiwhu.hiwhuclient.R;
 
 import java.io.IOException;
 
+import HttpConnect.GetAllActivity;
 import HttpConnect.HttpUtil;
 import data.staticData;
 import okhttp3.Call;
@@ -73,10 +74,12 @@ public class LoginActivity extends AppCompatActivity {
                         if (turn.length==0){
                             Jump(LoginFailed);
                         } else if (turn[0].equals("1")) {
+                            GetAllActivity.GetActivityInit();
                             Jump(StudentLogin);
                             staticData.setStudentID(turn[1]);
                             staticData.setUserType(1);
                         } else if(turn[0].equals("2")){
+                            GetAllActivity.GetActivityInit();
                             Jump(SponsorLogin);
                             staticData.setSponsorID(turn[1]);
                             staticData.setUserType(2);

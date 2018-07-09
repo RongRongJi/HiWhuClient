@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context="com.hiwhuUI.Activity.com_describeActivity">
+    <TextView
+        android:id="@+id/com_describe_top"
+        android:layout_width="match_parent"
+        android:layout_height="45dip"
+        android:text="社 团 简 介"
+        android:textSize="17sp"
+        android:background="#4682B4"
+        android:gravity="center"/>
+
+    <RelativeLayout
+        android:id="@+id/com_describe_p1"
+        android:layout_width="match_parent"
+        android:layout_height="100dip"
+        android:layout_below="@+id/com_describe_top"
+        android:background="#ffffff"
+        android:layout_centerHorizontal="true">
+        <ImageView
+            android:id="@+id/img_com_describe_p1"
+            android:layout_width="80dip"
+            android:layout_height="80dip"
+            android:layout_marginLeft="10dip"
+            android:layout_centerVertical="true"/>
+        <TextView
+            android:id="@+id/text3_com_describe_p1"
+            android:layout_width="220dip"
+            android:layout_height="50dip"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical|left"
+            android:text="武汉大学国家软件学院体育部"
+            android:textSize="13sp"/>
+        <TextView
+            android:id="@+id/text4_com_describe_p1"
+            android:layout_width="220dip"
+            android:layout_height="50dip"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/text3_com_describe_p1"
+            android:gravity="center_vertical|left"
+            android:text="13277036335"
+            android:textSize="13sp"/>
+        <TextView
+            android:id="@+id/text1_com_describe_p1"
+            android:layout_width="70dip"
+            android:layout_height="50dip"
+            android:layout_toLeftOf="@+id/text3_com_describe_p1"
+            android:gravity="center"
+            android:text="社团名称:"
+            android:textSize="13sp"/>
+
+        <TextView
+            android:id="@+id/text2_com_describe_p1"
+            android:layout_width="70dip"
+            android:layout_height="50dip"
+            android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@+id/text4_com_describe_p1"
+            android:gravity="center"
+            android:text="联系方式:"
+            android:textSize="13sp" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/text5_com_describe_p2"
+        android:layout_width="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="160dip"
+        android:background="@drawable/around_border"
+        android:text="    武汉大学国际软件学院体育部2017-2018学年荣获阳光体育先进集体称号。"
+        android:textSize="15sp"/>
+</RelativeLayout>
