@@ -31,6 +31,7 @@ public class stu_dataActivity extends AppCompatActivity {
                 .into(head);
 
 
+
     }
 
 }
