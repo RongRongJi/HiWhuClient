@@ -1,8 +1,10 @@
 package com.hiwhuUI.Activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -45,6 +47,7 @@ public class com_updateActivity extends AppCompatActivity {
     private static final int IMAGE = 1;
 
     private TextView text_image;
+    private TextView text_type;
     //private ImageView imageView;
 
     private Button beginDate;
@@ -60,6 +63,7 @@ public class com_updateActivity extends AppCompatActivity {
 
     private RadioButton button_need;
     private ImageButton button_address;
+    private ImageButton button_type;
 
 
     @Override
@@ -301,6 +305,24 @@ public class com_updateActivity extends AppCompatActivity {
 
                 //Intent intent2 = new Intent(pdateActivity.this,BMapActivity.class);
                 //startActivity(intent2);
+                break;
+            case R.id.button_type:
+                AlertDialog.Builder builder = new AlertDialog.Builder(com_updateActivity.this);
+                builder.setTitle("选择一个分类");
+                //    指定下拉列表的显示数据
+                final String[] type = {"竞赛", "体育", "文艺", "公益", "讲座","其他"};
+                //    设置一个下拉的列表选择项
+                builder.setItems(type, new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        //Toast.makeText(com_updateActivity.this, "选择的城市为：" + type[which], Toast.LENGTH_SHORT).show();
+                        text_type = (TextView)findViewById(R.id.text_type);
+                        text_type.setText(type[which]);
+                    }
+                });
+                builder.show();
                 break;
         }
     }
