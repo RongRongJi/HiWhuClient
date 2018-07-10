@@ -1,5 +1,7 @@
 package com.hiwhuUI.Activity;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -7,6 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.support.design.widget.BottomNavigationView;
 
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -70,14 +73,20 @@ public class MainActivity extends AppCompatActivity{
                             case R.id.navigation_home:
                                 navigation_viewPager.setCurrentItem(0);
                                 textView.setText("活动");
+                                toolbar.getMenu().findItem(R.id.search).setVisible(true);
                                 return true;
                             case R.id.navigation_notice:
                                 navigation_viewPager.setCurrentItem(1);
                                 textView.setText("消息");
+                                toolbar.getMenu().findItem(R.id.search).setVisible(false);
+                                toolbar.getMenu().findItem(R.id.add).setVisible(false);
                                 return true;
                             case R.id.navigation_user:
                                 navigation_viewPager.setCurrentItem(2);
                                 textView.setText("我的");
+                                toolbar.getMenu().findItem(R.id.search).setVisible(false);
+                                toolbar.getMenu().findItem(R.id.add).setVisible(false);
+
                                 return true;
                         }
                         return false;
@@ -119,7 +128,7 @@ public class MainActivity extends AppCompatActivity{
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // 绑定toolbar跟menu
-        getMenuInflater().inflate(R.menu.toolbar, menu);
+        getMenuInflater().inflate(R.menu.toolbar_main, menu);
         if(userType==1){
             toolbar.getMenu().findItem(R.id.add).setVisible(false);
         }
