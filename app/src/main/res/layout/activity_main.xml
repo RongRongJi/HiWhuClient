@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:layout_scrollFlags="scroll|enterAlways"
-            app:menu="@menu/toolbar">
+            app:menu="@menu/toolbar_main">
 
             <TextView
                 android:id= "@+id/toolbar_main_text"

@@ -148,7 +148,7 @@
         android:layout_width="240dip"
         android:layout_height="50dip"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="470dip"
+        android:layout_marginTop="420dip"
         android:text="退 出 登 录"
         android:textSize="17sp"
         android:textColor="#fff"/>
