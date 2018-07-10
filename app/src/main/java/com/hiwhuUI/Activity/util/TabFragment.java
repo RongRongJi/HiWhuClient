@@ -51,7 +51,13 @@ public class TabFragment extends Fragment {
         }
 
 
-        RecyclerAdapter recyclerAdapter = new RecyclerAdapter(cardList);
+        RecyclerAdapter recyclerAdapter;
+        if(staticData.getUserType()==1){
+            recyclerAdapter = new RecyclerAdapter(cardList,1);
+        }
+        else{
+            recyclerAdapter = new RecyclerAdapter(cardList,0);
+        }
 
         RecyclerView recyclerView=(RecyclerView)view.findViewById(R.id.tab_card_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext(),LinearLayoutManager.VERTICAL,false));

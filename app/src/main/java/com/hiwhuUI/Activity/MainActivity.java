@@ -10,8 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.support.v7.widget.Toolbar;
+import android.widget.TextView;
 
 
 import com.hiwhu.hiwhuclient.R;
@@ -20,23 +20,23 @@ import com.hiwhuUI.Activity.util.navigationFragment;
 
 import data.staticData;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity{
     private Toolbar toolbar;
     private BottomNavigationView navigation;
     private ViewPager navigation_viewPager;
     private MenuItem menuItem;
     private navigationAdapter navigation_adapter;
     private int userType = staticData.getUserType();
+    private TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar_main);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
-        toolbar.setNavigationOnClickListener(this);
         toolbar.setOnMenuItemClickListener(new android.support.v7.widget.Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
@@ -56,6 +56,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 return false;
             }
         });
+        textView = (TextView)findViewById(R.id.toolbar_main_text);
+        textView.setText("活动");
 
 
         navigation = (BottomNavigationView) findViewById(R.id.navigation);
@@ -67,12 +69,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         switch (item.getItemId()) {
                             case R.id.navigation_home:
                                 navigation_viewPager.setCurrentItem(0);
+                                textView.setText("活动");
                                 return true;
                             case R.id.navigation_notice:
                                 navigation_viewPager.setCurrentItem(1);
+                                textView.setText("消息");
                                 return true;
                             case R.id.navigation_user:
                                 navigation_viewPager.setCurrentItem(2);
+                                textView.setText("我的");
                                 return true;
                         }
                         return false;
@@ -109,13 +114,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         navigation_adapter.addFragment(navigationFragment.newInstance("我的"));
         navigation_viewPager.setAdapter(navigation_adapter);
 
-    }
-
-    @Override
-    public void onClick(View view) {
-        Intent intent3 = new Intent();
-        intent3.setClass(MainActivity.this,LocationActivity.class);
-        startActivity(intent3);
     }
 
     @Override

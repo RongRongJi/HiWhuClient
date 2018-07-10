@@ -5,10 +5,8 @@
     <string name="title_user">我的</string>
     <string name="title">活动</string>
 
-    <string name="location">Location Page</string>
     <string name="add">Add Activity Page</string>
     <string name="search">Search Page</string>
-    <string name="details">Details Page</string>
     <string name="signup">Sign up Page</string>
 
 
@@ -16,7 +14,6 @@
     <string name="card_title">这是一个活动</string>
     <string name="card_time">时间</string>
     <string name="card_location">地点</string>
-    <string name="card_btn">我要报名</string>
 
     <string name="star">收藏</string>
     <string name="act_message">
