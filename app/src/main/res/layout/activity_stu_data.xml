@@ -29,7 +29,7 @@
             android:layout_centerHorizontal="true"
             android:gravity="center" />
     </RelativeLayout>
-    
+
     <RelativeLayout
         android:id="@+id/stu_data_unchecked"
         android:layout_width="match_parent"
@@ -144,7 +144,7 @@
 
     <Button
         android:id="@+id/stu_data_cancel"
-        android:layout_marginTop="470dp"
+        android:layout_marginTop="420dp"
         android:layout_width="240dip"
         android:layout_height="47dip"
         android:layout_centerHorizontal="true"

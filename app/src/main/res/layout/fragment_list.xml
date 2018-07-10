@@ -8,8 +8,6 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/test_card_recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:ignore="PrivateResource" />
+        android:layout_height="match_parent"/>
 
 </android.support.design.widget.CoordinatorLayout>
