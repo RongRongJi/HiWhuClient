@@ -1,13 +1,16 @@
 package com.hiwhuUI.Activity;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -25,9 +28,11 @@ import android.widget.Toast;
 
 import com.hiwhu.hiwhuclient.R;
 
+import java.io.File;
 import java.io.IOException;
 
 import HttpConnect.HttpUtil;
+import HttpConnect.Upload;
 import data.staticData;
 import okhttp3.Call;
 import okhttp3.Response;
@@ -64,6 +69,7 @@ public class com_updateActivity extends AppCompatActivity {
     private RadioButton button_need;
     private ImageButton button_address;
     private ImageButton button_type;
+    private String imagePath;
 
 
     @Override
@@ -205,7 +211,7 @@ public class com_updateActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String url;
                 if(staticData.getCurrentActivity()==null){
-                    url = staticData.getUrl()+"/AddActivityServlet?";
+                    url = staticData.getUrl()+"/UploadShipServlet?";
                 }else{
                     url = staticData.getUrl()+"/UpdateActivityServlet"
                             +"?activityID="+staticData.getCurrentActivity()
@@ -238,7 +244,10 @@ public class com_updateActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                HttpUtil.sendOkHttpRequest(url, new okhttp3.Callback() {
+                File file = new File(imagePath);
+                Log.e("filepath--",imagePath);
+                new Upload(file).execute(url);
+                /*HttpUtil.sendOkHttpRequest(url, new okhttp3.Callback() {
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         String s = response.body().string();
@@ -252,20 +261,23 @@ public class com_updateActivity extends AppCompatActivity {
                             if(turn.length==0){
                                 Jump(ADD_FAILED);
                             }else if(turn[0].equals("succeed")){
-                                Jump(ADD_SUCCEED);
                                 staticData.setCurrentActivity(turn[1]);
+                                //添加图片
+                                //File file = new File(imagePath);
+                                //Log.e("filepath--",imagePath);
+                                //new Upload(file).execute(staticData.getUrl()+"/UploadShipServlet?"+
+                                //    staticData.getCurrentActivity());
+                                Jump(ADD_SUCCEED);
                             }else{
                                 Jump(ADD_FAILED);
                             }
                         }
-
                     }
-
                     @Override
                     public void onFailure(Call call, IOException e) {
                         Log.e("error",e.toString());
                     }
-                });
+                });*/
             }
         });
     }
@@ -297,6 +309,18 @@ public class com_updateActivity extends AppCompatActivity {
         switch (v.getId()) {
             case R.id.button_image:
                 //调用相册
+                if (Build.VERSION.SDK_INT >= 23) {
+                    int REQUEST_CODE_CONTACT = 101;
+                    String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                    //验证是否许可权限
+                    for (String str : permissions) {
+                        if (this.checkSelfPermission(str) != PackageManager.PERMISSION_GRANTED) {
+                            //申请权限
+                            this.requestPermissions(permissions, REQUEST_CODE_CONTACT);
+                            return;
+                        }
+                    }
+                }
                 Intent intent = new Intent(Intent.ACTION_PICK,
                         MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(intent, IMAGE);
@@ -348,12 +372,14 @@ public class com_updateActivity extends AppCompatActivity {
         String[] filePathColumn = {MediaStore.Images.Media.DATA};
         Cursor cursor = getContentResolver().query(selectImageUri, filePathColumn, null, null, null);
         cursor.moveToFirst();
-        //int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-        //String picturePath = cursor.getString(columnIndex);
+        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+        imagePath = cursor.getString(columnIndex);
+
         cursor.close();
         //imageView = (ImageView)findViewById(R.id.imageView);
         //imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
         text_image = (TextView)findViewById(R.id.text_image);
         text_image.setText("图片上传成功！");
     }
+
 }
