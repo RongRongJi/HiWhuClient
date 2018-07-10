@@ -1,19 +1,22 @@
 package com.hiwhuUI.Activity.util;
 
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -22,9 +25,13 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.hiwhu.hiwhuclient.R;
 import com.hiwhuUI.Activity.ListActivity;
 import com.hiwhuUI.Activity.LoginActivity;
-import com.hiwhuUI.Activity.com_dataActivity;
+import com.hiwhuUI.Activity.MainActivity;
+import com.hiwhuUI.Activity.McAdapter;
+import com.hiwhuUI.Activity.comMessage;
 import com.hiwhuUI.Activity.com_describeActivity;
-import com.hiwhuUI.Activity.stu_dataActivity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import data.staticData;
 import jp.wasabeef.glide.transformations.BlurTransformation;
@@ -196,10 +203,18 @@ public class navigationFragment extends Fragment {
             }
         }
         else{
-            view = inflater.inflate(R.layout.fragment_navigation, null);
-            TextView textView = (TextView) view.findViewById(R.id.nagative_textView);
-            textView.setText(getArguments().getString("info"));
-        }
+            view = inflater.inflate(R.layout.activity_message_com, null);
+            List<comMessage> messageList = new ArrayList<>();
+            for (int i = 0;i<1;i++){
+                comMessage mc_activity = new comMessage("上传的活动",R.drawable.mc_activity);
+                messageList.add(mc_activity);
+                comMessage mc_messgae = new comMessage("收到的留言",R.drawable.mc_message);
+                messageList.add(mc_messgae);
+            }
+            McAdapter adapter = new McAdapter(getActivity(), R.layout.message_com_item,messageList);
+            ListView listView = (ListView) view.findViewById(R.id.message_com);
+            listView.setAdapter(adapter);
+            }
         return view;
     }
 }
