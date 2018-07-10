@@ -12,7 +12,7 @@
         android:layout_height="45dip"
         android:text="个 人 中 心"
         android:textSize="17sp"
-        android:background="#0000CD"
+        android:background="#49b3b6"
         android:gravity="center"/>
     <RelativeLayout
         android:id="@+id/stu_data_back"
@@ -157,8 +157,6 @@
         android:layout_height="47dip"
         android:layout_centerHorizontal="true"
         android:text="退 出 登 录"
-        android:background="#696969"
-        android:textSize="17sp"/>
-
+        android:textSize="15sp"/>
 
 </RelativeLayout>
