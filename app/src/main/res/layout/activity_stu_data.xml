@@ -38,6 +38,7 @@
             android:layout_centerHorizontal="true"
             android:gravity="center" />
     </RelativeLayout>
+    
     <RelativeLayout
         android:id="@+id/stu_data_unchecked"
         android:layout_width="match_parent"
