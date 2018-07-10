@@ -7,19 +7,10 @@
     android:background="#f1f1f1"
     tools:context="com.hiwhuUI.Activity.com_dataActivity">
 
-    <TextView
-        android:id="@+id/com_top"
-        android:layout_width="match_parent"
-        android:layout_height="45dip"
-        android:text="社 团 中 心"
-        android:textSize="17sp"
-        android:background="#49b3b6"
-        android:gravity="center"/>
     <RelativeLayout
         android:id="@+id/com_data_back"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/com_top">
+        android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/com_h_back"
             android:layout_width="match_parent"
