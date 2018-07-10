@@ -14,8 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hiwhu.hiwhuclient.R;
-import com.hiwhuUI.Activity.DetailsActivity;
 import com.hiwhuUI.Activity.SignupActivity;
+import com.hiwhuUI.Activity.stu_viewActivity;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     private Context context;
     private List<Card> cardList;
-    private int userType = staticData.getUserType();
+    private int option; //0-不显示按钮; 1-显示报名按钮; 2-显示审核按钮;
 
     static class ViewHolder extends RecyclerView.ViewHolder{
 
@@ -43,7 +43,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent();
-                    intent.setClass(view.getContext(), DetailsActivity.class);
+                    intent.setClass(view.getContext(), stu_viewActivity.class);
                     view.getContext().startActivity(intent);
                 }
             });
@@ -64,8 +64,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         }
     }
 
-    public RecyclerAdapter(List<Card> list) {
+    public RecyclerAdapter(List<Card> list,int option) {
         this.cardList = list;
+        this.option = option;
     }
 
     @NonNull
@@ -85,8 +86,16 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         holder.card_time.setText(card.getTime());
         holder.card_location.setText(card.getLocation());
         holder.card_btn.setEnabled(card.isSignup());
-        if(userType==2){
-            holder.card_btn.setVisibility(View.GONE);
+        switch (option){
+            case 0:
+                holder.card_btn.setVisibility(View.INVISIBLE);
+                break;
+            case 1:
+                holder.card_btn.setText("我要报名");
+                break;
+            case 2:
+                holder.card_btn.setText("审核");
+                break;
         }
         //Glide.with(context).load(card.getImg_id()).into(holder.card_img);
     }
