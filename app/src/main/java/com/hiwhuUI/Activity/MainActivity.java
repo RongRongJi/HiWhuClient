@@ -74,6 +74,9 @@ public class MainActivity extends AppCompatActivity{
                                 navigation_viewPager.setCurrentItem(0);
                                 textView.setText("活动");
                                 toolbar.getMenu().findItem(R.id.search).setVisible(true);
+                                if(userType==2){
+                                    toolbar.getMenu().findItem(R.id.add).setVisible(true);
+                                }
                                 return true;
                             case R.id.navigation_notice:
                                 navigation_viewPager.setCurrentItem(1);
