@@ -12,7 +12,7 @@
         android:theme="@style/AppTheme">
         <activity android:name="com.hiwhuUI.Activity.com_registActivity" />
         <activity android:name="com.hiwhuUI.Activity.stu_registActivity" />
-        <activity android:name="com.hiwhuUI.Activity.MainActivity"/>
+        <activity android:name="com.hiwhuUI.Activity.MainActivity" />
         <activity android:name="com.hiwhuUI.Activity.com_ViewActivity" />
         <activity android:name="com.hiwhuUI.Activity.com_updateActivity" />
         <activity android:name="com.hiwhuUI.Activity.LoginActivity">
@@ -22,11 +22,11 @@
             </intent-filter>
         </activity>
         <activity android:name="com.hiwhuUI.Activity.SignupActivity" />
-        <activity android:name="com.hiwhuUI.Activity.stu_dataActivity"/>
-        <activity android:name="com.hiwhuUI.Activity.stu_viewActivity"/>
-        <activity android:name="com.hiwhuUI.Activity.com_dataActivity"/>
+        <activity android:name="com.hiwhuUI.Activity.stu_dataActivity" />
+        <activity android:name="com.hiwhuUI.Activity.com_dataActivity"></activity>
+        <activity android:name="com.hiwhuUI.Activity.stu_viewActivity" />
         <activity android:name="com.hiwhuUI.Activity.com_describeActivity" />
-        <activity android:name="com.hiwhuUI.Activity.data_editActivity"/>
+        <activity android:name="com.hiwhuUI.Activity.data_editActivity" />
         <activity android:name="com.hiwhuUI.Activity.ListActivity" />
         <activity android:name="com.hiwhuUI.Activity.SearchActivity">
             <meta-data android:name="android.app.searchable"
