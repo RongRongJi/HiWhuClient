@@ -18,11 +18,9 @@
         <activity android:name="com.hiwhuUI.Activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.hiwhuUI.Activity.SearchActivity" />
         <activity android:name="com.hiwhuUI.Activity.SignupActivity" />
         <activity android:name="com.hiwhuUI.Activity.stu_dataActivity"/>
         <activity android:name="com.hiwhuUI.Activity.stu_viewActivity"/>
@@ -30,6 +28,13 @@
         <activity android:name="com.hiwhuUI.Activity.com_describeActivity" />
         <activity android:name="com.hiwhuUI.Activity.data_editActivity"/>
         <activity android:name="com.hiwhuUI.Activity.ListActivity" />
+        <activity android:name="com.hiwhuUI.Activity.SearchActivity">
+            <meta-data android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
