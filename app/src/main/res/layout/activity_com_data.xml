@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#DCDCDC"
+    android:background="#f1f1f1"
     tools:context="com.hiwhuUI.Activity.com_dataActivity">
 
     <TextView
@@ -13,7 +13,7 @@
         android:layout_height="45dip"
         android:text="社 团 中 心"
         android:textSize="17sp"
-        android:background="#4682B4"
+        android:background="#49b3b6"
         android:gravity="center"/>
     <RelativeLayout
         android:id="@+id/com_data_back"
@@ -155,11 +155,11 @@
     <Button
         android:id="@+id/btn_com_data_cancel"
         android:layout_width="240dip"
-        android:layout_height="47dip"
+        android:layout_height="50dip"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="470dip"
         android:text="退 出 登 录"
-        android:background="#696969"
-        android:textSize="17sp"/>
+        android:textSize="17sp"
+        android:textColor="#fff"/>
 
 </RelativeLayout>
