@@ -10,6 +10,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
+import android.net.http.HttpResponseCache;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBar;
@@ -32,7 +34,7 @@ import java.io.File;
 import java.io.IOException;
 
 import HttpConnect.HttpUtil;
-import HttpConnect.Upload;
+import HttpConnect.UploadImg;
 import data.staticData;
 import okhttp3.Call;
 import okhttp3.Response;
@@ -69,7 +71,17 @@ public class com_updateActivity extends AppCompatActivity {
     private RadioButton button_need;
     private ImageButton button_address;
     private ImageButton button_type;
+
+    //服务器所需要的数据
     private String imagePath;
+    private String activitytype = "0";
+    private String title = null;
+    private String startTime = null;
+    private String endTime_String = null;
+    private String registrationStartTime = "1000-12-31 0:0";//不需要报名的报名伪时间
+    private String registrationEndTime = "1000-12-31 0:0";
+    private String location=null;//还需要添加
+    private String activityProfile = null;
 
 
     @Override
@@ -211,73 +223,50 @@ public class com_updateActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String url;
                 if(staticData.getCurrentActivity()==null){
-                    url = staticData.getUrl()+"/UploadShipServlet?";
+                    url = staticData.getUrl()+"/AddActivityServlet?";
                 }else{
                     url = staticData.getUrl()+"/UpdateActivityServlet"
                             +"?activityID="+staticData.getCurrentActivity()
                             +"&sponsorID="+staticData.getSponsorID()+"&";
                 }
-                String title = actName.getText().toString();
-                String startTime = begDate+" "+begTime;
-                String endTime = enDate +" "+enTime;
-                String registrationStartTime = begDate_signup+" "+begTime_signup;
-                String registrationEndTime = enDate_signup+" "+enTime_signup;
-                String location=null;//还需要添加
-                String activityProfile = desc.getText().toString();
+                title = actName.getText().toString();
+                startTime = begDate+" "+begTime;
+                endTime_String = enDate +" "+enTime;
+                if(button_need.isChecked()){
+                    registrationStartTime = begDate_signup+" "+begTime_signup;
+                    registrationEndTime = enDate_signup+" "+enTime_signup;
+                }
+                location=null;//还需要添加
+                activityProfile = desc.getText().toString();
                 try {
                     title = java.net.URLEncoder.encode(title, "UTF-8");
                     startTime = java.net.URLEncoder.encode(startTime, "UTF-8");
-                    endTime = java.net.URLEncoder.encode(endTime, "UTF-8");
+                    endTime_String = java.net.URLEncoder.encode(endTime_String, "UTF-8");
                     registrationStartTime = java.net.URLEncoder.encode(registrationStartTime, "UTF-8");
                     registrationEndTime = java.net.URLEncoder.encode(registrationEndTime, "UTF-8");
                     //location = java.net.URLEncoder.encode(location,"UTF-8");
                     activityProfile = java.net.URLEncoder.encode(activityProfile,"UTF-8");
                     url = url+"title="+title
                             +"&startTime="+startTime
-                            +"&endTime="+endTime
+                            +"&endTime="+endTime_String
                             +"&registrationStartTime="+registrationStartTime
                             +"&registrationEndTime="+registrationEndTime
                             +"&location="+location
                             +"&activityProfile="+activityProfile
-                            +"&sponsorID="+staticData.getSponsorID();
+                            +"&sponsorID="+staticData.getSponsorID()
+                            +"&type="+activitytype;
                     Log.e("url----", url);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                File file = new File(imagePath);
-                Log.e("filepath--",imagePath);
-                new Upload(file).execute(url);
-                /*HttpUtil.sendOkHttpRequest(url, new okhttp3.Callback() {
-                    @Override
-                    public void onResponse(Call call, Response response) throws IOException {
-                        String s = response.body().string();
-                        Log.e("return---", s);
-                        if(s.equals("updatesucceed")){
-                            Jump(UPDATE_SUCCEED);
-                        }else if(s.equals("updatefailed")){
-                            Jump(UPDATE_FAILED);
-                        }else{
-                            String[] turn = s.split("\\.");
-                            if(turn.length==0){
-                                Jump(ADD_FAILED);
-                            }else if(turn[0].equals("succeed")){
-                                staticData.setCurrentActivity(turn[1]);
-                                //添加图片
-                                //File file = new File(imagePath);
-                                //Log.e("filepath--",imagePath);
-                                //new Upload(file).execute(staticData.getUrl()+"/UploadShipServlet?"+
-                                //    staticData.getCurrentActivity());
-                                Jump(ADD_SUCCEED);
-                            }else{
-                                Jump(ADD_FAILED);
-                            }
-                        }
-                    }
-                    @Override
-                    public void onFailure(Call call, IOException e) {
-                        Log.e("error",e.toString());
-                    }
-                });*/
+                if(null==imagePath){
+                    Toast.makeText(com_updateActivity.this,"请添加图片！",Toast.LENGTH_LONG).show();
+                }else{
+                    File file = new File(imagePath);
+                    Log.e("filepath--",imagePath);
+                    Upload upload = new Upload(file);
+                    upload.execute(url);
+                }
             }
         });
     }
@@ -344,6 +333,7 @@ public class com_updateActivity extends AppCompatActivity {
                         //Toast.makeText(com_updateActivity.this, "选择的城市为：" + type[which], Toast.LENGTH_SHORT).show();
                         text_type = (TextView)findViewById(R.id.text_type);
                         text_type.setText(type[which]);
+                        activitytype = String.valueOf(which+1);
                     }
                 });
                 builder.show();
@@ -382,4 +372,40 @@ public class com_updateActivity extends AppCompatActivity {
         text_image.setText("图片上传成功！");
     }
 
+    //实现异步操作接口
+    class Upload extends AsyncTask<String,Void,String> {
+        File file;
+        public Upload(File file){
+            this.file = file;
+        }
+        @Override
+        protected String doInBackground(String... strings) {
+            return UploadImg.uploadFile(file,strings[0]);
+
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            Log.e("return---", s);
+            if(s.equals("updatesucceed")){
+                Jump(UPDATE_SUCCEED);
+            }else if(s.equals("updatefailed")){
+                Jump(UPDATE_FAILED);
+            }else{
+                String[] turn = s.split("\\.");
+                if(turn.length==0){
+                    Jump(ADD_FAILED);
+                }else if(turn[0].equals("succeed")){
+                    staticData.setCurrentActivity(turn[1]);
+                    //添加图片
+                    Jump(ADD_SUCCEED);
+                }else{
+                    Jump(ADD_FAILED);
+                }
+            }
+        }
+
+
+    }
 }
