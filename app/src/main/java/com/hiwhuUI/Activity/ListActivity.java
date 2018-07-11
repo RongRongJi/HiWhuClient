@@ -47,19 +47,20 @@ public class ListActivity extends AppCompatActivity {
                 textView.setText("收藏");
                 break;
             case 5:
-                transaction.replace(R.id.container_list, ListFragment.newInstance("审核"));
-                textView.setText("审核");
+                transaction.replace(R.id.container_list, ListFragment.newInstance("审核活动"));
+                textView.setText("审核活动");
                 break;
             case 6:
                 transaction.replace(R.id.container_list, ListFragment.newInstance("发布历史"));
                 textView.setText("发布历史");
                 break;
             case 7:
-                transaction.replace(R.id.container_list, ListFragment.newInstance("审核"));
-                textView.setText("审核");
+                textView.setText("审核人员");
+                String activity_id = getIntent().getStringExtra("activity_id");
+                transaction.replace(R.id.container_list, ListFragment.newInstance(activity_id));
                 break;
         }
-        transaction.addToBackStack(null).commit();
+        transaction.commit();
 
     }
 

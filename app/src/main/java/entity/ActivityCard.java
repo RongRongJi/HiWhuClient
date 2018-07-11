@@ -1,6 +1,7 @@
-package com.hiwhuUI.Activity.util;
+package entity;
 
-public class Card {
+public class ActivityCard {
+    private String activity_id;
     private String title;
     private String img_id;
     private String time;
@@ -8,13 +9,16 @@ public class Card {
     private boolean signup;
     private boolean star;
 
-    public Card(String title,String img_id,String time,String location,boolean signup){
+    public ActivityCard(String activity_id,String title, String img_id, String time, String location){
+        this.activity_id = activity_id;
         this.title = title;
         this.img_id =img_id;
         this.time = time;
         this.location = location;
-        this.signup = signup;
-        //this.star = star;
+    }
+
+    public String getActivity_id() {
+        return activity_id;
     }
 
     public String getTitle() {
@@ -37,10 +41,15 @@ public class Card {
         return signup;
     }
 
-/*    public void setStar(boolean star) {
+    public void setSignup(boolean signup) {
+        this.signup = signup;
+    }
+
+    public void setStar(boolean star) {
         this.star = star;
     }
 
+    /*
     public boolean isStar() {
         return star;
     }*/

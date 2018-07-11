@@ -2,6 +2,8 @@ package entity;
 
 import java.util.Date;
 
+import data.staticData;
+
 /**
  * Created by lenovo on 2018/7/4.
  */
@@ -94,4 +96,8 @@ public class Activity {
     }
     public void setType(String type){this.type = type;}
     public String getType(){return type;}
+
+    public ActivityCard toActivityCard(){
+        return new ActivityCard(getActivityID(),getTitle(), staticData.getUrl()+"/"+getImage(),"时间:"+getStartTIme()+"-"+getEndTime(),"地点:"+getLocation());
+    }
 }

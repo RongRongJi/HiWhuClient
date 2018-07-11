@@ -5,19 +5,19 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.hiwhu.hiwhuclient.R;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
-import HttpConnect.GetAllActivity;
 import data.staticData;
 import entity.Activity;
+import entity.ActivityCard;
 
 public class TabFragment extends Fragment {
 
@@ -27,7 +27,7 @@ public class TabFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tabs, container, false);
 
-        List<Card> cardList=new ArrayList<>();
+        List<ActivityCard> cardList=new ArrayList<>();
         cardList.clear();
 
         List<Activity> list = staticData.activityList;
@@ -35,28 +35,28 @@ public class TabFragment extends Fragment {
             case staticData.TUIJIAN:
                 for (int i = 0; i <list.size() ; i++) {
                     //获取后台活动数据
-                    Card a = new Card(list.get(i).getTitle(),staticData.getUrl()+"/"+list.get(i).getImage(),"时间:"+
-                            list.get(i).getStartTIme()+"-"+list.get(i).getEndTime(),"地点:"+list.get(i).getLocation(),true);
+                    ActivityCard a = list.get(i).toActivityCard();
+                    a.setSignup(true);
                     cardList.add(a);
                 }
                 break;
             default:
                 for(int i=0;i<list.size();i++){
                     if(list.get(i).getType().equals(String.valueOf(TAG))){
-                        Card a = new Card(list.get(i).getTitle(),staticData.getUrl()+"/"+list.get(i).getImage(),"时间:"+
-                                list.get(i).getStartTIme()+"-"+list.get(i).getEndTime(),"地点:"+list.get(i).getLocation(),true);
+                        ActivityCard a = list.get(i).toActivityCard();
+                        a.setSignup(true);
                         cardList.add(a);
                     }
                 }
         }
 
 
-        RecyclerAdapter recyclerAdapter;
+        RecyclerAdapter_activityCard recyclerAdapter;
         if(staticData.getUserType()==1){
-            recyclerAdapter = new RecyclerAdapter(cardList,1);
+            recyclerAdapter = new RecyclerAdapter_activityCard(cardList,1);
         }
         else{
-            recyclerAdapter = new RecyclerAdapter(cardList,0);
+            recyclerAdapter = new RecyclerAdapter_activityCard(cardList,0);
         }
 
         RecyclerView recyclerView=(RecyclerView)view.findViewById(R.id.tab_card_recyclerView);
