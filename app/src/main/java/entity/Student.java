@@ -5,30 +5,39 @@ package entity;
  */
 public class Student {
     private String studentID;
-    private String username;
+    private String userName;
     private String password;
-
-    public String getStudentID() {
-        return studentID;
+    private String headProtrait;
+    public Student(String studentID,String userName,String password,String headProtrait){
+        setStudentID(studentID);
+        setUserName(userName);
+        setPassword(password);
+        setHeadProtrait(headProtrait);
     }
-
     public void setStudentID(String studentID) {
         this.studentID = studentID;
     }
-
-    public String getUsername() {
-        return username;
+    public String getStudentID() {
+        return studentID;
     }
-
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
-
+    public String getUserName() {
+        return userName;
+    }
+    public void setPassword(String password) {
+        this.password = password;
+    }
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setHeadProtrait(String headProtrait) {
+        this.headProtrait = headProtrait;
+    }
+
+    public String getHeadProtrait() {
+        return headProtrait;
     }
 }

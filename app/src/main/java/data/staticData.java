@@ -3,6 +3,8 @@ package data;
 import java.util.List;
 
 import entity.Activity;
+import entity.Sponsor;
+import entity.Student;
 
 /**
  * Created by ASUS on 2018/7/7.
@@ -23,6 +25,8 @@ public class staticData {
     public static final int JIANGZUO = 5;//讲座
     public static final int QITA = 6;//其他
     public static List<Activity> activityList=null;//获取活动列表
+    public static Sponsor sponsor=null;//获取当前主办方信息
+    public static Student student=null;//获取当前学生信息
 
 
 

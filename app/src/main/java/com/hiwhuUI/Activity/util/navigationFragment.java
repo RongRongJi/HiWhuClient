@@ -4,12 +4,14 @@ package com.hiwhuUI.Activity.util;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +23,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.hiwhu.hiwhuclient.R;
 import com.hiwhuUI.Activity.ListActivity;
@@ -33,6 +36,8 @@ import com.hiwhuUI.Activity.com_describeActivity;
 import java.util.ArrayList;
 import java.util.List;
 
+import HttpConnect.GetCurrentSponsor;
+import HttpConnect.GetCurrentStudent;
 import data.staticData;
 import jp.wasabeef.glide.transformations.BlurTransformation;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
@@ -80,10 +85,19 @@ public class navigationFragment extends Fragment {
         }
         else if(str.equals("我的")){
             if(userType==1){
+                GetCurrentStudent.GetStudentInit();
                 view = inflater.inflate(R.layout.activity_stu_data, null);
 
                 ImageView back = (ImageView) view.findViewById(R.id.stu_h_back);
                 ImageView head = (ImageView) view.findViewById(R.id.stu_h_head);
+                //获取后台url
+                String url = staticData.getUrl()+"/"+staticData.student.getHeadProtrait();
+
+                //获取后台学生用户名
+                TextView  studentName= (TextView)view.findViewById(R.id.stu_data_username);
+                studentName.setText(staticData.student.getUserName());
+
+
                 Button button1 = (Button) view.findViewById(R.id.stu_data_cancel) ;
                 RelativeLayout relativeLayout1 = (RelativeLayout) view.findViewById(R.id.stu_data_unchecked);
                 RelativeLayout relativeLayout2 = (RelativeLayout) view.findViewById(R.id.stu_data_checked);
@@ -94,7 +108,8 @@ public class navigationFragment extends Fragment {
                         .bitmapTransform(new BlurTransformation(getContext(), 25), new CenterCrop(getContext()))
                         .into(back);
                 //设置圆形头像
-                Glide.with(this).load(R.drawable.stu_data_head)
+                Glide.with(this).load(url).skipMemoryCache(true) // 不使用内存缓存
+                        .diskCacheStrategy(DiskCacheStrategy.NONE) // 不使用磁盘缓存
                         .bitmapTransform(new CropCircleTransformation(getContext()))
                         .into(head);
                 //取消按钮
@@ -145,10 +160,20 @@ public class navigationFragment extends Fragment {
 
             }
             else if(userType==2){
+                Log.e("error","进入我的");
+                GetCurrentSponsor.GetSponsorInit();
                 view = inflater.inflate(R.layout.activity_com_data, null);
 
                 ImageView back = (ImageView) view.findViewById(R.id.com_h_back);
                 ImageView head = (ImageView) view.findViewById(R.id.com_h_head);
+                //获取后台url
+                String url = staticData.getUrl()+"/"+staticData.sponsor.getHeadProtrait();
+
+                //获取后台主办方用户名
+                TextView sponsorName = (TextView)view.findViewById(R.id.com_data_username);
+                sponsorName.setText(staticData.sponsor.getSponsorName());
+
+
                 Button button1 = (Button) view.findViewById(R.id.btn_com_data_cancel) ;
                 RelativeLayout relativeLayout1 = (RelativeLayout) view.findViewById(R.id.com_data_describe);
                 RelativeLayout relativeLayout2 = (RelativeLayout) view.findViewById(R.id.com_data_unchecked);
@@ -159,7 +184,8 @@ public class navigationFragment extends Fragment {
                         .bitmapTransform(new BlurTransformation(getContext(), 25), new CenterCrop(getContext()))
                         .into(back);
                 //设置圆形头像
-                Glide.with(this).load(R.drawable.com_data_head)
+                Glide.with(this).load(url).skipMemoryCache(true) // 不使用内存缓存
+                        .diskCacheStrategy(DiskCacheStrategy.NONE) // 不使用磁盘缓存
                         .bitmapTransform(new CropCircleTransformation(getContext()))
                         .into(head);
                 //社团简介跳转
@@ -203,6 +229,7 @@ public class navigationFragment extends Fragment {
             }
         }
         else{
+            Log.e("error","进入消息");
             view = inflater.inflate(R.layout.activity_message_com, null);
             List<comMessage> messageList = new ArrayList<>();
             for (int i = 0;i<1;i++){
