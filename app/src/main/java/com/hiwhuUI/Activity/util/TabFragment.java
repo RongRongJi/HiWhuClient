@@ -35,7 +35,7 @@ public class TabFragment extends Fragment {
             case staticData.TUIJIAN:
                 for (int i = 0; i <list.size() ; i++) {
                     //获取后台活动数据
-                    Card a = new Card(list.get(i).getTitle(),"@drawable/activity_small","时间:"+
+                    Card a = new Card(list.get(i).getTitle(),staticData.getUrl()+"/"+list.get(i).getImage(),"时间:"+
                             list.get(i).getStartTIme()+"-"+list.get(i).getEndTime(),"地点:"+list.get(i).getLocation(),true);
                     cardList.add(a);
                 }
@@ -43,7 +43,7 @@ public class TabFragment extends Fragment {
             default:
                 for(int i=0;i<list.size();i++){
                     if(list.get(i).getType().equals(String.valueOf(TAG))){
-                        Card a = new Card(list.get(i).getTitle(),"@drawable/activity_small","时间:"+
+                        Card a = new Card(list.get(i).getTitle(),staticData.getUrl()+"/"+list.get(i).getImage(),"时间:"+
                                 list.get(i).getStartTIme()+"-"+list.get(i).getEndTime(),"地点:"+list.get(i).getLocation(),true);
                         cardList.add(a);
                     }

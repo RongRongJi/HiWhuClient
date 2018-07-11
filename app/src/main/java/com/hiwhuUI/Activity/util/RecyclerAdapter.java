@@ -3,6 +3,7 @@ package com.hiwhuUI.Activity.util;
 import android.content.Context;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +14,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hiwhu.hiwhuclient.R;
 import com.hiwhuUI.Activity.SignupActivity;
 import com.hiwhuUI.Activity.stu_viewActivity;
@@ -96,8 +99,15 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             case 2:
                 holder.card_btn.setText("审核");
                 break;
+
         }
-        //Glide.with(context).load(card.getImg_id()).into(holder.card_img);
+
+
+        Glide.with(context).load(card.getImg_id())
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.color.colorPrimary)
+                .error(R.color.colorPrimary)
+                .crossFade().into(holder.card_img);
     }
 
     @Override
