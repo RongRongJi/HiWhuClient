@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/test_card_recyclerView"
+        android:id="@+id/recyclerView_cardList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

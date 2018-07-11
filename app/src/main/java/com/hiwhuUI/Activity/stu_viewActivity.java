@@ -30,6 +30,9 @@ public class stu_viewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stu_view);
 
+        String activity_id = getIntent().getStringExtra("activity_id");
+        Toast.makeText(stu_viewActivity.this, activity_id, Toast.LENGTH_SHORT).show();
+
         Button button = (Button)findViewById(R.id.activity_position);
         ImageView imageView = (ImageView)findViewById(R.id.map_menu);
         //注册上下文浮动菜单
