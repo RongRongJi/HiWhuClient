@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/card"
+    android:id="@+id/activityCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="4dp"
@@ -25,14 +25,14 @@
         android:layout_height="100dp">
 
         <ImageView
-            android:id="@+id/card_img"
-            android:layout_width="90dp"
+            android:id="@+id/card_activity_img"
+            android:layout_width="100dp"
             android:scaleType="fitCenter"
-            android:layout_height="90dp"
+            android:layout_height="100dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_gravity="center_vertical"
-            android:contentDescription="@string/contentDescription"
+            android:contentDescription="活动图100*100"
             app:srcCompat="@drawable/activity_small"
             android:layout_alignParentLeft="true" />
 
@@ -40,23 +40,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_toEndOf="@+id/card_img"
+            android:layout_toEndOf="@+id/card_activity_img"
+            android:layout_toRightOf="@+id/card_activity_img"
             android:layout_marginLeft="15dip"
-            android:orientation="vertical"
-            android:layout_toRightOf="@+id/card_img">
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/card_title"
+                android:id="@+id/card_activity_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="2dp"
                 android:text="@string/card_title"
                 android:textColor="#333333"
                 android:textSize="16sp"
-                app:layout_constraintLeft_toRightOf="@id/card_img" />
+                app:layout_constraintLeft_toRightOf="@id/card_activity_img" />
 
             <TextView
-                android:id="@+id/card_time"
+                android:id="@+id/card_activity_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="2dp"
@@ -65,7 +65,7 @@
                 android:textSize="14sp" />
 
             <TextView
-                android:id="@+id/card_location"
+                android:id="@+id/card_activity_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/card_location"
@@ -75,7 +75,7 @@
         </LinearLayout>
 
         <!--<ImageButton
-            android:id="@+id/card_star"
+            android:id="@+id/card_activity_star"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -85,14 +85,14 @@
             android:src="@drawable/ic_star_border_black_24dp" />-->
 
         <Button
-            android:id="@+id/card_btn"
+            android:id="@+id/card_activity_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:background="@drawable/card_btn"
             android:textColor="#ffffff"
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:layout_alignParentRight="true" />
 
     </RelativeLayout>

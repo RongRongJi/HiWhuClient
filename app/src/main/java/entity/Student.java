@@ -40,4 +40,8 @@ public class Student {
     public String getHeadProtrait() {
         return headProtrait;
     }
+
+    public StuCard toStuCard(){
+        return new StuCard(getStudentID(),getUserName(),getHeadProtrait());
+    }
 }
