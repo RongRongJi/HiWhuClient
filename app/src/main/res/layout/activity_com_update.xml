@@ -242,6 +242,7 @@
             android:layout_width="70dip"
             android:layout_height="50dip"
             android:layout_toRightOf="@+id/text_map"
+            android:onClick="onClick"
             android:background="#00000000"
             android:src="@drawable/acu_map"
             android:scaleType="fitCenter"

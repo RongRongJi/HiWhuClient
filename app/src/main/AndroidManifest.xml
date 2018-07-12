@@ -4,6 +4,31 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <!--6.0重要权限-->
+    <uses-permission android:name="android.permission.CAMERA"><!--允许访问摄像头进行拍照--></uses-permission>
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"><!--地址位置--></uses-permission>
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"><!--读外置存储权限--></uses-permission>
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"><!--允许程序写入外部存储，如SD卡上写文件--></uses-permission>
+
+
+    <!--一般权限-->
+    <uses-permission android:name="android.permission.INTERNET"><!--访问网络连接，可能产生GPRS流量--></uses-permission>
+
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"><!--系统报警窗口--></uses-permission>
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"><!--获取网络控制权限--></uses-permission>
+
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"><!--wifi管理--></uses-permission>
+
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"><!--wifi的使用--></uses-permission>
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"><!--访问粗略的位置--></uses-permission>
+
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"><!--访问位置附加命令--></uses-permission>
+
 
     <application
         android:allowBackup="true"
@@ -27,8 +52,7 @@
         <activity android:name="com.hiwhuUI.Activity.stu_dataActivity" />
         <activity android:name="com.hiwhuUI.Activity.com_dataActivity" />
         <activity android:name="com.hiwhuUI.Activity.stu_viewActivity" />
-        <activity android:name="com.hiwhuUI.Activity.com_describeActivity" >
-        </activity>
+        <activity android:name="com.hiwhuUI.Activity.com_describeActivity"></activity>
         <activity android:name="com.hiwhuUI.Activity.data_editActivity" />
         <activity android:name="com.hiwhuUI.Activity.ListActivity" />
         <activity android:name="com.hiwhuUI.Activity.SearchActivity">
@@ -40,21 +64,29 @@
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
         </activity>
-
         <activity android:name="com.hiwhuUI.Activity.message.comM_result" />
         <activity android:name="com.hiwhuUI.Activity.message.comWord" />
         <activity android:name="com.hiwhuUI.Activity.message.stuReply" />
-        <activity android:name="com.hiwhuUI.Activity.message.stuResult"></activity>
+        <activity android:name="com.hiwhuUI.Activity.message.stuResult" />
 
         <provider
-            android:authorities="com.hiwhu.fileprovider"
             android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.hiwhu.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"/>
+                android:resource="@xml/file_paths" />
         </provider>
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="0SAg3PFZDu5b0jlMXszHULtVlZ208fyM" />
+
+        <activity android:name="com.hiwhuUI.Activity.Map.MapActivity"/>
+
+        <service android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote"/>
     </application>
 
 </manifest>
