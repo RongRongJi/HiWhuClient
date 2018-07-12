@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hiwhu.hiwhuclient.R;
 
 import java.util.List;
@@ -58,6 +61,7 @@ public class RecyclerAdapter_stuCard extends RecyclerView.Adapter<RecyclerAdapte
     @Override
     public void onBindViewHolder(@NonNull RecyclerAdapter_stuCard.ViewHolder holder, int position) {
         final StuCard stuCard = stuCardList.get(position);
+        Log.e("studentinfo----:",stuCard.getStudentNum()+" "+stuCard.getName()+" "+stuCard.getImg_id());
         holder.card_studenNum.setText(stuCard.getStudentNum());
         holder.card_name.setText(stuCard.getName());
         holder.card_btn.setOnClickListener(new View.OnClickListener() {
@@ -71,6 +75,11 @@ public class RecyclerAdapter_stuCard extends RecyclerView.Adapter<RecyclerAdapte
             }
         });
         //Glide.with(context).load(stuCard.getImg_id()).into(holder.card_img);
+        Glide.with(context).load(stuCard.getImg_id())
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.drawable.logo)
+                .error(R.drawable.logo)
+                .crossFade().into(holder.card_img);
     }
 
     @Override
