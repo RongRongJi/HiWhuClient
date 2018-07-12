@@ -25,6 +25,8 @@ public class data_editActivity extends AppCompatActivity {
         et.setSelection(et.getText().length());
         //确定
         Button bt2 = (Button)findViewById(R.id.btn2_data_edit);
+        Button bt1 = (Button)findViewById(R.id.btn1_data_edit);
+        //确定返回
         bt2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -34,6 +36,14 @@ public class data_editActivity extends AppCompatActivity {
                 intent.putExtra("data",data);
                 setResult(RESULT_OK,intent);
                 finish();
+            }
+        });
+        //取消返回
+        bt1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(data_editActivity.this,com_describeActivity.class);
+                startActivity(intent);
             }
         });
     }
