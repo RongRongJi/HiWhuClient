@@ -29,9 +29,11 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.hiwhu.hiwhuclient.R;
+import com.hiwhuUI.Activity.Map.MapActivity;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
 
 import HttpConnect.HttpUtil;
 import HttpConnect.UploadImg;
@@ -315,9 +317,8 @@ public class com_updateActivity extends AppCompatActivity {
                 startActivityForResult(intent, IMAGE);
                 break;
             case R.id.button_address:
-
-                //Intent intent2 = new Intent(pdateActivity.this,BMapActivity.class);
-                //startActivity(intent2);
+                Intent intent2 = new Intent(com_updateActivity.this,MapActivity.class);
+                startActivity(intent2);
                 break;
             case R.id.button_type:
                 AlertDialog.Builder builder = new AlertDialog.Builder(com_updateActivity.this);
