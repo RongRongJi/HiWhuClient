@@ -115,8 +115,8 @@ public class RecyclerAdapter_activityCard extends RecyclerView.Adapter<RecyclerA
 
         Glide.with(context).load(activityCard.getImg_id())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.color.colorPrimary)
-                .error(R.color.colorPrimary)
+                .placeholder(R.drawable.logo)
+                .error(R.drawable.logo)
                 .crossFade().into(holder.card_img);
     }
 

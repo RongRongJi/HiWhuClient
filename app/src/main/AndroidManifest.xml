@@ -39,10 +39,21 @@
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
         </activity>
+
         <activity android:name="com.hiwhuUI.Activity.message.comM_result" />
         <activity android:name="com.hiwhuUI.Activity.message.comWord" />
         <activity android:name="com.hiwhuUI.Activity.message.stuReply" />
         <activity android:name="com.hiwhuUI.Activity.message.stuResult"></activity>
+
+        <provider
+            android:authorities="com.hiwhu.fileprovider"
+            android:name="android.support.v4.content.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"/>
+        </provider>
     </application>
 
 </manifest>

@@ -38,8 +38,8 @@
             android:id="@+id/imag_com_describe_p1"
             android:layout_width="50dip"
             android:layout_height="50dip"
-           android:layout_toLeftOf="@+id/text2_com_describe_p1"
-            android:layout_centerVertical="true"/>
+            android:layout_toLeftOf="@+id/text2_com_describe_p1"
+            android:layout_centerVertical="true" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -62,14 +62,14 @@
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:src="@drawable/jump1"/>
-       <TextView
-           android:id="@+id/text2_com_describe_p2"
-           android:layout_width="match_parent"
-           android:layout_height="match_parent"
-           android:layout_toLeftOf="@+id/imag_com_describe_p2"
-           android:text="武汉大学国际软件学院体育部"
-           android:textSize="17sp"
-           android:gravity="center_vertical|right"/>
+        <TextView
+            android:id="@+id/text2_com_describe_p2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/imag_com_describe_p2"
+            android:text="武汉大学国际软件学院体育部"
+            android:textSize="17sp"
+            android:gravity="center_vertical|right"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -96,14 +96,14 @@
             android:id="@+id/text2_com_describe_p3"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-           android:layout_toLeftOf="@id/imag_com_describe_p3"
+            android:layout_toLeftOf="@id/imag_com_describe_p3"
             android:text="13277036335"
             android:textSize="17sp"
             android:gravity="center_vertical|right"/>
     </RelativeLayout>
     <TextView
         android:id="@+id/text5_com_describe_p2"
-        android:layout_width="375dip"
+        android:layout_width="355dip"
         android:layout_centerHorizontal="true"
         android:layout_height="wrap_content"
         android:layout_marginTop="220dip"
