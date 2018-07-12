@@ -18,6 +18,8 @@ import com.hiwhu.hiwhuclient.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import HttpConnect.GetActivityBySponsorID;
+import HttpConnect.GetAppliedStudentByActivityID;
 import data.staticData;
 import entity.Activity;
 import entity.ActivityCard;
@@ -90,11 +92,15 @@ public class ListFragment extends Fragment {
             case 4:
                 recyclerAdapter = new RecyclerAdapter_activityCard(toActivityCardList(list),1);
                 break;
-            case 5:
-                recyclerAdapter = new RecyclerAdapter_activityCard(toActivityCardList(list),2);
+            case 5://主办方审核活动
+                GetActivityBySponsorID gas = GetActivityBySponsorID.GetActivityInit(staticData.getSponsorID());
+                List<Activity> checkList = gas.registerAcitivtylist;
+                recyclerAdapter = new RecyclerAdapter_activityCard(toActivityCardList(checkList),2);
                 break;
-            case 6:
-                recyclerAdapter = new RecyclerAdapter_activityCard(toActivityCardList(list),0);
+            case 6://主办方的发布历史
+                GetActivityBySponsorID gbs = GetActivityBySponsorID.GetActivityInit(staticData.getSponsorID());
+                List<Activity> historyList = gbs.activityList;
+                recyclerAdapter = new RecyclerAdapter_activityCard(toActivityCardList(historyList),0);
                 break;
         }
 
@@ -109,14 +115,8 @@ public class ListFragment extends Fragment {
     private View setStuCardView(View view,String activity_id) {
 
         RecyclerAdapter_stuCard recyclerAdapter = null;
-
-        List<Student> list = new ArrayList<>();
-
-        //通过 activity_id 获取后台活动数据 list
-        for (int i = 0; i <10 ; i++) {
-            Student a = new Student("201630258000"+i,"某某"+i,"1","@drawable/user");
-            list.add(a);
-        }
+        GetAppliedStudentByActivityID gasba = GetAppliedStudentByActivityID.GetApplyInit(activity_id);
+        List<Student> list = gasba.applylist;
 
         recyclerAdapter = new RecyclerAdapter_stuCard(toStuCardList(list));
 
