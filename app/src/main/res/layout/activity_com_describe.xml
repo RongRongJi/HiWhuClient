@@ -10,7 +10,7 @@
         android:id="@+id/com_describe_top"
         android:layout_width="match_parent"
         android:layout_height="40dip"
-        android:text="社 团 简 介"
+        android:text="社 团 资 料"
         android:textSize="17sp"
         android:background="#49b3b6"
         android:gravity="center"/>
@@ -101,13 +101,30 @@
             android:textSize="17sp"
             android:gravity="center_vertical|right"/>
     </RelativeLayout>
-    <TextView
-        android:id="@+id/text5_com_describe_p2"
-        android:layout_width="355dip"
-        android:layout_centerHorizontal="true"
+    <RelativeLayout
+        android:id="@+id/com_describe_p4"
+        android:layout_width="335dip"
         android:layout_height="wrap_content"
-        android:layout_marginTop="220dip"
-        android:background="@drawable/around_border"
-        android:text="    武汉大学国际软件学院体育部2017-2018学年荣获阳光体育先进集体称号。分管国际软件学院各球队，并成立自己的电竞社......"
-        android:textSize="17sp"/>
+        android:layout_below="@+id/com_describe_p3"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/around_border">
+        <TextView
+            android:id="@+id/text6_com_describe_p4"
+            android:layout_width="match_parent"
+            android:layout_height="40dip"
+            android:text="社团简介"
+            android:textSize="17sp"
+            android:gravity="center"
+            android:background="#49b3b6"/>
+        <TextView
+            android:id="@+id/text5_com_describe_p4"
+            android:layout_below="@+id/text6_com_describe_p4"
+            android:layout_width="355dip"
+            android:layout_centerHorizontal="true"
+            android:layout_height="wrap_content"
+            android:background="@drawable/around_border"
+            android:text="  请编辑你的社团简介:"
+            android:textSize="17sp"/>
+    </RelativeLayout>
+
 </RelativeLayout>

@@ -48,7 +48,7 @@
             android:layout_width="280dip"
             android:layout_height="match_parent"
             android:layout_toRightOf="@+id/image_com_data_describe"
-            android:text="社团简介"
+            android:text="社团资料"
             android:gravity="center_vertical|left"
             android:textSize="17sp"
             android:layout_centerVertical="true"/>
