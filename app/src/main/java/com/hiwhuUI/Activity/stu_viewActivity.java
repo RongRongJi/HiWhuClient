@@ -14,24 +14,50 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hiwhu.hiwhuclient.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import HttpConnect.GetCurrentActivity;
+import data.staticData;
+
 public class stu_viewActivity extends AppCompatActivity {
 
     private static final String LAT_MAP ="30.5387500000";
     private static final String LONG_MAP ="114.3725800000";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stu_view);
-
+        TextView name = (TextView)findViewById(R.id.activity_name) ;
+        TextView starttime = (TextView)findViewById(R.id.activity_startTime) ;
+        TextView endtime = (TextView)findViewById(R.id.activity_endTime) ;
+        TextView resstarttime = (TextView)findViewById(R.id.join_startTime) ;
+        TextView resendtime = (TextView)findViewById(R.id.join_endTime) ;
+        ImageView image = (ImageView)findViewById(R.id.activity_poster);
         String activity_id = getIntent().getStringExtra("activity_id");
-        Toast.makeText(stu_viewActivity.this, activity_id, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(stu_viewActivity.this, activity_id, Toast.LENGTH_SHORT).show();
+
+
+        GetCurrentActivity.GetActivityInit(activity_id);
+        name.setText(staticData.activity.getTitle());
+        starttime.setText("开始时间:"+staticData.activity.getStartTIme());
+        endtime.setText("结束时间:"+staticData.activity.getEndTime());
+        resstarttime.setText("报名开始时间:"+staticData.activity.getRegistrationStartTime());
+        resendtime.setText("报名结束时间:"+staticData.activity.getRegistrationEndTime());
+        Glide.with(getBaseContext()).load(staticData.getUrl()+"/"+staticData.activity.getImage())
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.drawable.logo)
+                .error(R.drawable.logo)
+                .crossFade().into(image);
+
 
         Button button = (Button)findViewById(R.id.activity_position);
         ImageView imageView = (ImageView)findViewById(R.id.map_menu);

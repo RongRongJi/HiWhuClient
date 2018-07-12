@@ -27,7 +27,7 @@ public class staticData {
     public static List<Activity> activityList=null;//获取活动列表
     public static Sponsor sponsor=null;//获取当前主办方信息
     public static Student student=null;//获取当前学生信息
-
+    public static Activity activity=null;//获取当前活动信息
 
 
     public static String getCurrentActivity() {
