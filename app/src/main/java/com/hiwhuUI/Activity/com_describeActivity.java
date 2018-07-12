@@ -38,6 +38,9 @@ public class com_describeActivity extends AppCompatActivity {
 
     public static final int TAKE_PHOTO = 1;
     public static final int CHOOSE_PHOTO = 2;
+    public static final int CHANGE_NAME = 3;
+    public static final int CHANGE_TELE = 4;
+    public static final int CHANGE_DESCRIBE =5;
     private  PopupWindow pop = null;//弹窗
     private Uri imageUri;
 
@@ -49,6 +52,7 @@ public class com_describeActivity extends AppCompatActivity {
         RelativeLayout relativeLayout1 = (RelativeLayout) findViewById(R.id.com_describe_p1);
         RelativeLayout relativeLayout2 = (RelativeLayout) findViewById(R.id.com_describe_p2);
         RelativeLayout relativeLayout3 = (RelativeLayout) findViewById(R.id.com_describe_p3);
+        TextView tv5 = (TextView)findViewById(R.id.text5_com_describe_p4);
 
         relativeLayout1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,7 +126,11 @@ public class com_describeActivity extends AppCompatActivity {
         relativeLayout2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                TextView tv = (TextView) findViewById(R.id.text2_com_describe_p2);
+                String name = (String) tv.getText();
+                Intent intent = new Intent(com_describeActivity.this,data_editActivity.class);
+                intent.putExtra("data",name);
+                startActivityForResult(intent,CHANGE_NAME);
             }
         });
 
@@ -130,9 +138,27 @@ public class com_describeActivity extends AppCompatActivity {
         relativeLayout3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                TextView tv = (TextView) findViewById(R.id.text2_com_describe_p3);
+                String tele = (String) tv.getText();
+                Intent intent = new Intent(com_describeActivity.this,data_editActivity.class);
+                intent.putExtra("data",tele);
+                startActivityForResult(intent,CHANGE_TELE);
 
             }
         });
+
+        //简介
+        tv5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TextView tv5 = (TextView) findViewById(R.id.text5_com_describe_p4);
+                String dc = (String) tv5.getText();
+                Intent intent = new Intent(com_describeActivity.this,data_editActivity.class);
+                intent.putExtra("data",dc);
+                startActivityForResult(intent,CHANGE_DESCRIBE);
+            }
+        });
+
 
     }
     @Override
@@ -163,6 +189,27 @@ public class com_describeActivity extends AppCompatActivity {
                     imageView.setImageBitmap(bitmap);
                 } catch (FileNotFoundException e) {
                     Log.e("Exception", e.getMessage(), e);
+                }
+                break;
+            case CHANGE_NAME:
+                if (resultCode==RESULT_OK){
+                    String returneddata = data.getStringExtra("data");
+                    TextView tv = (TextView)findViewById(R.id.text2_com_describe_p2);
+                    tv.setText(returneddata);
+                }
+                break;
+            case CHANGE_TELE:
+                if (resultCode==RESULT_OK){
+                    String returneddata = data.getStringExtra("data");
+                    TextView tv = (TextView)findViewById(R.id.text2_com_describe_p3);
+                    tv.setText(returneddata);
+                }
+                break;
+            case CHANGE_DESCRIBE:
+                if (resultCode==RESULT_OK){
+                    String returneddata = data.getStringExtra("data");
+                    TextView tv5 = (TextView)findViewById(R.id.text5_com_describe_p4);
+                    tv5.setText(returneddata);
                 }
                 break;
             default:
