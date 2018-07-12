@@ -1,4 +1,4 @@
-package com.hiwhuUI.Activity;
+package com.hiwhuUI.Activity.message;
 
 import android.content.Context;
 import android.view.LayoutInflater;

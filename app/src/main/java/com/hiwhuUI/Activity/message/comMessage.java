@@ -1,4 +1,4 @@
-package com.hiwhuUI.Activity;
+package com.hiwhuUI.Activity.message;
 
 public class comMessage {
         private String name;
