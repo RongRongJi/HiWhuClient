@@ -1,11 +1,7 @@
 package com.hiwhuUI.Activity.util;
 
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -15,7 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -28,10 +24,13 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.hiwhu.hiwhuclient.R;
 import com.hiwhuUI.Activity.ListActivity;
 import com.hiwhuUI.Activity.LoginActivity;
-import com.hiwhuUI.Activity.MainActivity;
-import com.hiwhuUI.Activity.McAdapter;
-import com.hiwhuUI.Activity.comMessage;
+import com.hiwhuUI.Activity.message.McAdapter;
+import com.hiwhuUI.Activity.message.comM_result;
+import com.hiwhuUI.Activity.message.comMessage;
 import com.hiwhuUI.Activity.com_describeActivity;
+import com.hiwhuUI.Activity.message.comWord;
+import com.hiwhuUI.Activity.message.stuReply;
+import com.hiwhuUI.Activity.message.stuResult;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -229,18 +228,72 @@ public class navigationFragment extends Fragment {
             }
         }
         else{
-            Log.e("error","进入消息");
-            view = inflater.inflate(R.layout.activity_message_com, null);
-            List<comMessage> messageList = new ArrayList<>();
-            for (int i = 0;i<1;i++){
-                comMessage mc_activity = new comMessage("上传的活动",R.drawable.mc_activity);
-                messageList.add(mc_activity);
-                comMessage mc_messgae = new comMessage("收到的留言",R.drawable.mc_message);
-                messageList.add(mc_messgae);
+            if (userType == 1){
+                Log.e("error","进入消息");
+                view = inflater.inflate(R.layout.activity_message_com, null);
+                final List<comMessage>  stuMessageList= new ArrayList<>();
+                for (int i = 0;i<1;i++){
+                    comMessage ms_reply = new comMessage("评论回复",R.drawable.ms_reply);
+                    stuMessageList.add(ms_reply);
+                    //comMessage ms_remind = new comMessage("收藏活动报名提醒",R.drawable.ms_remind);
+                    //stuMessageList.add(ms_remind);
+                    comMessage ms_result = new comMessage("报名结果",R.drawable.ms_result);
+                    stuMessageList.add(ms_result);
+                }
+                McAdapter adapter = new McAdapter(getActivity(), R.layout.message_com_item,stuMessageList);
+                ListView listView = (ListView) view.findViewById(R.id.message_com);
+                listView.setAdapter(adapter);
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                        comMessage commessage = stuMessageList.get(position);
+                        switch (position){
+                            case 0:
+                                Intent intent = new Intent(getActivity(),stuReply.class);
+                                startActivity(intent);
+                                break;
+                            //case 1:
+                            //    Intent intent1 = new Intent(getActivity(),stuRemind.class);
+                            //    startActivity(intent1);
+                            //    break;
+                            case 1:
+                                Intent intent1 = new Intent(getActivity(),stuResult.class);
+                                startActivity(intent1);
+                        }
+                    }
+                });
             }
-            McAdapter adapter = new McAdapter(getActivity(), R.layout.message_com_item,messageList);
-            ListView listView = (ListView) view.findViewById(R.id.message_com);
-            listView.setAdapter(adapter);
+            else if (userType ==2){
+                Log.e("error","进入消息");
+                view = inflater.inflate(R.layout.activity_message_com, null);
+                final List<comMessage> messageList = new ArrayList<>();
+                for (int i = 0;i<1;i++){
+                    comMessage mc_activity = new comMessage("上传的活动",R.drawable.mc_activity);
+                    messageList.add(mc_activity);
+                    comMessage mc_messgae = new comMessage("收到的留言",R.drawable.mc_message);
+                    messageList.add(mc_messgae);
+                }
+                McAdapter adapter = new McAdapter(getActivity(), R.layout.message_com_item,messageList);
+                ListView listView = (ListView) view.findViewById(R.id.message_com);
+                listView.setAdapter(adapter);
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                        comMessage commessage = messageList.get(position);
+                        switch (position){
+                            case 0:
+                                Intent intent = new Intent(getActivity(),comM_result.class);
+                                startActivity(intent);
+                                break;
+                            case 1:
+                                Intent intent1 = new Intent(getActivity(),comWord.class);
+                                startActivity(intent1);
+                                break;
+                        }
+                    }
+                });
+            }
+
             }
         return view;
     }
