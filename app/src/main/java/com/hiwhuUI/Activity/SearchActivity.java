@@ -50,9 +50,9 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                Toast.makeText(SearchActivity.this, query, Toast.LENGTH_SHORT).show();
-                //转换页还没写，暂用待审核
-                transaction.replace(R.id.container_search_list, ListFragment.newInstance("待审核"));
+                //Toast.makeText(SearchActivity.this, query, Toast.LENGTH_SHORT).show();
+                //搜索活动
+                transaction.replace(R.id.container_search_list, ListFragment.newInstance("搜索",query));
                 transaction.commit();
                 return false;
             }
