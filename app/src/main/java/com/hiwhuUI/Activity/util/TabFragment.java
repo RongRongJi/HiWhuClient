@@ -36,7 +36,6 @@ public class TabFragment extends Fragment {
                 for (int i = 0; i <list.size() ; i++) {
                     //获取后台活动数据
                     ActivityCard a = list.get(i).toActivityCard();
-                    a.setSignup(true);
                     cardList.add(a);
                 }
                 break;
@@ -44,21 +43,13 @@ public class TabFragment extends Fragment {
                 for(int i=0;i<list.size();i++){
                     if(list.get(i).getType().equals(String.valueOf(TAG))){
                         ActivityCard a = list.get(i).toActivityCard();
-                        a.setSignup(true);
                         cardList.add(a);
                     }
                 }
         }
 
 
-        RecyclerAdapter_activityCard recyclerAdapter;
-        if(staticData.getUserType()==1){
-            recyclerAdapter = new RecyclerAdapter_activityCard(cardList,1);
-        }
-        else{
-            recyclerAdapter = new RecyclerAdapter_activityCard(cardList,0);
-        }
-
+        RecyclerAdapter_activityCard recyclerAdapter = new RecyclerAdapter_activityCard(cardList,0);
         RecyclerView recyclerView=(RecyclerView)view.findViewById(R.id.tab_card_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext(),LinearLayoutManager.VERTICAL,false));
         recyclerView.setAdapter(recyclerAdapter);
