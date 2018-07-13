@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import HttpConnect.GetActivityBySponsorID;
+import HttpConnect.GetAppliedActivity;
 import HttpConnect.GetAppliedStudentByActivityID;
+import HttpConnect.GetSearchResult;
 import data.staticData;
 import entity.Activity;
 import entity.ActivityCard;
@@ -32,6 +35,16 @@ public class ListFragment extends Fragment {
         Bundle args = new Bundle();
         ListFragment fragment = new ListFragment();
         args.putString("option", info);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    //重载newInstance 搜索用
+    public static ListFragment newInstance(String info, String search){
+        Bundle args = new Bundle();
+        ListFragment fragment = new ListFragment();
+        args.putString("option", info);
+        args.putString("search",search);
         fragment.setArguments(args);
         return fragment;
     }
@@ -62,9 +75,13 @@ public class ListFragment extends Fragment {
         else if(str.equals("发布历史")){
             view = setActivityCardView(view,6);
         }
+        else if(str.equals("搜索")){
+            view = setActivityCardView(view,8);
+        }
         else{
             //审核人员
-            Toast.makeText(getContext(), str, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), str, Toast.LENGTH_SHORT).show();
+            staticData.setCurrentActivity(str);
             view = setStuCardView(view,str);
         }
 
@@ -80,16 +97,22 @@ public class ListFragment extends Fragment {
 
         switch (option){
             //分别获取后台活动数据 list
-            case 1:
-                recyclerAdapter = new RecyclerAdapter_activityCard(toActivityCardList(list),0);
+            case 1://学生待审核的活动列表
+                GetAppliedActivity unchecked = GetAppliedActivity.GetActivityInit(0);
+                List<Activity> uncheckedList = unchecked.activityList;
+                recyclerAdapter = new RecyclerAdapter_activityCard(toActivityCardList(uncheckedList),0);
                 break;
-            case 2:
-                recyclerAdapter = new RecyclerAdapter_activityCard(toActivityCardList(list),0);
+            case 2://学生待参加的活动列表
+                GetAppliedActivity passed = GetAppliedActivity.GetActivityInit(1);
+                List<Activity> waitList = passed.activityList;
+                recyclerAdapter = new RecyclerAdapter_activityCard(toActivityCardList(waitList),0);
                 break;
-            case 3:
-                recyclerAdapter = new RecyclerAdapter_activityCard(toActivityCardList(list),0);
+            case 3://学生参加过的活动
+                GetAppliedActivity joined = GetAppliedActivity.GetActivityInit(2);
+                List<Activity> joinedList = joined.activityList;
+                recyclerAdapter = new RecyclerAdapter_activityCard(toActivityCardList(joinedList),0);
                 break;
-            case 4:
+            case 4://学生收藏的活动
                 recyclerAdapter = new RecyclerAdapter_activityCard(toActivityCardList(list),1);
                 break;
             case 5://主办方审核活动
@@ -101,6 +124,13 @@ public class ListFragment extends Fragment {
                 GetActivityBySponsorID gbs = GetActivityBySponsorID.GetActivityInit(staticData.getSponsorID());
                 List<Activity> historyList = gbs.activityList;
                 recyclerAdapter = new RecyclerAdapter_activityCard(toActivityCardList(historyList),0);
+                break;
+            case 8://搜索框
+                String str = getArguments().getString("search");
+                Log.e("search is",str);
+                GetSearchResult gsr = GetSearchResult.GetActivityInit(str);
+                List<Activity> searchList = gsr.activityList;
+                recyclerAdapter = new RecyclerAdapter_activityCard(toActivityCardList(searchList),0);
                 break;
         }
 
