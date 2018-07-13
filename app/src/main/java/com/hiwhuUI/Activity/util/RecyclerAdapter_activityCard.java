@@ -18,10 +18,12 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hiwhu.hiwhuclient.R;
 import com.hiwhuUI.Activity.ListActivity;
 import com.hiwhuUI.Activity.SignupActivity;
+import com.hiwhuUI.Activity.com_viewActivity;
 import com.hiwhuUI.Activity.stu_viewActivity;
 
 import java.util.List;
 
+import data.staticData;
 import entity.ActivityCard;
 
 public class RecyclerAdapter_activityCard extends RecyclerView.Adapter<RecyclerAdapter_activityCard.ViewHolder> {
@@ -71,31 +73,25 @@ public class RecyclerAdapter_activityCard extends RecyclerView.Adapter<RecyclerA
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(v.getContext(), stu_viewActivity.class);
-                intent.putExtra("activity_id",activityCard.getActivity_id());
-                v.getContext().startActivity(intent);
+                int userType = staticData.getUserType();
+                if(userType==1){
+                    Intent intent = new Intent(v.getContext(), stu_viewActivity.class);
+                    intent.putExtra("activity_id",activityCard.getActivity_id());
+                    v.getContext().startActivity(intent);
+                }
+                else{
+                    Intent intent = new Intent(v.getContext(), com_viewActivity.class);
+                    intent.putExtra("activity_id",activityCard.getActivity_id());
+                    v.getContext().startActivity(intent);
+                }
             }
         });
         holder.card_title.setText(activityCard.getTitle());
         holder.card_time.setText(activityCard.getTime());
         holder.card_location.setText(activityCard.getLocation());
-        holder.card_btn.setEnabled(activityCard.isSignup());
         switch (option){
             case 0:
                 holder.card_btn.setVisibility(View.INVISIBLE);
-                break;
-            case 1:
-                holder.card_btn.setText("我要报名");
-                holder.card_btn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent();
-                        intent.setClass(context, SignupActivity.class);
-                        intent.putExtra("activity_id",activityCard.getActivity_id());
-                        context.startActivity(intent);
-                    }
-                });
                 break;
             case 2:
                 holder.card_btn.setText("审核");

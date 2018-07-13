@@ -49,7 +49,7 @@ public class stuResult extends AppCompatActivity {
                 comResult comresult  = resultList.get(position);
                 switch (position){
                     case 2|5|11|8|10|6:
-                        Intent intent = new Intent(comM_result.this,com_ViewActivity.class);
+                        Intent intent = new Intent(comM_result.this,com_viewActivity.class);
                         startActivity(intent);
                         break;
                     case 0|1|3|4|7:

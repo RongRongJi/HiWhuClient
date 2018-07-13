@@ -74,16 +74,6 @@
 
         </LinearLayout>
 
-        <!--<ImageButton
-            android:id="@+id/card_activity_star"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
-            android:background="@android:color/transparent"
-            android:contentDescription="@string/star"
-            android:src="@drawable/ic_star_border_black_24dp" />-->
-
         <Button
             android:id="@+id/card_activity_btn"
             android:layout_width="wrap_content"

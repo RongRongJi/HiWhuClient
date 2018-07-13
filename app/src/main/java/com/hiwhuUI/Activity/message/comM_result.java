@@ -1,6 +1,5 @@
 package com.hiwhuUI.Activity.message;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -12,7 +11,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.hiwhu.hiwhuclient.R;
-import com.hiwhuUI.Activity.com_ViewActivity;
 import com.hiwhuUI.Activity.stu_viewActivity;
 
 import java.util.ArrayList;

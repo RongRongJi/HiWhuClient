@@ -14,7 +14,7 @@
             android:background="#49b3b6"
             android:id= "@+id/toolbar_main"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="?android:attr/actionBarSize"
             app:layout_scrollFlags="scroll|enterAlways"
             app:menu="@menu/toolbar_main">
 
@@ -36,7 +36,7 @@
         android:background="?android:attr/windowBackground"
         android:layout_gravity="bottom"
         app:menu="@menu/navigation"
-        app:layout_behavior="com.hiwhuUI.Activity.util.BottomNavigationViewBehavior"/>
+        app:layout_behavior="com.hiwhuUI.Activity.util.BottomMenuBehavior"/>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/navigation_viewPager"
