@@ -7,373 +7,389 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <include layout="@layout/activity_com_update_title"/>
+        <include layout="@layout/activity_com_update_title" />
 
-    <!-- 输入活动名称 -->
-    <LinearLayout
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:layout_width="0px"
-        android:layout_height="0px" />
-    <EditText
-        android:id="@+id/activityName"
-        android:layout_width="match_parent"
-        android:layout_height="50dip"
-        android:layout_marginLeft="16dip"
-        android:maxLines="1"
-        android:hint="活动名称"
-        android:textSize="16sp"
-        android:textColor="#555555"
-        android:background="@null"/>
+        <!-- 输入活动名称 -->
+        <LinearLayout
+            android:layout_width="0px"
+            android:layout_height="0px"
+            android:focusable="true"
+            android:focusableInTouchMode="true" />
 
-    <ImageView
-        android:layout_width="360dip"
-        android:layout_height="wrap_content"
-        android:src="@drawable/acu_line"
-        android:layout_gravity="center"/>
+        <EditText
+            android:id="@+id/activityName"
+            android:layout_width="match_parent"
+            android:layout_height="50dip"
+            android:layout_marginLeft="16dip"
+            android:background="@null"
+            android:hint="活动名称"
+            android:maxLines="1"
+            android:textColor="#555555"
+            android:textSize="16sp" />
 
-    <!-- 开始时间 -->
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dip">
-        <TextView
-            android:id="@+id/text_bDate"
+        <ImageView
+            android:layout_width="360dip"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/acu_line" />
+
+        <!-- 开始时间 -->
+        <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="50dip"
-            android:gravity="center"
-            android:textSize="16sp"
-            android:textColor="#7D7D7D"
-            android:text="开始时间:" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dip">
 
-        <Button
-            android:id="@+id/beginDate"
-            android:layout_width="120dip"
-            android:layout_height="50dip"
-            android:text="0000-00-00"
-            android:background="#00000000"
-            android:textSize="16sp"
-            android:textColor="#7D7D7D"
-            android:layout_toRightOf="@+id/text_bDate" />
-
-        <Button
-            android:id="@+id/beginTime"
-            android:layout_width="wrap_content"
-            android:layout_height="50dip"
-            android:text="00:00"
-            android:background="#00000000"
-            android:textSize="16sp"
-            android:textColor="#7D7D7D"
-            android:layout_toRightOf="@+id/beginDate"/>
-    </RelativeLayout>
-
-
-    <!-- 结束时间 -->
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dip">
-        <TextView
-            android:id="@+id/text_eDate"
-            android:layout_width="wrap_content"
-            android:layout_height="50dip"
-            android:gravity="center"
-            android:textSize="16sp"
-            android:textColor="#7D7D7D"
-            android:text="结束时间:"
-            />
-
-        <Button
-            android:id="@+id/endDate"
-            android:layout_width="120dip"
-            android:layout_height="50dip"
-            android:text="0000-00-00"
-            android:background="#00000000"
-            android:textSize="16sp"
-            android:textColor="#7D7D7D"
-            android:layout_toRightOf="@+id/text_eDate" />
-
-        <Button
-            android:id="@+id/endTime"
-            android:layout_width="wrap_content"
-            android:layout_height="50dip"
-            android:text="00:00"
-            android:background="#00000000"
-            android:textSize="16sp"
-            android:textColor="#7D7D7D"
-            android:layout_toRightOf="@+id/endDate"/>
-    </RelativeLayout>
-
-    <ImageView
-        android:layout_width="360dip"
-        android:layout_height="wrap_content"
-        android:src="@drawable/acu_line"
-        android:layout_gravity="center"/>
-
-    <!--是否需要报名-->
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dip">
-
-        <TextView
-            android:id="@+id/text_Signup"
-            android:layout_width="wrap_content"
-            android:layout_height="50dip"
-            android:gravity="center"
-            android:textSize="16sp"
-            android:textColor="#7D7D7D"
-            android:text="需要报名:"/>
-        <RadioGroup
-            android:id="@+id/radioGroup"
-            android:layout_width="wrap_content"
-            android:layout_height="50dip"
-            android:orientation="horizontal"
-            android:layout_toRightOf="@+id/text_Signup">
-
-            <RadioButton
-                android:id="@+id/button_need"
-                android:layout_width="90dip"
+            <TextView
+                android:id="@+id/text_bDate"
+                android:layout_width="wrap_content"
                 android:layout_height="50dip"
-                android:text="需要"
-                android:textSize="16sp"
-                android:textColor="#7D7D7D" />
+                android:gravity="center"
+                android:text="开始时间:"
+                android:textColor="#7D7D7D"
+                android:textSize="16sp" />
 
-            <RadioButton
-                android:id="@+id/button_neednot"
-                android:layout_width="180dip"
+            <Button
+                android:id="@+id/beginDate"
+                android:layout_width="120dip"
                 android:layout_height="50dip"
-                android:text="不需要"
-                android:textSize="16sp"
-                android:textColor="#7D7D7D"/>
-        </RadioGroup>
-    </RelativeLayout>
+                android:layout_toRightOf="@+id/text_bDate"
+                android:background="#00000000"
+                android:text="0000-00-00"
+                android:textColor="#7D7D7D"
+                android:textSize="16sp" />
 
-    <!--报名时间-->
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dip">
-        <TextView
-            android:id="@+id/text_Signtime"
+            <Button
+                android:id="@+id/beginTime"
+                android:layout_width="wrap_content"
+                android:layout_height="50dip"
+                android:layout_toRightOf="@+id/beginDate"
+                android:background="#00000000"
+                android:text="00:00"
+                android:textColor="#7D7D7D"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+
+        <!-- 结束时间 -->
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dip">
+
+            <TextView
+                android:id="@+id/text_eDate"
+                android:layout_width="wrap_content"
+                android:layout_height="50dip"
+                android:gravity="center"
+                android:text="结束时间:"
+                android:textColor="#7D7D7D"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/endDate"
+                android:layout_width="120dip"
+                android:layout_height="50dip"
+                android:layout_toRightOf="@+id/text_eDate"
+                android:background="#00000000"
+                android:text="0000-00-00"
+                android:textColor="#7D7D7D"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/endTime"
+                android:layout_width="wrap_content"
+                android:layout_height="50dip"
+                android:layout_toRightOf="@+id/endDate"
+                android:background="#00000000"
+                android:text="00:00"
+                android:textColor="#7D7D7D"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="360dip"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/acu_line" />
+
+        <!--是否需要报名-->
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dip">
+
+            <TextView
+                android:id="@+id/text_Signup"
+                android:layout_width="wrap_content"
+                android:layout_height="50dip"
+                android:gravity="center"
+                android:text="需要报名:"
+                android:textColor="#7D7D7D"
+                android:textSize="16sp" />
+
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="50dip"
+                android:layout_toRightOf="@+id/text_Signup"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/button_need"
+                    android:layout_width="90dip"
+                    android:layout_height="50dip"
+                    android:text="需要"
+                    android:textColor="#7D7D7D"
+                    android:textSize="16sp" />
+
+                <RadioButton
+                    android:id="@+id/button_neednot"
+                    android:layout_width="180dip"
+                    android:layout_height="50dip"
+                    android:text="不需要"
+                    android:textColor="#7D7D7D"
+                    android:textSize="16sp" />
+            </RadioGroup>
+        </RelativeLayout>
+
+        <!--报名时间-->
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dip">
+
+            <TextView
+                android:id="@+id/text_Signtime"
+                android:layout_width="wrap_content"
+                android:layout_height="50dip"
+                android:gravity="center"
+                android:text="报名时间:"
+                android:textColor="#7D7D7D"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/beginDate_signup"
+                android:layout_width="120dip"
+                android:layout_height="50dip"
+                android:layout_toRightOf="@+id/text_Signtime"
+                android:background="#00000000"
+                android:text="0000-00-00"
+                android:textColor="#7D7D7D"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/beginTime_signup"
+                android:layout_width="wrap_content"
+                android:layout_height="50dip"
+                android:layout_toRightOf="@+id/beginDate_signup"
+                android:background="#00000000"
+                android:text="00:00"
+                android:textColor="#7D7D7D"
+                android:textSize="16sp" />
+        </RelativeLayout>
+        <!--截止时间-->
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dip">
+
+            <TextView
+                android:id="@+id/text_endTime"
+                android:layout_width="wrap_content"
+                android:layout_height="50dip"
+                android:gravity="center"
+                android:text="截止时间:"
+                android:textColor="#7D7D7D"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/endDate_signup"
+                android:layout_width="120dip"
+                android:layout_height="50dip"
+                android:layout_toRightOf="@+id/text_endTime"
+                android:background="#00000000"
+                android:text="0000-00-00"
+                android:textColor="#7D7D7D"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/endTime_signup"
+                android:layout_width="wrap_content"
+                android:layout_height="50dip"
+                android:layout_toRightOf="@+id/endDate_signup"
+                android:background="#00000000"
+                android:text="00:00"
+                android:textColor="#7D7D7D"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="360dip"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/acu_line" />
+
+        <!-- 活动地点 -->
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="50dip"
-            android:gravity="center"
-            android:textSize="16sp"
-            android:textColor="#7D7D7D"
-            android:text="报名时间:" />
-        <Button
-            android:id="@+id/beginDate_signup"
-            android:layout_width="120dip"
-            android:layout_height="50dip"
-            android:text="0000-00-00"
-            android:background="#00000000"
-            android:textSize="16sp"
-            android:textColor="#7D7D7D"
-            android:layout_toRightOf="@+id/text_Signtime" />
+            android:layout_marginLeft="16dip">
 
-        <Button
-            android:id="@+id/beginTime_signup"
+            <TextView
+                android:id="@+id/text_map"
+                android:layout_width="wrap_content"
+                android:layout_height="50dip"
+                android:gravity="center"
+                android:text="活动地点:"
+                android:textColor="#7D7D7D"
+                android:textSize="16sp" />
+
+            <ImageButton
+                android:id="@+id/button_address"
+                android:layout_width="70dip"
+                android:layout_height="50dip"
+                android:layout_toRightOf="@+id/text_map"
+                android:background="#00000000"
+                android:onClick="onClick"
+                android:paddingBottom="10dip"
+                android:paddingTop="10dip"
+                android:scaleType="fitCenter"
+                android:src="@drawable/acu_map" />
+
+
+            <TextView
+                android:id="@+id/text_address"
+                android:layout_width="wrap_content"
+                android:layout_height="50dip"
+                android:layout_toRightOf="@+id/button_address"
+                android:gravity="center"
+                android:text="请选择地点"
+                android:textColor="#7D7D7D"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="360dip"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/acu_line" />
+
+        <!-- 活动图片 -->
+        <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="50dip"
-            android:text="00:00"
-            android:background="#00000000"
-            android:textSize="16sp"
-            android:textColor="#7D7D7D"
-            android:layout_toRightOf="@+id/beginDate_signup"/>
-    </RelativeLayout>
-    <!--截止时间-->
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dip">
-        <TextView
-            android:id="@+id/text_endTime"
-            android:layout_width="wrap_content"
-            android:layout_height="50dip"
-            android:gravity="center"
-            android:textSize="16sp"
-            android:textColor="#7D7D7D"
-            android:text="截止时间:"/>
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dip">
 
-        <Button
-            android:id="@+id/endDate_signup"
-            android:layout_width="120dip"
-            android:layout_height="50dip"
-            android:text="0000-00-00"
-            android:background="#00000000"
-            android:textSize="16sp"
-            android:textColor="#7D7D7D"
-            android:layout_toRightOf="@+id/text_endTime"/>
-        <Button
-            android:id="@+id/endTime_signup"
-            android:layout_width="wrap_content"
-            android:layout_height="50dip"
-            android:text="00:00"
-            android:background="#00000000"
-            android:textSize="16sp"
-            android:textColor="#7D7D7D"
-            android:layout_toRightOf="@+id/endDate_signup"/>
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/text_pic"
+                android:layout_width="wrap_content"
+                android:layout_height="50dip"
+                android:gravity="center"
+                android:text="封面图片:"
+                android:textColor="#7D7D7D"
+                android:textSize="16sp" />
 
-    <ImageView
-        android:layout_width="360dip"
-        android:layout_height="wrap_content"
-        android:src="@drawable/acu_line"
-        android:layout_gravity="center"/>
+            <ImageButton
+                android:id="@+id/button_image"
+                android:layout_width="70dip"
+                android:layout_height="50dip"
+                android:layout_toRightOf="@+id/text_pic"
+                android:background="#00000000"
+                android:onClick="onClick"
+                android:paddingBottom="14dip"
+                android:paddingTop="14dip"
+                android:scaleType="fitCenter"
+                android:src="@drawable/acu_picture" />
 
-    <!-- 活动地点 -->
+            <TextView
+                android:id="@+id/text_image"
+                android:layout_width="wrap_content"
+                android:layout_height="50dip"
+                android:layout_toRightOf="@+id/button_image"
+                android:gravity="center"
+                android:text="请选择图片"
+                android:textColor="#7D7D7D"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="360dip"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/acu_line" />
+
+        <!-- 活动分类 -->
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="50dip"
         android:layout_marginLeft="16dip">
 
-        <TextView
-            android:id="@+id/text_map"
-            android:layout_width="wrap_content"
-            android:layout_height="50dip"
-            android:gravity="center"
-            android:textSize="16sp"
-            android:textColor="#7D7D7D"
-            android:text="活动地点:" />
-
-        <ImageButton
-            android:id="@+id/button_address"
-            android:layout_width="70dip"
-            android:layout_height="50dip"
-            android:layout_toRightOf="@+id/text_map"
-            android:onClick="onClick"
-            android:background="#00000000"
-            android:src="@drawable/acu_map"
-            android:scaleType="fitCenter"
-            android:paddingBottom="10dip"
-            android:paddingTop="10dip"/>
-
-
-        <TextView
-            android:id="@+id/text_address"
-            android:layout_width="wrap_content"
-            android:layout_height="50dip"
-            android:textSize="16sp"
-            android:textColor="#7D7D7D"
-            android:gravity="center"
-            android:text="请选择地点"
-            android:layout_toRightOf="@+id/button_address"/>
-    </RelativeLayout>
-
-    <ImageView
-        android:layout_width="360dip"
-        android:layout_height="wrap_content"
-        android:src="@drawable/acu_line"
-        android:layout_gravity="center"/>
-
-    <!-- 活动图片 -->
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dip">
-        <TextView
-            android:id="@+id/text_pic"
-            android:layout_width="wrap_content"
-            android:layout_height="50dip"
-            android:gravity="center"
-            android:textSize="16sp"
-            android:textColor="#7D7D7D"
-            android:text="封面图片:"
-            />
-
-        <ImageButton
-            android:id="@+id/button_image"
-            android:layout_width="70dip"
-            android:layout_height="50dip"
-            android:onClick="onClick"
-            android:background="#00000000"
-            android:src="@drawable/acu_picture"
-            android:layout_toRightOf="@+id/text_pic"
-            android:scaleType="fitCenter"
-            android:paddingBottom="14dip"
-            android:paddingTop="14dip"/>
-
-        <TextView
-            android:id="@+id/text_image"
-            android:layout_width="wrap_content"
-            android:layout_height="50dip"
-            android:gravity="center"
-            android:textSize="16sp"
-            android:textColor="#7D7D7D"
-            android:text="请选择图片"
-            android:layout_toRightOf="@+id/button_image"/>
-    </RelativeLayout>
-
-    <ImageView
-        android:layout_width="360dip"
-        android:layout_height="wrap_content"
-        android:src="@drawable/acu_line"
-        android:layout_gravity="center"/>
-
-    <!-- 活动分类 -->
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="50dip"
-        android:layout_marginLeft="16dip">
         <TextView
             android:id="@+id/activity_type"
             android:layout_width="wrap_content"
             android:layout_height="50dip"
             android:gravity="center"
-            android:textSize="16sp"
+            android:text="活动分类:"
             android:textColor="#7D7D7D"
-            android:text="活动分类:" />
+            android:textSize="16sp" />
 
         <ImageButton
             android:id="@+id/button_type"
             android:layout_width="70dip"
             android:layout_height="50dip"
-            android:onClick="onClick"
-            android:background="#00000000"
-            android:src="@drawable/acu_type"
             android:layout_toRightOf="@+id/activity_type"
-            android:scaleType="fitCenter"
+            android:background="#00000000"
+            android:onClick="onClick"
             android:paddingBottom="14dip"
-            android:paddingTop="14dip"/>
+            android:paddingTop="14dip"
+            android:scaleType="fitCenter"
+            android:src="@drawable/acu_type" />
 
         <TextView
             android:id="@+id/text_type"
             android:layout_width="wrap_content"
             android:layout_height="50dip"
+            android:layout_toRightOf="@+id/button_type"
             android:gravity="center"
-            android:textSize="16sp"
-            android:textColor="#7D7D7D"
             android:text="请选择分类"
-            android:layout_toRightOf="@+id/button_type"/>
+            android:textColor="#7D7D7D"
+            android:textSize="16sp" />
 
     </RelativeLayout>
 
     <ImageView
-        android:layout_width="360dip"
-        android:layout_height="wrap_content"
-        android:src="@drawable/acu_line"
-        android:layout_gravity="center"/>
+            android:layout_width="360dip"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/acu_line" />
 
-    <!-- 活动简介 -->
-    <LinearLayout
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:layout_width="0px"
-        android:layout_height="0px" />
+        <!-- 活动简介 -->
 
-    <EditText
-        android:id="@+id/introduction"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="240dip"
-        android:layout_marginLeft="16dip"
-        android:maxLines="10"
-        android:hint="活动简介"
-        android:gravity="top"
-        android:textSize="16sp"
-        android:textColor="#555555"
-        android:background="@null"
-        android:paddingTop="10dip"
-        android:layout_marginBottom="80dip" />
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <EditText
+                android:id="@+id/introduction"
+                android:layout_width="match_parent"
+                android:layout_height="220dip"
+                android:layout_marginBottom="80dip"
+                android:layout_marginLeft="16dip"
+                android:background="@null"
+                android:gravity="top"
+                android:hint="活动简介"
+                android:maxLines="10"
+                android:paddingTop="10dip"
+                android:textColor="#555555"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </ScrollView>
+
 
 </LinearLayout>
