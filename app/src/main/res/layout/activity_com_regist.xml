@@ -23,7 +23,10 @@
             android:id="@+id/name"
             android:layout_width="230dp"
             android:layout_height="60dp"
+            android:hint="请输入社团名称"
+            android:textSize="15sp"
             android:layout_alignParentRight="true"
+            android:background="@drawable/edittext"
             android:maxLines="1" />
 
     </RelativeLayout>
@@ -48,6 +51,7 @@
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:hint="电话号码"
+            android:background="@drawable/edittext"
             android:textSize="15sp" />
     </RelativeLayout>
 
@@ -70,6 +74,7 @@
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:hint="请输入你的密码"
+            android:background="@drawable/edittext"
             android:textSize="15sp"/>
     </RelativeLayout>
 
@@ -91,6 +96,7 @@
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:hint="请确认你的密码"
+            android:background="@drawable/edittext"
             android:textSize="15sp"/>
     </RelativeLayout>
 
@@ -114,6 +120,7 @@
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:hint="请简短描述您的社团"
+            android:background="@drawable/edittext"
             android:textSize="15sp"/>
 
     </RelativeLayout>
@@ -124,6 +131,7 @@
         android:layout_marginTop="350dp"
         android:layout_centerHorizontal="true"
         android:text="注  册"
+        android:textColor="#40a114"
         android:textSize="15sp"/>
 
 </RelativeLayout>

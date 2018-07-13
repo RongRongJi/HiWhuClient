@@ -18,6 +18,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -72,13 +73,16 @@ public class com_updateActivity extends AppCompatActivity {
     private String endTime_String = null;
     private String registrationStartTime = "1000-12-31 0:0";//不需要报名的报名伪时间
     private String registrationEndTime = "1000-12-31 0:0";
-    private String location=null;//还需要添加
+    private String location=null;
+    private Double latitude=null;
+    private Double longitude=null;
     private String activityProfile = null;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         setContentView(R.layout.activity_com_update);
         //隐藏默认标题栏
         ActionBar actionBar = getSupportActionBar();
@@ -231,7 +235,6 @@ public class com_updateActivity extends AppCompatActivity {
                     registrationStartTime = begDate_signup+" "+begTime_signup;
                     registrationEndTime = enDate_signup+" "+enTime_signup;
                 }
-                location=null;//还需要添加
                 activityProfile = desc.getText().toString();
                 try {
                     title = java.net.URLEncoder.encode(title, "UTF-8");
@@ -239,7 +242,8 @@ public class com_updateActivity extends AppCompatActivity {
                     endTime_String = java.net.URLEncoder.encode(endTime_String, "UTF-8");
                     registrationStartTime = java.net.URLEncoder.encode(registrationStartTime, "UTF-8");
                     registrationEndTime = java.net.URLEncoder.encode(registrationEndTime, "UTF-8");
-                    //location = java.net.URLEncoder.encode(location,"UTF-8");
+                    location = java.net.URLEncoder.encode(location,"UTF-8");
+                    //经纬度latitude、longitude怎么传？
                     activityProfile = java.net.URLEncoder.encode(activityProfile,"UTF-8");
                     url = url+"title="+title
                             +"&startTime="+startTime
@@ -355,12 +359,12 @@ public class com_updateActivity extends AppCompatActivity {
                 case ADDRESS:
                     if (resultCode == RESULT_OK) {
                         //获取纬度
-                        Double latitude = data.getDoubleExtra("latitude",0.0);
+                        latitude = data.getDoubleExtra("latitude",0.0);
                         //获取经度
-                        Double longitude = data.getDoubleExtra("longitude",0.0);
+                        longitude = data.getDoubleExtra("longitude",0.0);
                         //修改地址
-                        String position = data.getStringExtra("position");
-                        text_address.setText(position);
+                        location = data.getStringExtra("position");
+                        text_address.setText(location);
                     }
                     break;
             }
@@ -374,10 +378,7 @@ public class com_updateActivity extends AppCompatActivity {
         cursor.moveToFirst();
         int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
         imagePath = cursor.getString(columnIndex);
-
         cursor.close();
-        //imageView = (ImageView)findViewById(R.id.imageView);
-        //imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
         text_image = (TextView)findViewById(R.id.text_image);
         text_image.setText("图片上传成功！");
     }

@@ -26,6 +26,7 @@
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:hint="请输入你的学号"
+            android:background="@drawable/edittext"
             android:textSize="15sp"/>
     </RelativeLayout>
 
@@ -49,6 +50,7 @@
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:hint="请输入你的用户名"
+            android:background="@drawable/edittext"
             android:textSize="15sp"/>
     </RelativeLayout>
 
@@ -72,6 +74,7 @@
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:hint="请输入你的密码"
+            android:background="@drawable/edittext"
             android:textSize="15sp"/>
     </RelativeLayout>
 
@@ -96,6 +99,7 @@
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:hint="请确认你的密码"
+            android:background="@drawable/edittext"
             android:textSize="15sp"/>
     </RelativeLayout>
 
@@ -105,6 +109,7 @@
         android:layout_height="60dp"
         android:text="注 册"
         android:layout_marginTop="350dp"
+        android:textColor="#40a114"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
