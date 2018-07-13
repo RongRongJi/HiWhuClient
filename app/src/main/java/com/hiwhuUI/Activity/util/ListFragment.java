@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import HttpConnect.GetActivityBySponsorID;
+import HttpConnect.GetAppliedActivity;
 import HttpConnect.GetAppliedStudentByActivityID;
 import data.staticData;
 import entity.Activity;
@@ -64,7 +65,8 @@ public class ListFragment extends Fragment {
         }
         else{
             //审核人员
-            Toast.makeText(getContext(), str, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), str, Toast.LENGTH_SHORT).show();
+            staticData.setCurrentActivity(str);
             view = setStuCardView(view,str);
         }
 
@@ -80,16 +82,22 @@ public class ListFragment extends Fragment {
 
         switch (option){
             //分别获取后台活动数据 list
-            case 1:
-                recyclerAdapter = new RecyclerAdapter_activityCard(toActivityCardList(list),0);
+            case 1://学生待审核的活动列表
+                GetAppliedActivity unchecked = GetAppliedActivity.GetActivityInit(0);
+                List<Activity> uncheckedList = unchecked.activityList;
+                recyclerAdapter = new RecyclerAdapter_activityCard(toActivityCardList(uncheckedList),0);
                 break;
-            case 2:
-                recyclerAdapter = new RecyclerAdapter_activityCard(toActivityCardList(list),0);
+            case 2://学生待参加的活动列表
+                GetAppliedActivity passed = GetAppliedActivity.GetActivityInit(1);
+                List<Activity> waitList = passed.activityList;
+                recyclerAdapter = new RecyclerAdapter_activityCard(toActivityCardList(waitList),0);
                 break;
-            case 3:
-                recyclerAdapter = new RecyclerAdapter_activityCard(toActivityCardList(list),0);
+            case 3://学生参加过的活动
+                GetAppliedActivity joined = GetAppliedActivity.GetActivityInit(2);
+                List<Activity> joinedList = joined.activityList;
+                recyclerAdapter = new RecyclerAdapter_activityCard(toActivityCardList(joinedList),0);
                 break;
-            case 4:
+            case 4://学生收藏的活动
                 recyclerAdapter = new RecyclerAdapter_activityCard(toActivityCardList(list),1);
                 break;
             case 5://主办方审核活动
