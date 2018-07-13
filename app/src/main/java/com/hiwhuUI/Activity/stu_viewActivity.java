@@ -4,20 +4,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,197 +20,51 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hiwhu.hiwhuclient.R;
-import com.hiwhuUI.Activity.util.CommentExpandableListView;
-import com.hiwhuUI.Activity.util.ExpandAdapter_Comment;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import HttpConnect.GetCurrentActivity;
 import data.staticData;
-import entity.CommentCard;
-import entity.ReplyCard;
 
 public class stu_viewActivity extends AppCompatActivity {
 
     private static final String LAT_MAP ="30.5387500000";
     private static final String LONG_MAP ="114.3725800000";
 
-    private TextView name;
-    private TextView starttime;
-    private TextView endtime;
-    private TextView resstarttime;
-    private TextView resendtime;
-    private TextView position;
-    private ImageView image;
-    private Toolbar toolbar;
-    private TextView toolbar_title;
-    private String activity_id;
-    private ImageView map_btn;
-    private boolean star;
-    private Drawable unstar;
-    private Drawable stared;
-    private Button btn_star;
-    private Button btn_comment;
-    private Button btn_signup;
-    private TextView details;
-    private CommentExpandableListView listView;
-    private ExpandAdapter_Comment adapter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stu_view);
+        TextView name = (TextView)findViewById(R.id.activity_name) ;
+        TextView starttime = (TextView)findViewById(R.id.activity_startTime) ;
+        TextView endtime = (TextView)findViewById(R.id.activity_endTime) ;
+        TextView resstarttime = (TextView)findViewById(R.id.join_startTime) ;
+        TextView resendtime = (TextView)findViewById(R.id.join_endTime) ;
+        ImageView image = (ImageView)findViewById(R.id.activity_poster);
+        String activity_id = getIntent().getStringExtra("activity_id");
+        //Toast.makeText(stu_viewActivity.this, activity_id, Toast.LENGTH_SHORT).show();
 
-        activity_id = getIntent().getStringExtra("activity_id");
+
         GetCurrentActivity.GetActivityInit(activity_id);
-
-        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar_stu_view);
-        toolbar.setTitle("");
-        toolbar_title = (TextView) findViewById(R.id.toolbar_stu_view_text);
-        toolbar_title.setText("活动详情");
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        unstar = getResources().getDrawable(R.drawable.ic_star_border_black_24dp);
-        stared = getResources().getDrawable(R.drawable.ic_star_black_24dp);
-
-        btn_star = findViewById(R.id.bottom_star);
-        star = staticData.isStar(activity_id);
-        if(star) btn_star.setCompoundDrawablesWithIntrinsicBounds(null,stared,null,null);
-        else btn_star.setCompoundDrawablesWithIntrinsicBounds(null,unstar,null,null);
-
-        btn_star.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(star){
-                    //从收藏表中删除 studenId,activity_id
-                    Toast.makeText(stu_viewActivity.this, "取消收藏", Toast.LENGTH_SHORT).show();
-                    star = false;
-                    staticData.removeStarList(activity_id);
-                    btn_star.setCompoundDrawablesWithIntrinsicBounds(null,unstar,null,null);
-                }
-                else {
-                    //在收藏表中插入 studenId,activity_id
-                    Toast.makeText(stu_viewActivity.this, "收藏成功", Toast.LENGTH_SHORT).show();
-                    star = true;
-                    staticData.addStarList(activity_id);
-                    btn_star.setCompoundDrawablesWithIntrinsicBounds(null,stared,null,null);
-                }
-            }
-        });
-        btn_comment = findViewById(R.id.bottom_comment);
-        btn_comment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(stu_viewActivity.this, data_editActivity.class);
-                intent.putExtra("activity_id",activity_id);
-                startActivity(intent);
-            }
-        });
-        btn_signup = findViewById(R.id.bottom_signup);
-        int state = 0;  //通过 activity_id 获取活动状态, 0-可以报名; 1-报名截止;
-        switch (state){
-            case 0:
-                btn_signup.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(stu_viewActivity.this, SignupActivity.class);
-                        intent.putExtra("activity_id",activity_id);
-                        startActivity(intent);
-                    }
-                });
-                break;
-            case 1:
-                btn_signup.setText("报名已截止");
-                btn_signup.setClickable(false);
-                break;
-        }
-
-        name = (TextView)findViewById(R.id.activity_name);
-        starttime = (TextView)findViewById(R.id.activity_startTime);
-        endtime = (TextView)findViewById(R.id.activity_endTime);
-        resstarttime = (TextView)findViewById(R.id.join_startTime);
-        resendtime = (TextView)findViewById(R.id.join_endTime);
-        position = (TextView)findViewById(R.id.activity_position);
-        details = (TextView) findViewById(R.id.details);
-
         name.setText(staticData.activity.getTitle());
-        starttime.setText(staticData.activity.getStartTIme());
-        endtime.setText(staticData.activity.getEndTime());
-        resstarttime.setText(staticData.activity.getRegistrationStartTime());
-        resendtime.setText(staticData.activity.getRegistrationEndTime());
-        position.setText(staticData.activity.getLocation());
-        details.setText(getResources().getString(R.string.act_message));
-
-        image = (ImageView)findViewById(R.id.activity_poster);
+        starttime.setText("开始时间:"+staticData.activity.getStartTIme());
+        endtime.setText("结束时间:"+staticData.activity.getEndTime());
+        resstarttime.setText("报名开始时间:"+staticData.activity.getRegistrationStartTime());
+        resendtime.setText("报名结束时间:"+staticData.activity.getRegistrationEndTime());
         Glide.with(getBaseContext()).load(staticData.getUrl()+"/"+staticData.activity.getImage())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .placeholder(R.drawable.logo)
                 .error(R.drawable.logo)
                 .crossFade().into(image);
 
-        map_btn = (ImageView)findViewById(R.id.map_menu);
+
+        Button button = (Button)findViewById(R.id.activity_position);
+        ImageView imageView = (ImageView)findViewById(R.id.map_menu);
         //注册上下文浮动菜单
-        registerForContextMenu(map_btn);
-
-        listView = (CommentExpandableListView)findViewById(R.id.comment_list);
-        List<CommentCard> commentList = new ArrayList<>();
-        List<CommentCard> commentList2 = new ArrayList<>();
-        List<ReplyCard> replyCardList = new ArrayList<>();
-        replyCardList.add(new ReplyCard("reply_name1","reply_content1","reply_time1"));
-        replyCardList.add(new ReplyCard("reply_name2","reply_content2","reply_time2"));
-        commentList.add(new CommentCard("1","name1","img1","content1","time1",replyCardList));
-        commentList.add(new CommentCard("2","name2","img2","content2","time2",null));
-        commentList.add(new CommentCard("3","name3","img3","content3","time3",replyCardList));
-        commentList2.addAll(commentList);
-        commentList2.addAll(commentList);
-        commentList2.addAll(commentList);
-        initExpandableListView(commentList2);
+        registerForContextMenu(button);
+        registerForContextMenu(imageView);
     }
-
-    private void initExpandableListView(final List<CommentCard> commentList){
-        listView.setGroupIndicator(null);
-        //默认展开所有回复
-        adapter = new ExpandAdapter_Comment(this, commentList);
-        listView.setAdapter(adapter);
-        for(int i = 0; i<commentList.size(); i++){
-            listView.expandGroup(i);
-        }
-
-        listView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
-            @Override
-            public boolean onGroupClick(ExpandableListView expandableListView, View view, int groupPosition, long l) {
-                boolean isExpanded = expandableListView.isGroupExpanded(groupPosition);
-                if(isExpanded){
-                    expandableListView.collapseGroup(groupPosition);
-                }else {
-                    expandableListView.expandGroup(groupPosition, true);
-                }
-                return true;
-            }
-        });
-
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int flatPos, long l) {
-                //得到点击的父位置，子位置
-                long packedPos = ((ExpandableListView)parent).getExpandableListPosition(flatPos);
-                int groupPosition= ExpandableListView.getPackedPositionGroup(packedPos);
-                int childPosition = ExpandableListView.getPackedPositionChild(packedPos);
-                if(childPosition == -1){//-1-父项; >=0-子项;
-                    Intent intent = new Intent(stu_viewActivity.this,data_editActivity.class);
-                    intent.putExtra("activity_id",activity_id);
-                    intent.putExtra("ref_comment_id",adapter.getGroup(groupPosition).getCommentId());
-                    intent.putExtra("ref_comment_content",adapter.getGroup(groupPosition).getContent());
-
-                    startActivity(intent);
-                }
-                return true;
-            }
-        });
-    }
-
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
@@ -340,16 +189,5 @@ public class stu_viewActivity extends AppCompatActivity {
         Intent naviIntent = new Intent("android.intent.action.VIEW", android.net.Uri.parse("qqmap://map/routeplan?type=drive&from=&fromcoord=&to=目的地&tocoord=" + lat + "," + lon + "&policy=0&referer=appName"));
         context.startActivity(naviIntent);
 
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if(id==android.R.id.home){
-            finish();
-            return true;
-        }
-        else return false;
     }
 }

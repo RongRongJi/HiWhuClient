@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:state_pressed="true">
-        <shape>
-            <solid android:color="#289a9e" />
-        </shape>
-    </item>
-
-    <item>
-        <shape>
-            <solid android:color="#49b3b6" />
-        </shape>
-    </item>
+    <item android:state_focused="true" android:drawable="@drawable/btn_pressed" />
+    <item android:drawable="@drawable/btn_normal" />
 
 </selector>

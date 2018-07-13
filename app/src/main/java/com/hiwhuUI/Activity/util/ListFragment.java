@@ -113,7 +113,7 @@ public class ListFragment extends Fragment {
                 recyclerAdapter = new RecyclerAdapter_activityCard(toActivityCardList(joinedList),0);
                 break;
             case 4://学生收藏的活动
-                recyclerAdapter = new RecyclerAdapter_activityCard(toActivityCardList(list),0);
+                recyclerAdapter = new RecyclerAdapter_activityCard(toActivityCardList(list),1);
                 break;
             case 5://主办方审核活动
                 GetActivityBySponsorID gas = GetActivityBySponsorID.GetActivityInit(staticData.getSponsorID());
@@ -162,6 +162,7 @@ public class ListFragment extends Fragment {
 
         for (int i = 0; i <list.size() ; i++) {
             ActivityCard a = list.get(i).toActivityCard();
+            a.setSignup(true);
             cardList.add(a);
         }
 
