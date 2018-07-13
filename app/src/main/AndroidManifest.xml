@@ -55,7 +55,11 @@
         <activity android:name="com.hiwhuUI.Activity.stu_dataActivity" />
         <activity android:name="com.hiwhuUI.Activity.com_dataActivity" />
         <activity android:name="com.hiwhuUI.Activity.stu_viewActivity" />
-        <activity android:name="com.hiwhuUI.Activity.com_describeActivity"></activity>
+
+        <activity android:name="com.hiwhuUI.Activity.com_describeActivity">
+        </activity>
+
+
         <activity android:name="com.hiwhuUI.Activity.data_editActivity" />
         <activity android:name="com.hiwhuUI.Activity.ListActivity" />
         <activity android:name="com.hiwhuUI.Activity.SearchActivity">
@@ -81,6 +85,9 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+
+
+
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="EgBfAaPhZPU51PwELATuEU9uEh0K7sKx" />
@@ -92,6 +99,7 @@
         <service android:name="com.baidu.location.f"
             android:enabled="true"
             android:process=":remote"/>
+
     </application>
 
 </manifest>
