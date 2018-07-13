@@ -1,149 +1,311 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/id_scrollView"
+    android:background="#f5f5f5"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    >
-    <RelativeLayout
-        android:id="@+id/support_view"
-        android:orientation="vertical"
+    android:layout_height="wrap_content">
+
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar_main"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:background="?attr/colorPrimary" />
-
-    <ImageView
-
-        android:id="@+id/activity_poster"
-        android:layout_width="420dip"
-        android:layout_height="420dip"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:scaleType="fitStart"
-        android:src="@drawable/poster" />
-
-    <TextView
-        android:id="@+id/activity_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/activity_poster"
-        android:paddingBottom="10dip"
-        android:layout_marginLeft="11dip"
-        android:textSize="26sp"
-        android:textColor="#555555"
-        android:text="第一届趣味知识竞赛" />
-        <View
-            android:id="@+id/anchor"
+        <android.support.v7.widget.Toolbar
+            android:background="#49b3b6"
+            android:id= "@+id/toolbar_com_view"
             android:layout_width="match_parent"
-            android:layout_height="400dip"
-            android:minHeight="400dip" />
+            android:layout_height="?android:attr/actionBarSize"
+            app:menu="@menu/edit">
+
+            <TextView
+                android:id= "@+id/toolbar_com_view_text"
+                android:layout_gravity="center"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/container_com_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="50dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/anchor"
             android:orientation="vertical">
-    <TextView
-        android:id="@+id/activity_startTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/activity_name"
-        android:layout_marginLeft="11dip"
-        android:textSize="20sp"
-        android:textColor="#7D7D7D"
-        android:text="活动时间：2018年7月5日15:14"
-        />
 
-    <TextView
-        android:id="@+id/activity_endTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/activity_startTime"
-        android:layout_marginLeft="11dp"
-        android:textSize="20sp"
-        android:textColor="#7D7D7D"
-        android:text="结束时间：2018年7月5日15:19"
-        />
-
-    <Button
-        android:id="@+id/activity_position"
-        android:layout_width="match_parent"
-        android:layout_height="25dip"
-        android:layout_below="@id/activity_endTime"
-        android:layout_marginLeft="10dip"
-        android:background="#00000000"
-        android:textColor="#7D7D7D"
-        android:textSize="20sp"
-        android:gravity="start"
-        android:text="活动地点：经济与管理学院 教工之家"/>
-
-
-    <TextView
-        android:id="@+id/join_startTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/activity_position"
-        android:layout_marginLeft="11dip"
-        android:textSize="20sp"
-        android:textColor="#7D7D7D"
-        android:text="报名时间：2018年7月4日16:09"
-        />
-
-    <TextView
-        android:id="@+id/join_endTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/join_startTime"
-        android:layout_marginLeft="11dip"
-        android:textSize="20sp"
-        android:textColor="#7D7D7D"
-        android:text="报名时间：2018年7月4日16:12"/>
-            <TextView
-                android:layout_width="wrap_content"
+            <ImageView
+                android:id="@+id/activity_poster"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="11dip"
-                android:textSize="20sp"
-                android:textColor="#7D7D7D"
-                android:text="活动信息："/>
+                android:scaleType="fitStart"/>
+
             <TextView
-                android:id="@+id/activity_message"
-                android:layout_width="wrap_content"
+                android:id="@+id/activity_name"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="11dip"
-                android:textSize="18sp"
-                android:textColor="#7D7D7D"
-                android:text="@string/act_message"
-                android:layout_marginBottom="20dip"/>
+                android:textSize="24sp"
+                android:textColor="#333333"
+                android:paddingLeft="24dp"
+                android:paddingRight="24dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:background="#ffffff"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="8dp"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:background="#ffffff">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="4dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="12dp"
+                        android:paddingRight="20dp"
+                        android:textSize="14sp"
+                        android:textColor="#999999"
+                        android:text="开始时间"/>
+
+                    <TextView
+                        android:id="@+id/activity_startTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:textColor="#666666"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="12dp"
+                        android:paddingRight="20dp"
+                        android:textSize="14sp"
+                        android:textColor="#999999"
+                        android:text="结束时间"/>
+
+                    <TextView
+                        android:id="@+id/activity_endTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:textColor="#666666"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="12dp"
+                        android:paddingRight="20dp"
+                        android:textSize="14sp"
+                        android:textColor="#999999"
+                        android:text="活动地点"/>
+
+                    <TextView
+                        android:id="@+id/activity_position"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:textColor="#666666"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="12dp"
+                        android:paddingRight="20dp"
+                        android:textSize="14sp"
+                        android:textColor="#999999"
+                        android:text="报名开始"/>
+
+                    <TextView
+                        android:id="@+id/join_startTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:textColor="#666666"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="8dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="12dp"
+                        android:paddingRight="20dp"
+                        android:textSize="14sp"
+                        android:textColor="#999999"
+                        android:text="报名结束"/>
+
+                    <TextView
+                        android:id="@+id/join_endTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:textColor="#666666"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#fafafa"
+                    android:gravity="center_horizontal"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:textSize="14sp"
+                    android:textColor="#cccccc"
+                    android:text="———— 活动信息 ————"/>
+
+                <TextView
+                    android:id="@+id/details"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="12dp"
+                    android:paddingRight="12dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:textSize="18sp"
+                    android:textColor="#666666"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#fafafa"
+                    android:gravity="center_horizontal"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:textSize="14sp"
+                    android:textColor="#cccccc"
+                    android:text="———— 用户评论 ————"/>
+
+            </LinearLayout>
+
+            <com.hiwhuUI.Activity.util.CommentExpandableListView
+                android:id="@+id/comment_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@null"
+                android:listSelector="@android:color/transparent"
+                android:orientation="vertical"
+                android:scrollbars="none"/>
+
         </LinearLayout>
-    <ImageButton
-        android:id="@+id/back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25sp"
-        android:background="#00000000"
-        android:foregroundGravity="left"
-        app:srcCompat="@drawable/back" />
 
-    <ImageButton
-        android:id="@+id/edit_activity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="61dp"
-        android:layout_marginEnd="15dip"
-        android:layout_marginRight="15dip"
-        app:srcCompat="@android:drawable/ic_menu_edit" />
-    </RelativeLayout>
-</ScrollView>
+    </android.support.v4.widget.NestedScrollView>
+
+    <LinearLayout
+        android:id="@+id/bottom_stu_view"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/bottom_star"
+            android:text="收藏"
+            android:textColor="#49b3b6"
+            android:textSize="12sp"
+            android:typeface="serif"
+            android:background="@drawable/bottom_btn"
+            android:drawableTint="#49b3b6"
+            android:layout_gravity="center_vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/bottom_comment"
+            android:drawableTop="@drawable/ic_create_black_24dp"
+            android:text="写评论"
+            android:textColor="#49b3b6"
+            android:textSize="12sp"
+            android:typeface="serif"
+            android:background="@drawable/bottom_btn"
+            android:drawableTint="#49b3b6"
+            android:layout_gravity="center_vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/bottom_checkup"
+            android:drawableTop="@drawable/ic_group_add_black_24dp"
+            android:text="审核"
+            android:textColor="#49b3b6"
+            android:textSize="12sp"
+            android:typeface="serif"
+            android:background="@drawable/bottom_btn"
+            android:drawableTint="#49b3b6"
+            android:layout_gravity="center_vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/bottom_review"
+            android:drawableTop="@drawable/ic_playlist_add_black_24dp"
+            android:text="发表回顾"
+            android:textColor="#49b3b6"
+            android:textSize="12sp"
+            android:typeface="serif"
+            android:background="@drawable/bottom_btn"
+            android:drawableTint="#49b3b6"
+            android:layout_gravity="center_vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>

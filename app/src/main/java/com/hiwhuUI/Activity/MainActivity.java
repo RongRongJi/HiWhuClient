@@ -39,28 +39,26 @@ public class MainActivity extends AppCompatActivity{
 
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar_main);
         toolbar.setTitle("");
+        textView = (TextView)findViewById(R.id.toolbar_main_text);
+        textView.setText("活动");
         setSupportActionBar(toolbar);
+
         toolbar.setOnMenuItemClickListener(new android.support.v7.widget.Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     case R.id.search:
-                        Intent intent1 = new Intent();
-                        intent1.setClass(MainActivity.this, SearchActivity.class);
+                        Intent intent1 = new Intent(MainActivity.this, SearchActivity.class);
                         startActivity(intent1);
                         return true;
                     case R.id.add:
-                        Intent intent2 = new Intent();
-                        Log.e("inhere---","here");
-                        intent2.setClass(MainActivity.this, com_updateActivity.class);
+                        Intent intent2 = new Intent(MainActivity.this, com_updateActivity.class);
                         startActivity(intent2);
                         return true;
                 }
                 return false;
             }
         });
-        textView = (TextView)findViewById(R.id.toolbar_main_text);
-        textView.setText("活动");
 
 
         navigation = (BottomNavigationView) findViewById(R.id.navigation);
