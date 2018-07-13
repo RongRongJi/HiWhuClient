@@ -22,6 +22,7 @@ import java.util.List;
 import HttpConnect.GetActivityBySponsorID;
 import HttpConnect.GetAppliedActivity;
 import HttpConnect.GetAppliedStudentByActivityID;
+import HttpConnect.GetCurrentCollection;
 import HttpConnect.GetSearchResult;
 import data.staticData;
 import entity.Activity;
@@ -113,6 +114,7 @@ public class ListFragment extends Fragment {
                 recyclerAdapter = new RecyclerAdapter_activityCard(toActivityCardList(joinedList),0);
                 break;
             case 4://学生收藏的活动
+
                 recyclerAdapter = new RecyclerAdapter_activityCard(toActivityCardList(list),0);
                 break;
             case 5://主办方审核活动

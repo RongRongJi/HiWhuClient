@@ -16,6 +16,7 @@ import com.hiwhu.hiwhuclient.R;
 
 import java.util.List;
 
+import data.staticData;
 import entity.CommentCard;
 import entity.ReplyCard;
 
@@ -104,7 +105,7 @@ public class ExpandAdapter_Comment extends BaseExpandableListAdapter {
             convertView.setTag(groupHolder);
         }
 
-        Glide.with(context).load(R.drawable.stu_data_head)
+        Glide.with(context).load(staticData.getUrl()+"/"+commentCardList.get(groupPosition).getImg_id())
                 .diskCacheStrategy(DiskCacheStrategy.RESULT)
                 .error(R.drawable.user)
                 .centerCrop()

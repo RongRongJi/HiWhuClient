@@ -33,11 +33,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import HttpConnect.GetAllActivity;
+import HttpConnect.GetCommentAndReply;
 import HttpConnect.GetCurrentActivity;
 import HttpConnect.GetCurrentCollection;
 import HttpConnect.HttpUtil;
 import data.staticData;
+import entity.CommentAndReply;
 import entity.CommentCard;
+import entity.Reply;
 import entity.ReplyCard;
 import okhttp3.Call;
 import okhttp3.Response;
@@ -171,7 +174,7 @@ public class stu_viewActivity extends AppCompatActivity {
         resstarttime.setText(staticData.activity.getRegistrationStartTime());
         resendtime.setText(staticData.activity.getRegistrationEndTime());
         position.setText(staticData.activity.getLocation());
-        details.setText(getResources().getString(R.string.act_message));
+        details.setText(staticData.activity.getActivityProfile());
 
         image = (ImageView)findViewById(R.id.activity_poster);
         Glide.with(getBaseContext()).load(staticData.getUrl()+"/"+staticData.activity.getImage())
@@ -185,16 +188,23 @@ public class stu_viewActivity extends AppCompatActivity {
         registerForContextMenu(map_btn);
 
         listView = (CommentExpandableListView)findViewById(R.id.comment_list);
+
+        GetCommentAndReply gcar = GetCommentAndReply.GetCollectionInit(activity_id);
+        List<CommentAndReply> sList = gcar.sList;
+
         List<CommentCard> commentList = new ArrayList<>();
         List<CommentCard> commentList2 = new ArrayList<>();
-        List<ReplyCard> replyCardList = new ArrayList<>();
-        replyCardList.add(new ReplyCard("reply_name1","reply_content1","reply_time1"));
-        replyCardList.add(new ReplyCard("reply_name2","reply_content2","reply_time2"));
-        commentList.add(new CommentCard("1","name1","img1","content1","time1",replyCardList));
-        commentList.add(new CommentCard("2","name2","img2","content2","time2",null));
-        commentList.add(new CommentCard("3","name3","img3","content3","time3",replyCardList));
-        commentList2.addAll(commentList);
-        commentList2.addAll(commentList);
+        for(CommentAndReply car : sList){
+            List<ReplyCard> rlycards = new ArrayList<>();
+            List<Reply> rlys = car.getReplyList();
+            for(Reply r : rlys){
+                ReplyCard card = new ReplyCard(r.getReply_name(),r.getReply_content(),r.getReply_time());
+                rlycards.add(card);
+            }
+            CommentCard cCard = new CommentCard(car.getCommentID(),car.getUserName(),
+                    car.getUserHeadProtrait(),car.getContent(),car.getTime(),rlycards);
+            commentList.add(cCard);
+        }
         commentList2.addAll(commentList);
         initExpandableListView(commentList2);
     }

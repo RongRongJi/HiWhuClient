@@ -7,19 +7,19 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import data.staticData;
-import entity.Activity;
+import entity.Comment;
+import entity.CommentAndReply;
 import entity.Stu_collect_activity;
 import okhttp3.Call;
 import okhttp3.Response;
 
-public class GetCurrentCollection {
-    public static boolean lock = false;//线程锁
-    public static List<String> list= null;
-    private String url = staticData.getUrl()+"/GetCurrentCollectionServlet?studentID=";
+public class GetCommentAndReply {
+    public boolean lock = false;//线程锁
+    public List<CommentAndReply> sList;
+    private String url = staticData.getUrl()+"/GetCommentByActivityIDServlet?activityID=";
     public void sendRequestWithOkHttp() {
         HttpUtil.sendOkHttpRequest(url,new okhttp3.Callback(){
             @Override
@@ -38,38 +38,23 @@ public class GetCurrentCollection {
 
     private void pareseJSONWithGSON(String jsonData){
         Gson gson = new Gson();
-        if(list==null) list = new ArrayList<String>();
-        List<Stu_collect_activity> sList = gson.fromJson(jsonData,new TypeToken<List<Stu_collect_activity>>(){}.getType());
-        for(Stu_collect_activity tmp : sList){
-            String str = tmp.getActivityID();
-            list.add(str);
-        }
-        GetCurrentCollection.lock = true;
+        sList = gson.fromJson(jsonData,new TypeToken<List<CommentAndReply>>(){}.getType());
+        lock = true;
     }
 
-    public static void GetCollectionInit(String studentID){
-        GetCurrentCollection gcs = new GetCurrentCollection();
-        gcs.url += studentID;
+    public static GetCommentAndReply GetCollectionInit(String ActivityID){
+        GetCommentAndReply gcs = new GetCommentAndReply();
+        gcs.url += ActivityID;
+        Log.e("url",gcs.url);
         gcs.sendRequestWithOkHttp();
-        while(!GetCurrentCollection.lock){
+        while(!gcs.lock){
             try {
                 Thread.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-        GetCurrentCollection.lock=false;
-    }
-
-    public static void addStarList(String activityId){
-        list.add(activityId);
-    }
-
-    public static void removeStarList(String activityId){
-        list.remove(activityId);
-    }
-
-    public static boolean isStar(String activityId){
-        return (list!=null) && (list.contains(activityId));
+        gcs.lock=false;
+        return gcs;
     }
 }
