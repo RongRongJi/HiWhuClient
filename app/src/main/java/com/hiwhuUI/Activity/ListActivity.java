@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.hiwhu.hiwhuclient.R;
@@ -19,9 +20,9 @@ public class ListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
-        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar_data_edit);
+        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar_test);
         toolbar.setTitle("");
-        TextView textView = (TextView) findViewById(R.id.toolbar_data_edit_text);
+        TextView textView = (TextView) findViewById(R.id.toolbar_test_text);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

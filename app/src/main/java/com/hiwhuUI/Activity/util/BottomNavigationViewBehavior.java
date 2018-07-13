@@ -7,13 +7,13 @@ import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.View;
 
-public class BottomMenuBehavior extends CoordinatorLayout.Behavior<View> {
+public class BottomNavigationViewBehavior extends CoordinatorLayout.Behavior<View> {
 
-    public BottomMenuBehavior() {
+    public BottomNavigationViewBehavior() {
         super();
     }
 
-    public BottomMenuBehavior(Context context, AttributeSet attrs) {
+    public BottomNavigationViewBehavior(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 

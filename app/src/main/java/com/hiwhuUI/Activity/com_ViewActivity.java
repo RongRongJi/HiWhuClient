@@ -23,7 +23,7 @@ import okhttp3.Response;
 import android.widget.TextView;
 import android.widget.ScrollView;
 
-public class com_viewActivity extends AppCompatActivity {
+public class com_ViewActivity extends AppCompatActivity {
     private TextView tv = null;
     private ScrollView scrollView = null;
     @Override
@@ -35,7 +35,7 @@ public class com_viewActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //1.实例化
-                PopupMenu popupMenu=new PopupMenu(com_viewActivity.this,view);
+                PopupMenu popupMenu=new PopupMenu(com_ViewActivity.this,view);
                 //2.加载Menu资源
                 getMenuInflater().inflate(R.menu.edit,popupMenu.getMenu());
 
@@ -45,12 +45,12 @@ public class com_viewActivity extends AppCompatActivity {
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()){
                             case R.id.activity_edit:
-                                Toast.makeText(com_viewActivity.this,"重新编辑",Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(com_viewActivity.this,com_updateActivity.class);
+                                Toast.makeText(com_ViewActivity.this,"重新编辑",Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(com_ViewActivity.this,com_updateActivity.class);
                                 startActivity(intent);
                                 return true;
                             case R.id.activity_delete:
-                                AlertDialog.Builder dialog = new AlertDialog.Builder(com_viewActivity.this);
+                                AlertDialog.Builder dialog = new AlertDialog.Builder(com_ViewActivity.this);
                                 dialog.setTitle("你确定要删除该活动吗？");
                                 dialog.setMessage("删除后将不可恢复");
                                 dialog.setCancelable(false);
@@ -102,7 +102,7 @@ public class com_viewActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 staticData.setCurrentActivity(null);
-                Intent intent = new Intent(com_viewActivity.this,MainActivity.class);
+                Intent intent = new Intent(com_ViewActivity.this,MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -114,11 +114,11 @@ public class com_viewActivity extends AppCompatActivity {
             @Override
             public void run() {
                 if(flag){
-                    Toast.makeText(com_viewActivity.this,"活动已删除！",Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(com_viewActivity.this,MainActivity.class);
+                    Toast.makeText(com_ViewActivity.this,"活动已删除！",Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(com_ViewActivity.this,MainActivity.class);
                     startActivity(intent);
                 }else{
-                    Toast.makeText(com_viewActivity.this,"活动删除异常！",Toast.LENGTH_LONG).show();
+                    Toast.makeText(com_ViewActivity.this,"活动删除异常！",Toast.LENGTH_LONG).show();
                 }
             }
         });
