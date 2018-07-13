@@ -29,7 +29,7 @@ public class staticData {
     public static Sponsor sponsor=null;//获取当前主办方信息
     public static Student student=null;//获取当前学生信息
     public static Activity activity=null;//获取当前活动信息
-    private static List<String> starList=null; //用户收藏的活动id
+    public static List<String> starList=null; //用户收藏的活动id
 
 
     public static String getCurrentActivity() {
