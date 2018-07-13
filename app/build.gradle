@@ -18,6 +18,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets{
+        main{
+            jniLibs.srcDir 'libs'
+            //说明so的路径为该libs路径，关联所有地图SDK的so文件
+        }
+    }
 }
 
 dependencies {
@@ -35,4 +41,6 @@ dependencies {
     //noinspection GradleCompatible
     //compile 'com.android.support:percent:28.2.1'
     compile 'com.google.code.gson:gson:2.7'
+    compile files('libs/BaiduLBS_Android.jar')
+
 }

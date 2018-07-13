@@ -195,7 +195,7 @@ public class navigationFragment extends Fragment {
                         startActivity(intent);
                     }
                 });
-                //取消按钮
+                //退出登录
                 button1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
