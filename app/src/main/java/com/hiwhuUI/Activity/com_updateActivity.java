@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
-import android.net.http.HttpResponseCache;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.provider.MediaStore;
@@ -22,25 +21,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.hiwhu.hiwhuclient.R;
-import com.hiwhuUI.Activity.Map.MapActivity;
+import com.hiwhuUI.Activity.Map.LocationActivity;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.Map;
 
-import HttpConnect.HttpUtil;
 import HttpConnect.UploadImg;
 import data.staticData;
-import okhttp3.Call;
-import okhttp3.Response;
-
 
 
 public class com_updateActivity extends AppCompatActivity {
@@ -51,13 +43,13 @@ public class com_updateActivity extends AppCompatActivity {
     final static int UPDATE_FAILED=3;
     final static int ADD_SUCCEED=4;
     final static int ADD_FAILED=5;
-    final static int CODE = 1;
-    //调用系统相册-选择图片
+    //调用1-系统相册 2-百度地图
     private static final int IMAGE = 1;
+    private static final int ADDRESS = 2;
 
     private TextView text_image;
     private TextView text_type;
-    //private ImageView imageView;
+    private TextView text_address;
 
     private Button beginDate;
     private Button beginTime;
@@ -71,8 +63,6 @@ public class com_updateActivity extends AppCompatActivity {
                 enDate_signup,enTime_signup;
 
     private RadioButton button_need;
-    private ImageButton button_address;
-    private ImageButton button_type;
 
     //服务器所需要的数据
     private String imagePath;
@@ -217,6 +207,9 @@ public class com_updateActivity extends AppCompatActivity {
                 }
             }
         });
+
+        text_address = (TextView)findViewById(R.id.text_address);
+
         Button submit = (Button)findViewById(R.id.button_forward);
         final EditText actName = (EditText)findViewById(R.id.activityName);
         final EditText desc = (EditText)findViewById(R.id.introduction);
@@ -317,8 +310,8 @@ public class com_updateActivity extends AppCompatActivity {
                 startActivityForResult(intent, IMAGE);
                 break;
             case R.id.button_address:
-                Intent intent2 = new Intent(com_updateActivity.this,MapActivity.class);
-                startActivity(intent2);
+                Intent intent2 = new Intent(com_updateActivity.this, LocationActivity.class);
+                startActivityForResult(intent2, ADDRESS);
                 break;
             case R.id.button_type:
                 AlertDialog.Builder builder = new AlertDialog.Builder(com_updateActivity.this);
@@ -352,6 +345,22 @@ public class com_updateActivity extends AppCompatActivity {
                 case IMAGE:
                     if (resultCode == RESULT_OK) {
                         selectPic(data);
+                    }
+                    break;
+            }
+        }
+        if(requestCode == ADDRESS && resultCode == Activity.RESULT_OK && data != null){
+            super.onActivityResult(requestCode, resultCode, data);
+            switch (requestCode) {
+                case ADDRESS:
+                    if (resultCode == RESULT_OK) {
+                        //获取纬度
+                        Double latitude = data.getDoubleExtra("latitude",0.0);
+                        //获取经度
+                        Double longitude = data.getDoubleExtra("longitude",0.0);
+                        //修改地址
+                        String position = data.getStringExtra("position");
+                        text_address.setText(position);
                     }
                     break;
             }
