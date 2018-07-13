@@ -28,13 +28,19 @@ import com.hiwhu.hiwhuclient.R;
 import com.hiwhuUI.Activity.util.CommentExpandableListView;
 import com.hiwhuUI.Activity.util.ExpandAdapter_Comment;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import HttpConnect.GetAllActivity;
 import HttpConnect.GetCurrentActivity;
+import HttpConnect.GetCurrentCollection;
+import HttpConnect.HttpUtil;
 import data.staticData;
 import entity.CommentCard;
 import entity.ReplyCard;
+import okhttp3.Call;
+import okhttp3.Response;
 
 public class stu_viewActivity extends AppCompatActivity {
 
@@ -52,7 +58,7 @@ public class stu_viewActivity extends AppCompatActivity {
     private TextView toolbar_title;
     private String activity_id;
     private ImageView map_btn;
-    private boolean star;
+    private boolean star = false;
     private Drawable unstar;
     private Drawable stared;
     private Button btn_star;
@@ -70,6 +76,13 @@ public class stu_viewActivity extends AppCompatActivity {
         activity_id = getIntent().getStringExtra("activity_id");
         GetCurrentActivity.GetActivityInit(activity_id);
 
+        //收藏初始化
+        if(staticData.getStudentID()!=null){
+            if(GetCurrentCollection.list==null){
+                GetCurrentCollection.GetCollectionInit(staticData.getStudentID());
+            }
+        }
+
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar_stu_view);
         toolbar.setTitle("");
         toolbar_title = (TextView) findViewById(R.id.toolbar_stu_view_text);
@@ -81,27 +94,39 @@ public class stu_viewActivity extends AppCompatActivity {
         stared = getResources().getDrawable(R.drawable.ic_star_black_24dp);
 
         btn_star = findViewById(R.id.bottom_star);
-        star = staticData.isStar(activity_id);
+        if(staticData.getStudentID()!=null){
+            star = GetCurrentCollection.isStar(activity_id);
+        }
+
         if(star) btn_star.setCompoundDrawablesWithIntrinsicBounds(null,stared,null,null);
         else btn_star.setCompoundDrawablesWithIntrinsicBounds(null,unstar,null,null);
 
         btn_star.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(star){
-                    //从收藏表中删除 studenId,activity_id
-                    Toast.makeText(stu_viewActivity.this, "取消收藏", Toast.LENGTH_SHORT).show();
-                    star = false;
-                    staticData.removeStarList(activity_id);
-                    btn_star.setCompoundDrawablesWithIntrinsicBounds(null,unstar,null,null);
+                if(staticData.getStudentID()==null){
+                    Toast.makeText(stu_viewActivity.this,"请使用学生账号收藏！",Toast.LENGTH_LONG).show();
+                }else{
+                    String url = staticData.getUrl()+"/StuCollectActivityServlet?studentID="+staticData.getStudentID()
+                            +"&activityID="+activity_id;
+                    HttpUtil.sendOkHttpRequest(url, new okhttp3.Callback() {
+                        @Override
+                        public void onResponse(Call call, Response response) throws IOException {
+                            String s = response.body().string();
+                            if(s.equals("succeed\r\n")){
+                                Jump(true);
+                            }else{
+                                Jump(false);
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call call, IOException e) {
+                            Log.e("error",e.toString());
+                        }
+                    });
                 }
-                else {
-                    //在收藏表中插入 studenId,activity_id
-                    Toast.makeText(stu_viewActivity.this, "收藏成功", Toast.LENGTH_SHORT).show();
-                    star = true;
-                    staticData.addStarList(activity_id);
-                    btn_star.setCompoundDrawablesWithIntrinsicBounds(null,stared,null,null);
-                }
+
             }
         });
         btn_comment = findViewById(R.id.bottom_comment);
@@ -173,6 +198,35 @@ public class stu_viewActivity extends AppCompatActivity {
         commentList2.addAll(commentList);
         initExpandableListView(commentList2);
     }
+
+    //收藏动作
+    private void Jump(final boolean flag){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if(flag){
+                    if(star){
+                        //从收藏表中删除 studenId,activity_id
+                        Toast.makeText(stu_viewActivity.this, "取消收藏", Toast.LENGTH_SHORT).show();
+                        star = false;
+                        GetCurrentCollection.removeStarList(activity_id);
+                        btn_star.setCompoundDrawablesWithIntrinsicBounds(null,unstar,null,null);
+                    }
+                    else {
+                        //在收藏表中插入 studenId,activity_id
+                        Toast.makeText(stu_viewActivity.this, "收藏成功", Toast.LENGTH_SHORT).show();
+                        star = true;
+                        GetCurrentCollection.addStarList(activity_id);
+                        btn_star.setCompoundDrawablesWithIntrinsicBounds(null,stared,null,null);
+                    }
+                }else{
+                    Toast.makeText(stu_viewActivity.this,"操作超时！",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+
 
     private void initExpandableListView(final List<CommentCard> commentList){
         listView.setGroupIndicator(null);

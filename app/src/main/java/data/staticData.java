@@ -12,8 +12,8 @@ import entity.Student;
  */
 
 public class staticData {
-    //static String url = "http://192.168.23.1:8080";//服务器地址
-    static String url = "http://192.168.191.1:8080";//服务器地址
+    static String url = "http://192.168.23.1:8080";//服务器地址
+    //static String url = "http://192.168.191.1:8080";//服务器地址
     static String studentID = null;
     static String sponsorID = null;//登录用户id
     static String currentActivity = null;//当前所选活动
@@ -29,7 +29,6 @@ public class staticData {
     public static Sponsor sponsor=null;//获取当前主办方信息
     public static Student student=null;//获取当前学生信息
     public static Activity activity=null;//获取当前活动信息
-    public static List<String> starList=null; //用户收藏的活动id
 
 
     public static String getCurrentActivity() {
@@ -68,20 +67,4 @@ public class staticData {
         staticData.userType = userType;
     }
 
-    public static void setStarList(List<String> starList) {
-        staticData.starList = starList;
-    }
-
-    public static void addStarList(String activityId){
-        if(starList==null) starList = new ArrayList<>();
-        starList.add(activityId);
-    }
-
-    public static void removeStarList(String activityId){
-        starList.remove(activityId);
-    }
-
-    public static boolean isStar(String activityId){
-        return (starList!=null) && (starList.contains(activityId));
-    }
 }

@@ -128,27 +128,13 @@ public class com_viewActivity extends AppCompatActivity {
         stared = getResources().getDrawable(R.drawable.ic_star_black_24dp);
 
         btn_star = findViewById(R.id.bottom_star);
-        star = staticData.isStar(activity_id);
         if(star) btn_star.setCompoundDrawablesWithIntrinsicBounds(null,stared,null,null);
         else btn_star.setCompoundDrawablesWithIntrinsicBounds(null,unstar,null,null);
 
         btn_star.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(star){
-                    //从收藏表中删除 studenId,activity_id
-                    Toast.makeText(com_viewActivity.this, "取消收藏", Toast.LENGTH_SHORT).show();
-                    star = false;
-                    staticData.removeStarList(activity_id);
-                    btn_star.setCompoundDrawablesWithIntrinsicBounds(null,unstar,null,null);
-                }
-                else {
-                    //在收藏表中插入 studenId,activity_id
-                    Toast.makeText(com_viewActivity.this, "收藏成功", Toast.LENGTH_SHORT).show();
-                    star = true;
-                    staticData.addStarList(activity_id);
-                    btn_star.setCompoundDrawablesWithIntrinsicBounds(null,stared,null,null);
-                }
+                Toast.makeText(com_viewActivity.this,"请使用学生账号收藏！",Toast.LENGTH_LONG).show();
             }
         });
         btn_comment = findViewById(R.id.bottom_comment);
