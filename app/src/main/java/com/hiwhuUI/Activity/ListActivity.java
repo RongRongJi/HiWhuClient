@@ -59,6 +59,10 @@ public class ListActivity extends AppCompatActivity {
                 String activity_id = getIntent().getStringExtra("activity_id");
                 transaction.replace(R.id.container_list, ListFragment.newInstance(activity_id));
                 break;
+            case 8:
+                transaction.replace(R.id.container_list, ListFragment.newInstance("搜索"));
+                textView.setText("搜索");
+                break;
         }
         transaction.commit();
 
