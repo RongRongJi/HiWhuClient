@@ -58,6 +58,7 @@ public class navigationFragment extends Fragment {
         int userType = staticData.getUserType();
         View view = null;
         if(str.equals("主页")){
+            Log.e("error","进入主页");
             view = inflater.inflate(R.layout.fragment_navigation, null);
             TabLayout tabs = (TabLayout) view.findViewById(R.id.tabs);
             tabs.addTab(tabs.newTab().setText("推荐").setTag(0));
@@ -76,13 +77,13 @@ public class navigationFragment extends Fragment {
                 tab_adapter.addFragment(tab);
             }
 
-
             tab_viewPager.setAdapter(tab_adapter);
             tabs.setupWithViewPager(tab_viewPager);
             tabs.setTabMode(TabLayout.MODE_SCROLLABLE);
 
         }
         else if(str.equals("我的")){
+            Log.e("error","进入我的");
             if(userType==1){
                 GetCurrentStudent.GetStudentInit();
                 view = inflater.inflate(R.layout.activity_stu_data, null);
@@ -106,6 +107,7 @@ public class navigationFragment extends Fragment {
                 Glide.with(this).load(R.drawable.stu_data_back)
                         .bitmapTransform(new BlurTransformation(getContext(), 25), new CenterCrop(getContext()))
                         .into(back);
+
                 //设置圆形头像
                 Glide.with(this).load(url).skipMemoryCache(true) // 不使用内存缓存
                         .diskCacheStrategy(DiskCacheStrategy.NONE) // 不使用磁盘缓存
@@ -159,7 +161,6 @@ public class navigationFragment extends Fragment {
 
             }
             else if(userType==2){
-                Log.e("error","进入我的");
                 GetCurrentSponsor.GetSponsorInit();
                 view = inflater.inflate(R.layout.activity_com_data, null);
 
@@ -230,8 +231,8 @@ public class navigationFragment extends Fragment {
             }
         }
         else{
+            Log.e("error","进入消息");
             if (userType == 1){
-                Log.e("error","进入消息");
                 view = inflater.inflate(R.layout.activity_message_com, null);
                 final List<comMessage>  stuMessageList= new ArrayList<>();
                 for (int i = 0;i<1;i++){
@@ -266,7 +267,6 @@ public class navigationFragment extends Fragment {
                 });
             }
             else if (userType ==2){
-                Log.e("error","进入消息");
                 view = inflater.inflate(R.layout.activity_message_com, null);
                 final List<comMessage> messageList = new ArrayList<>();
                 for (int i = 0;i<1;i++){

@@ -1,16 +1,12 @@
 package com.hiwhuUI.Activity;
 
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.view.ViewPager;
+import android.support.v4.app.FragmentManager;
 import android.support.design.widget.BottomNavigationView;
 
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v7.widget.Toolbar;
@@ -18,7 +14,6 @@ import android.widget.TextView;
 
 
 import com.hiwhu.hiwhuclient.R;
-import com.hiwhuUI.Activity.util.navigationAdapter;
 import com.hiwhuUI.Activity.util.navigationFragment;
 
 import data.staticData;
@@ -26,11 +21,13 @@ import data.staticData;
 public class MainActivity extends AppCompatActivity{
     private Toolbar toolbar;
     private BottomNavigationView navigation;
-    private ViewPager navigation_viewPager;
-    private MenuItem menuItem;
-    private navigationAdapter navigation_adapter;
     private int userType = staticData.getUserType();
     private TextView textView;
+    private FragmentManager fragmentManager;
+    private int current;
+    private navigationFragment home;
+    private navigationFragment notice;
+    private navigationFragment user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +36,7 @@ public class MainActivity extends AppCompatActivity{
 
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar_main);
         toolbar.setTitle("");
-        textView = (TextView)findViewById(R.id.toolbar_main_text);
+        textView = (TextView) findViewById(R.id.toolbar_main_text);
         textView.setText("活动");
         setSupportActionBar(toolbar);
 
@@ -61,6 +58,11 @@ public class MainActivity extends AppCompatActivity{
         });
 
 
+        home = navigationFragment.newInstance("主页");
+        fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().add(R.id.container_main, home).show(home).commit();
+        current = 0;
+
         navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -69,61 +71,53 @@ public class MainActivity extends AppCompatActivity{
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.navigation_home:
-                                navigation_viewPager.setCurrentItem(0);
+                                if (current == 0) return true;
+                                current = 0;
+                                fragmentManager.beginTransaction().show(home).hide(notice).hide(user).commit();
                                 textView.setText("活动");
                                 toolbar.getMenu().findItem(R.id.search).setVisible(true);
-                                if(userType==2){
+                                if (userType == 2) {
                                     toolbar.getMenu().findItem(R.id.add).setVisible(true);
                                 }
                                 return true;
+
                             case R.id.navigation_notice:
-                                navigation_viewPager.setCurrentItem(1);
+                                if (current == 1) return true;
+                                else current = 1;
+
+                                if (notice == null) {
+                                    notice = navigationFragment.newInstance("消息");
+                                    if (user == null)
+                                        fragmentManager.beginTransaction().add(R.id.container_main, notice).hide(home).commit();
+                                    else
+                                        fragmentManager.beginTransaction().add(R.id.container_main, notice).hide(home).hide(user).commit();
+                                } else
+                                    fragmentManager.beginTransaction().hide(home).show(notice).hide(user).commit();
+
                                 textView.setText("消息");
                                 toolbar.getMenu().findItem(R.id.search).setVisible(false);
                                 toolbar.getMenu().findItem(R.id.add).setVisible(false);
                                 return true;
+
                             case R.id.navigation_user:
-                                navigation_viewPager.setCurrentItem(2);
+                                if (current == 2) return true;
+                                else current = 2;
+                                if (user == null) {
+                                    user = navigationFragment.newInstance("我的");
+                                    if (notice == null)
+                                        fragmentManager.beginTransaction().add(R.id.container_main, user).hide(home).commit();
+                                    else
+                                        fragmentManager.beginTransaction().add(R.id.container_main, user).hide(home).hide(notice).commit();
+                                } else
+                                    fragmentManager.beginTransaction().hide(home).hide(notice).show(user).commit();
                                 textView.setText("我的");
                                 toolbar.getMenu().findItem(R.id.search).setVisible(false);
                                 toolbar.getMenu().findItem(R.id.add).setVisible(false);
-
                                 return true;
                         }
                         return false;
                     }
                 });
-
-        navigation_viewPager = (ViewPager) findViewById(R.id.navigation_viewPager);
-        navigation_viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                if (menuItem != null) {
-                    menuItem.setChecked(false);
-                } else {
-                    navigation.getMenu().getItem(0).setChecked(false);
-                }
-                menuItem = navigation.getMenu().getItem(position);
-                menuItem.setChecked(true);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-            }
-        });
-
-        navigation_adapter = new navigationAdapter(getSupportFragmentManager());
-
-        navigation_adapter.addFragment(navigationFragment.newInstance("主页"));
-        navigation_adapter.addFragment(navigationFragment.newInstance("消息"));
-        navigation_adapter.addFragment(navigationFragment.newInstance("我的"));
-        navigation_viewPager.setAdapter(navigation_adapter);
-
     }
 
     @Override

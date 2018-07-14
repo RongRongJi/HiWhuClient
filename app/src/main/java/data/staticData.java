@@ -12,8 +12,8 @@ import entity.Student;
  */
 
 public class staticData {
-    static String url = "http://192.168.23.1:8080";//服务器地址
-    //static String url = "http://192.168.191.1:8080";//服务器地址
+    //static String url = "http://192.168.23.1:8080";//服务器地址
+    static String url = "http://192.168.191.1:8080";//服务器地址
     static String studentID = null;
     static String sponsorID = null;//登录用户id
     static String currentActivity = null;//当前所选活动
