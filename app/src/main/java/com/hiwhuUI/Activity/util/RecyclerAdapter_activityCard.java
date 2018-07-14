@@ -88,7 +88,12 @@ public class RecyclerAdapter_activityCard extends RecyclerView.Adapter<RecyclerA
         });
         holder.card_title.setText(activityCard.getTitle());
         holder.card_time.setText(activityCard.getTime());
-        holder.card_location.setText(activityCard.getLocation());
+        if(activityCard.getLocation()==null)
+            holder.card_location.setText("地点未设置");
+        else{
+            String[] tmp = activityCard.getLocation().split("\\|\\|");
+            holder.card_location.setText(tmp[0]);
+        }
         switch (option){
             case 0:
                 holder.card_btn.setVisibility(View.INVISIBLE);

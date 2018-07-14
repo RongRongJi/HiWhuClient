@@ -84,6 +84,9 @@ public class com_updateActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         setContentView(R.layout.activity_com_update);
+
+        final String activity_id = getIntent().getStringExtra("activity_id");
+
         //隐藏默认标题栏
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null){
@@ -221,11 +224,11 @@ public class com_updateActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String url;
-                if(staticData.getCurrentActivity()==null){
+                if(activity_id==null){
                     url = staticData.getUrl()+"/AddActivityServlet?";
                 }else{
                     url = staticData.getUrl()+"/UpdateActivityServlet"
-                            +"?activityID="+staticData.getCurrentActivity()
+                            +"?activityID="+activity_id
                             +"&sponsorID="+staticData.getSponsorID()+"&";
                 }
                 title = actName.getText().toString();
@@ -243,6 +246,7 @@ public class com_updateActivity extends AppCompatActivity {
                     registrationStartTime = java.net.URLEncoder.encode(registrationStartTime, "UTF-8");
                     registrationEndTime = java.net.URLEncoder.encode(registrationEndTime, "UTF-8");
                     location = java.net.URLEncoder.encode(location,"UTF-8");
+                    Log.e("locationafter",location);
                     //经纬度latitude、longitude怎么传？
                     activityProfile = java.net.URLEncoder.encode(activityProfile,"UTF-8");
                     url = url+"title="+title
@@ -253,7 +257,9 @@ public class com_updateActivity extends AppCompatActivity {
                             +"&location="+location
                             +"&activityProfile="+activityProfile
                             +"&sponsorID="+staticData.getSponsorID()
-                            +"&type="+activitytype;
+                            +"&type="+activitytype
+                            +"&latitude="+latitude
+                            +"&longitude="+longitude;
                     Log.e("url----", url);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -277,7 +283,9 @@ public class com_updateActivity extends AppCompatActivity {
                 if(ADD_SUCCEED == flag){
                     Toast.makeText(com_updateActivity.this,"活动已创建！",Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(com_updateActivity.this,com_viewActivity.class);
+                    intent.putExtra("activity_id",staticData.getCurrentActivity());
                     startActivity(intent);
+                    finish();
                 }else if(ADD_FAILED == flag){
                     Toast.makeText(com_updateActivity.this,"活动创建失败！",Toast.LENGTH_LONG).show();
                 }else if(UPDATE_FAILED == flag){
@@ -285,6 +293,7 @@ public class com_updateActivity extends AppCompatActivity {
                 }else if(UPDATE_SUCCEED == flag){
                     Toast.makeText(com_updateActivity.this,"更新成功！",Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(com_updateActivity.this,com_viewActivity.class);
+                    intent.putExtra("activity_id",staticData.getCurrentActivity());
                     startActivity(intent);
                 }
             }

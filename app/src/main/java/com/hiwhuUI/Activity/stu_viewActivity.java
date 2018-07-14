@@ -47,8 +47,8 @@ import okhttp3.Response;
 
 public class stu_viewActivity extends AppCompatActivity {
 
-    private static final String LAT_MAP ="30.5387500000";
-    private static final String LONG_MAP ="114.3725800000";
+    private String LAT_MAP = null;
+    private String LONG_MAP = null;
 
     private TextView name;
     private TextView starttime;
@@ -148,9 +148,15 @@ public class stu_viewActivity extends AppCompatActivity {
                 btn_signup.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(stu_viewActivity.this, SignupActivity.class);
-                        intent.putExtra("activity_id",activity_id);
-                        startActivity(intent);
+                        if(staticData.activity.getRegistrationStartTime().equals("1000-12-31 00:00:00.0"))
+                        {
+                            Toast.makeText(stu_viewActivity.this,"不需要报名",Toast.LENGTH_SHORT).show();
+
+                        }else{
+                            Intent intent = new Intent(stu_viewActivity.this, SignupActivity.class);
+                            intent.putExtra("activity_id",activity_id);
+                            startActivity(intent);
+                        }
                     }
                 });
                 break;
@@ -171,9 +177,25 @@ public class stu_viewActivity extends AppCompatActivity {
         name.setText(staticData.activity.getTitle());
         starttime.setText(staticData.activity.getStartTIme());
         endtime.setText(staticData.activity.getEndTime());
-        resstarttime.setText(staticData.activity.getRegistrationStartTime());
-        resendtime.setText(staticData.activity.getRegistrationEndTime());
-        position.setText(staticData.activity.getLocation());
+        if(staticData.activity.getRegistrationStartTime().equals("1000-12-31 00:00:00.0")){
+            resstarttime.setText("不需要报名");
+            resendtime.setText("不需要报名");
+        }else{
+            resstarttime.setText(staticData.activity.getRegistrationStartTime());
+            resendtime.setText(staticData.activity.getRegistrationEndTime());
+        }
+        if(staticData.activity.getLocation()!=null){
+            String[] locations = staticData.activity.getLocation().split("\\|\\|");
+            if(locations.length!=0){
+                position.setText(locations[0]);
+                LAT_MAP = locations[1];
+                LONG_MAP = locations[2];
+            }
+            else
+                position.setText("地点未设置");
+        }else{
+            position.setText("地点未设置");
+        }
         details.setText(staticData.activity.getActivityProfile());
 
         image = (ImageView)findViewById(R.id.activity_poster);
@@ -264,17 +286,6 @@ public class stu_viewActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int flatPos, long l) {
                 //得到点击的父位置，子位置
-                long packedPos = ((ExpandableListView)parent).getExpandableListPosition(flatPos);
-                int groupPosition= ExpandableListView.getPackedPositionGroup(packedPos);
-                int childPosition = ExpandableListView.getPackedPositionChild(packedPos);
-                if(childPosition == -1){//-1-父项; >=0-子项;
-                    Intent intent = new Intent(stu_viewActivity.this,data_editActivity.class);
-                    intent.putExtra("activity_id",activity_id);
-                    intent.putExtra("ref_comment_id",adapter.getGroup(groupPosition).getCommentId());
-                    intent.putExtra("ref_comment_content",adapter.getGroup(groupPosition).getContent());
-
-                    startActivity(intent);
-                }
                 return true;
             }
         });
@@ -290,6 +301,10 @@ public class stu_viewActivity extends AppCompatActivity {
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
+        if(LAT_MAP==null||LONG_MAP==null){
+            Toast.makeText(this,"该主办方未设置地点",Toast.LENGTH_SHORT).show();
+            return false;
+        }
         switch (item.getItemId()){
             case R.id.map_gd:
                 Intent intent;

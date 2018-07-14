@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import HttpConnect.GetActivityBySponsorID;
+import HttpConnect.GetAllActivity;
+import HttpConnect.GetAllCollectionActivity;
 import HttpConnect.GetAppliedActivity;
 import HttpConnect.GetAppliedStudentByActivityID;
 import HttpConnect.GetCurrentCollection;
@@ -94,8 +96,6 @@ public class ListFragment extends Fragment {
 
         RecyclerAdapter_activityCard recyclerAdapter = null;
 
-        List<Activity> list = staticData.activityList;
-
         switch (option){
             //分别获取后台活动数据 list
             case 1://学生待审核的活动列表
@@ -114,8 +114,9 @@ public class ListFragment extends Fragment {
                 recyclerAdapter = new RecyclerAdapter_activityCard(toActivityCardList(joinedList),0);
                 break;
             case 4://学生收藏的活动
-
-                recyclerAdapter = new RecyclerAdapter_activityCard(toActivityCardList(list),0);
+                GetAllCollectionActivity collected = GetAllCollectionActivity.GetActivityInit();
+                List<Activity> collectedList = collected.activityList;
+                recyclerAdapter = new RecyclerAdapter_activityCard(toActivityCardList(collectedList),0);
                 break;
             case 5://主办方审核活动
                 GetActivityBySponsorID gas = GetActivityBySponsorID.GetActivityInit(staticData.getSponsorID());
