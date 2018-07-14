@@ -29,6 +29,9 @@
 
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"><!--访问位置附加命令--></uses-permission>
 
+    <!--调用系统日历和插入日程权限-->
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
 
     <application
         android:name="com.hiwhuUI.Activity.Map.MyApplication"
@@ -40,14 +43,16 @@
         <activity android:name="com.hiwhuUI.Activity.com_registActivity" />
         <activity android:name="com.hiwhuUI.Activity.stu_registActivity" />
         <activity android:name="com.hiwhuUI.Activity.MainActivity" />
-        <activity android:name="com.hiwhuUI.Activity.com_updateActivity" />
+        <activity android:name="com.hiwhuUI.Activity.com_updateActivity" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
         <activity android:name="com.hiwhuUI.Activity.com_viewActivity" />
         <activity android:name="com.hiwhuUI.Activity.LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name="com.hiwhuUI.Activity.SignupActivity" />
         <activity android:name="com.hiwhuUI.Activity.stu_dataActivity" />
