@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.view.MenuItem;
 
@@ -76,6 +77,7 @@ public class com_viewActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
         toolbar.setOnMenuItemClickListener(new android.support.v7.widget.Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
@@ -83,7 +85,9 @@ public class com_viewActivity extends AppCompatActivity {
                     case R.id.activity_edit:
                         Toast.makeText(com_viewActivity.this,"重新编辑",Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(com_viewActivity.this,com_updateActivity.class);
+                        intent.putExtra("activity_id",activity_id);
                         startActivity(intent);
+                        finish();
                         return true;
                     case R.id.activity_delete:
                         AlertDialog.Builder dialog = new AlertDialog.Builder(com_viewActivity.this);
@@ -94,7 +98,7 @@ public class com_viewActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int which) {
                                 String url = staticData.getUrl()+"/DeleteActivityServlet"
-                                        +"?activityID="+staticData.getCurrentActivity();
+                                        +"?activityID="+activity_id;
                                 HttpUtil.sendOkHttpRequest(url, new okhttp3.Callback() {
                                     @Override
                                     public void onResponse(Call call, Response response) throws IOException {
@@ -131,6 +135,8 @@ public class com_viewActivity extends AppCompatActivity {
         stared = getResources().getDrawable(R.drawable.ic_star_black_24dp);
 
         btn_star = findViewById(R.id.bottom_star);
+        //不可见
+        //btn_star.setVisibility(View.GONE);
         if(star) btn_star.setCompoundDrawablesWithIntrinsicBounds(null,stared,null,null);
         else btn_star.setCompoundDrawablesWithIntrinsicBounds(null,unstar,null,null);
 
@@ -141,12 +147,12 @@ public class com_viewActivity extends AppCompatActivity {
             }
         });
         btn_comment = findViewById(R.id.bottom_comment);
+        //不可见
+        //btn_comment.setVisibility(View.GONE);
         btn_comment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(com_viewActivity.this, data_editActivity.class);
-                intent.putExtra("activity_id",activity_id);
-                startActivity(intent);
+                Toast.makeText(com_viewActivity.this,"请使用学生账号评论！",Toast.LENGTH_LONG).show();
             }
         });
         btn_checkup = findViewById(R.id.bottom_checkup);
@@ -196,7 +202,17 @@ public class com_viewActivity extends AppCompatActivity {
         endtime.setText(staticData.activity.getEndTime());
         resstarttime.setText(staticData.activity.getRegistrationStartTime());
         resendtime.setText(staticData.activity.getRegistrationEndTime());
-        position.setText(staticData.activity.getLocation());
+
+        if(staticData.activity.getLocation()!=null){
+            String[] locations = staticData.activity.getLocation().split("\\|\\|");
+            if(locations.length!=0)
+                position.setText(locations[0]);
+            else
+                position.setText("地点未设置");
+        }else{
+            position.setText("地点未设置");
+        }
+
         details.setText(staticData.activity.getActivityProfile());
 
         image = (ImageView)findViewById(R.id.activity_poster);

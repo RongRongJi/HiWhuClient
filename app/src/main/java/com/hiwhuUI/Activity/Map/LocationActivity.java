@@ -1,9 +1,14 @@
 package com.hiwhuUI.Activity.Map;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
@@ -117,6 +122,61 @@ public class LocationActivity extends Activity implements AdapterView.OnItemClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location);
         initUI();
+        judgePermission();
+    }
+
+
+    //6.0之后要动态获取权限，重要！！！
+    protected void judgePermission() {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            // 检查该权限是否已经获取
+            // 权限是否已经 授权 GRANTED---授权  DINIED---拒绝
+
+            // sd卡权限
+            String[] SdCardPermission = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+            if (ContextCompat.checkSelfPermission(this, SdCardPermission[0]) != PackageManager.PERMISSION_GRANTED) {
+                // 如果没有授予该权限，就去提示用户请求
+                ActivityCompat.requestPermissions(this, SdCardPermission, 100);
+            }
+
+            //手机状态权限
+            String[] readPhoneStatePermission = {Manifest.permission.READ_PHONE_STATE};
+            if (ContextCompat.checkSelfPermission(this, readPhoneStatePermission[0]) != PackageManager.PERMISSION_GRANTED) {
+                // 如果没有授予该权限，就去提示用户请求
+                ActivityCompat.requestPermissions(this, readPhoneStatePermission, 200);
+            }
+
+            //定位权限
+            String[] locationPermission = {Manifest.permission.ACCESS_FINE_LOCATION};
+            if (ContextCompat.checkSelfPermission(this, locationPermission[0]) != PackageManager.PERMISSION_GRANTED) {
+                // 如果没有授予该权限，就去提示用户请求
+                ActivityCompat.requestPermissions(this, locationPermission, 300);
+            }
+
+            String[] ACCESS_COARSE_LOCATION = {Manifest.permission.ACCESS_COARSE_LOCATION};
+            if (ContextCompat.checkSelfPermission(this, ACCESS_COARSE_LOCATION[0]) != PackageManager.PERMISSION_GRANTED) {
+                // 如果没有授予该权限，就去提示用户请求
+                ActivityCompat.requestPermissions(this, ACCESS_COARSE_LOCATION, 400);
+            }
+
+
+            String[] READ_EXTERNAL_STORAGE = {Manifest.permission.READ_EXTERNAL_STORAGE};
+            if (ContextCompat.checkSelfPermission(this, READ_EXTERNAL_STORAGE[0]) != PackageManager.PERMISSION_GRANTED) {
+                // 如果没有授予该权限，就去提示用户请求
+                ActivityCompat.requestPermissions(this, READ_EXTERNAL_STORAGE, 500);
+            }
+
+            String[] WRITE_EXTERNAL_STORAGE = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+            if (ContextCompat.checkSelfPermission(this, WRITE_EXTERNAL_STORAGE[0]) != PackageManager.PERMISSION_GRANTED) {
+                // 如果没有授予该权限，就去提示用户请求
+                ActivityCompat.requestPermissions(this, WRITE_EXTERNAL_STORAGE, 600);
+            }
+
+        }else{
+            //doSdCardResult();
+        }
+        //LocationClient.reStart();
     }
 
     /**
@@ -153,6 +213,7 @@ public class LocationActivity extends Activity implements AdapterView.OnItemClic
 
         // 地图状态监听
         mBaiduMap.setOnMapStatusChangeListener(this);
+
         // 定位初始化
         mLocClient = new LocationClient(getApplicationContext());
         mLocClient.registerLocationListener(myLocationListener);
@@ -162,6 +223,7 @@ public class LocationActivity extends Activity implements AdapterView.OnItemClic
         option.setScanSpan(5000);
         mLocClient.setLocOption(option);
         mLocClient.start();
+        //mLocClient.requestLocation();
         // 可定位
         mBaiduMap.setMyLocationEnabled(true);
 
@@ -176,6 +238,7 @@ public class LocationActivity extends Activity implements AdapterView.OnItemClic
         fl_back.setOnClickListener(this);
         fl_search.setOnClickListener(this);
         tv_send.setOnClickListener(this);
+
     }
 
     @Override

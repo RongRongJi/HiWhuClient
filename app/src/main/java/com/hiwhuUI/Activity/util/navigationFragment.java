@@ -201,6 +201,8 @@ public class navigationFragment extends Fragment {
                     public void onClick(View view) {
                         Intent intent = new  Intent(getActivity(),LoginActivity.class);
                         startActivity(intent);
+                        staticData.setSponsorID(null);
+                        staticData.setStudentID(null);
                         getActivity().finish();
                     }
                 });
