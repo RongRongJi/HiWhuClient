@@ -73,7 +73,15 @@ public class MainActivity extends AppCompatActivity{
                             case R.id.navigation_home:
                                 if (current == 0) return true;
                                 current = 0;
-                                fragmentManager.beginTransaction().show(home).hide(notice).hide(user).commit();
+                                if(notice==null){
+                                    fragmentManager.beginTransaction().show(home).hide(user).commit();
+                                }
+                                else if(user==null){
+                                    fragmentManager.beginTransaction().show(home).hide(notice).commit();
+                                }
+                                else{
+                                    fragmentManager.beginTransaction().show(home).hide(notice).hide(user).commit();
+                                }
                                 textView.setText("活动");
                                 toolbar.getMenu().findItem(R.id.search).setVisible(true);
                                 if (userType == 2) {
