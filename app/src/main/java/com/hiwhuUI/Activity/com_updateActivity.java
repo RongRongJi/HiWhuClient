@@ -29,6 +29,7 @@ import android.widget.Toast;
 
 import com.hiwhu.hiwhuclient.R;
 import com.hiwhuUI.Activity.Map.LocationActivity;
+import com.hiwhuUI.Activity.process.DetailActivity;
 
 import java.io.File;
 
@@ -625,6 +626,7 @@ public class com_updateActivity extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                DetailActivity.start(view.getContext(),10);
                 String url;
                 if(activity_id==null){
                     url = staticData.getUrl()+"/AddActivityServlet?";
@@ -685,16 +687,20 @@ public class com_updateActivity extends AppCompatActivity {
                 if(ADD_SUCCEED == flag){
                     Toast.makeText(com_updateActivity.this,"活动已创建！",Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(com_updateActivity.this,com_viewActivity.class);
+                    Intent intent = new Intent(getApplicationContext(),com_viewActivity.class);
                     intent.putExtra("activity_id",staticData.getCurrentActivity());
                     startActivity(intent);
                     finish();
                 }else if(ADD_FAILED == flag){
+                    DetailActivity.detailActivity.finish();
                     Toast.makeText(com_updateActivity.this,"活动创建失败！",Toast.LENGTH_LONG).show();
                 }else if(UPDATE_FAILED == flag){
+                    DetailActivity.detailActivity.finish();
                     Toast.makeText(com_updateActivity.this,"更新失败！",Toast.LENGTH_LONG).show();
                 }else if(UPDATE_SUCCEED == flag){
                     Toast.makeText(com_updateActivity.this,"更新成功！",Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(com_updateActivity.this,com_viewActivity.class);
+                    Intent intent = new Intent(getApplicationContext(),com_viewActivity.class);
                     intent.putExtra("activity_id",staticData.getCurrentActivity());
                     startActivity(intent);
                 }
