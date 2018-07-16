@@ -28,7 +28,7 @@
             android:layout_height="60dp"
             android:layout_alignParentRight="true"
             android:background="@null"
-            android:hint="请输入您的用户名"
+            android:hint="请输入您的学号/用户名"
             android:textSize="15sp"
             android:singleLine="true"
             android:maxLines="1"/>
@@ -38,7 +38,7 @@
             android:layout_height="60dp"
             android:gravity="center"
             android:layout_toLeftOf="@+id/edit_username"
-            android:text="用户名"/>
+            android:text="账号"/>
 
     </RelativeLayout>
     <RelativeLayout

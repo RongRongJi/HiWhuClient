@@ -40,7 +40,7 @@
             android:id="@+id/p2_text_stu_username"
             android:layout_width="100dp"
             android:layout_height="match_parent"
-            android:text="用户名"
+            android:text="姓名"
             android:layout_alignParentLeft="true"
             android:gravity="center"
             android:textSize="17sp"/>
@@ -49,7 +49,7 @@
             android:layout_width="240dp"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
-            android:hint="请输入你的用户名"
+            android:hint="请输入你的姓名"
             android:background="@drawable/edittext"
             android:textSize="15sp"/>
     </RelativeLayout>
