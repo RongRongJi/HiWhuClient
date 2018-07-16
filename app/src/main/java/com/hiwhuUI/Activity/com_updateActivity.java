@@ -78,6 +78,29 @@ public class com_updateActivity extends AppCompatActivity {
     private Double longitude=null;
     private String activityProfile = null;
 
+    //时间选择器需要的限制
+    private int begDate_year = 10000;
+    private int begDate_month = 10000;
+    private int begDate_day = 10000;
+    private int begTime_hour = 10000;
+    private int begTime_minute = 10000;
+    private int enDate_year = 10000;
+    private int enDate_month = 10000;
+    private int enDate_day = 10000;
+    private int enTime_hour = 10000;
+    private int enTime_minute = 10000;
+    private int begDate_signup_year = 10000;
+    private int begDate_signup_month = 10000;
+    private int begDate_signup_day = 10000;
+    private int begTime_signup_hour = 10000;
+    private int begTime_signup_minute = 10000;
+    private int enDate_signup_year = 10000;
+    private int enDate_signup_month = 10000;
+    private int enDate_signup_day = 10000;
+    private int enTime_signup_hour = 10000;
+    private int enTime_signup_minute = 10000;
+    private Boolean theSameDay = false;
+    private Boolean theSameDay_signup = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +122,9 @@ public class com_updateActivity extends AppCompatActivity {
                 new DatePickerDialog(com_updateActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                        begDate_year = year;
+                        begDate_month = month;
+                        begDate_day = day;
                         begDate = String.format("%d-%d-%d",year,month+1,day);
                         beginDate.setText(begDate);
                     }
@@ -113,7 +139,13 @@ public class com_updateActivity extends AppCompatActivity {
                 new TimePickerDialog(com_updateActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-                        begTime = String.format("%d:%d",hour,minute);
+                        begTime_hour = hour;
+                        begTime_minute = minute;
+                        if(minute<10) {
+                            begTime = String.format("%d:0%d", hour, minute);
+                        }else{
+                            begTime = String.format("%d:%d", hour, minute);
+                        }
                         beginTime.setText(begTime);
                     }
                 },0,0,true).show();
@@ -127,8 +159,58 @@ public class com_updateActivity extends AppCompatActivity {
                 new DatePickerDialog(com_updateActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                        enDate= String.format("%d-%d-%d",year,month+1,day);
-                        endDate.setText(enDate);
+                        enDate_year = year;
+                        enDate_month = month;
+                        enDate_day = day;
+                        if(begDate_year!=10000&&begDate_month!=10000&&begDate_day!=10000) {
+                            if (enDate_year == begDate_year) {
+                                if (enDate_month == begDate_month) {
+                                    if (enDate_day >= begDate_day) {
+                                        if (enDate_day == begDate_day) {
+                                            theSameDay = true;
+                                        }else {
+                                            theSameDay = false;
+                                        }
+                                        enDate = String.format("%d-%d-%d", year, month + 1, day);
+                                        endDate.setText(enDate);
+                                    } else {
+                                        theSameDay = false;
+                                        enDate_year = 10000;
+                                        enDate_month = 10000;
+                                        enDate_day = 10000;
+                                        endDate.setText("请重新选择");
+                                        Toast.makeText(com_updateActivity.this, "您选择的时间不合常理，请重新选择！", Toast.LENGTH_LONG).show();
+                                    }
+                                }else if(enDate_month > begDate_month){
+                                    theSameDay = false;
+                                    enDate = String.format("%d-%d-%d", year, month + 1, day);
+                                    endDate.setText(enDate);
+                                }else {
+                                    theSameDay = false;
+                                    enDate_year = 10000;
+                                    enDate_month = 10000;
+                                    enDate_day = 10000;
+                                    endDate.setText("请重新选择");
+                                    Toast.makeText(com_updateActivity.this, "您选择的时间不合常理，请重新选择！", Toast.LENGTH_LONG).show();
+                                }
+                            }else if(enDate_year > begDate_year){
+                                theSameDay = false;
+                                enDate = String.format("%d-%d-%d", year, month + 1, day);
+                                endDate.setText(enDate);
+                            } else {
+                                theSameDay = false;
+                                enDate_year = 10000;
+                                enDate_month = 10000;
+                                enDate_day = 10000;
+                                endDate.setText("请重新选择");
+                                Toast.makeText(com_updateActivity.this, "您选择的时间不合常理，请重新选择！", Toast.LENGTH_LONG).show();
+                            }
+                        }else {
+                            enDate_year = 10000;
+                            enDate_month = 10000;
+                            enDate_day = 10000;
+                            Toast.makeText(com_updateActivity.this, "请先选择开始时间！", Toast.LENGTH_LONG).show();
+                        }
                     }
                 },2018,6,24).show();
             }
@@ -141,8 +223,61 @@ public class com_updateActivity extends AppCompatActivity {
                 new TimePickerDialog(com_updateActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-                        enTime = String.format("%d:%d",hour,minute);
-                        endTime.setText(enTime);
+                        enTime_hour = hour;
+                        enTime_minute = minute;
+                        if (begTime_hour!=10000&&begTime_minute!=10000){
+                            if(enDate_year!=10000&&enDate_month!=10000&&enDate_day!=10000){
+                                if (theSameDay) {
+                                    if (enTime_hour >= begTime_hour) {
+                                        if (enTime_hour == begTime_hour) {
+                                            if (enTime_minute > begTime_minute) {
+                                                if (minute < 10) {
+                                                    enTime = String.format("%d:0%d", hour, minute);
+                                                    endTime.setText(enTime);
+                                                } else {
+                                                    enTime = String.format("%d:%d", hour, minute);
+                                                    endTime.setText(enTime);
+                                                }
+                                            } else {
+                                                endTime.setText("请重新选择");
+                                                enTime_hour = 10000;
+                                                enTime_minute = 10000;
+                                                Toast.makeText(com_updateActivity.this, "您选择的时间不合常理，请重新选择！", Toast.LENGTH_LONG).show();
+                                            }
+                                        } else {
+                                            if (minute < 10) {
+                                                enTime = String.format("%d:0%d", hour, minute);
+                                                endTime.setText(enTime);
+                                            } else {
+                                                enTime = String.format("%d:%d", hour, minute);
+                                                endTime.setText(enTime);
+                                            }
+                                        }
+                                    } else {
+                                        endTime.setText("请重新选择");
+                                        enTime_hour = 10000;
+                                        enTime_minute = 10000;
+                                        Toast.makeText(com_updateActivity.this, "您选择的时间不合常理，请重新选择！", Toast.LENGTH_LONG).show();
+                                    }
+                                } else {
+                                    if (minute < 10) {
+                                        enTime = String.format("%d:0%d", hour, minute);
+                                        endTime.setText(enTime);
+                                    } else {
+                                        enTime = String.format("%d:%d", hour, minute);
+                                        endTime.setText(enTime);
+                                    }
+                                }
+                            }else {
+                                enTime_hour = 10000;
+                                enTime_minute = 10000;
+                                Toast.makeText(com_updateActivity.this, "请先选择结束日期！", Toast.LENGTH_LONG).show();
+                            }
+                        }else {
+                            enTime_hour = 10000;
+                            enTime_minute = 10000;
+                            Toast.makeText(com_updateActivity.this, "请先选择开始时间！", Toast.LENGTH_LONG).show();
+                        }
                     }
                 },0,0,true).show();
             }
@@ -159,8 +294,49 @@ public class com_updateActivity extends AppCompatActivity {
                     new DatePickerDialog(com_updateActivity.this, new DatePickerDialog.OnDateSetListener() {
                         @Override
                         public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                            begDate_signup = String.format("%d-%d-%d", year, month + 1, day);
-                            beginDate_signup.setText(begDate_signup);
+                            begDate_signup_year = year;
+                            begDate_signup_month = month;
+                            begDate_signup_day = day;
+                            if(begDate_year!=10000&&begDate_month!=10000&&begDate_day!=10000&&begTime_hour!=10000&&begTime_minute!=10000
+                                    &&enDate_year!=10000&&enDate_month!=10000&&enDate_day!=10000&&enTime_hour!=10000&&enTime_minute!=10000) {
+                                if (begDate_signup_year < begDate_year) {
+                                    begDate_signup = String.format("%d-%d-%d", year, month + 1, day);
+                                    beginDate_signup.setText(begDate_signup);
+                                } else if (begDate_signup_year == begDate_year) {
+                                    if(begDate_signup_month == begDate_month){
+                                        if(begDate_signup_day <= begDate_day){
+                                            begDate_signup = String.format("%d-%d-%d", year, month + 1, day);
+                                            beginDate_signup.setText(begDate_signup);
+                                        }else {
+                                            beginDate_signup.setText("请重新选择");
+                                            begDate_signup_year = 10000;
+                                            begDate_signup_month = 10000;
+                                            begDate_signup_day = 10000;
+                                            Toast.makeText(com_updateActivity.this, "您选择的时间不合常理，请重新选择！", Toast.LENGTH_LONG).show();
+                                        }
+                                    }else if(begDate_signup_month < begDate_month){
+                                        begDate_signup = String.format("%d-%d-%d", year, month + 1, day);
+                                        beginDate_signup.setText(begDate_signup);
+                                    }else {
+                                        beginDate_signup.setText("请重新选择");
+                                        begDate_signup_year = 10000;
+                                        begDate_signup_month = 10000;
+                                        begDate_signup_day = 10000;
+                                        Toast.makeText(com_updateActivity.this, "您选择的时间不合常理，请重新选择！", Toast.LENGTH_LONG).show();
+                                    }
+                                } else {
+                                    beginDate_signup.setText("请重新选择");
+                                    begDate_signup_year = 10000;
+                                    begDate_signup_month = 10000;
+                                    begDate_signup_day = 10000;
+                                    Toast.makeText(com_updateActivity.this, "您选择的时间不合常理，请重新选择！", Toast.LENGTH_LONG).show();
+                                }
+                            }else{
+                                begDate_signup_year = 10000;
+                                begDate_signup_month = 10000;
+                                begDate_signup_day = 10000;
+                                Toast.makeText(com_updateActivity.this, "请先选择活动时间！", Toast.LENGTH_LONG).show();
+                            }
                         }
                     }, 2018, 6, 23).show();
                 }
@@ -175,8 +351,22 @@ public class com_updateActivity extends AppCompatActivity {
                     new TimePickerDialog(com_updateActivity.this, new TimePickerDialog.OnTimeSetListener() {
                         @Override
                         public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-                            begTime_signup = String.format("%d:%d", hour, minute);
-                            beginTime_signup.setText(begTime_signup);
+                            begTime_signup_hour = hour;
+                            begTime_signup_minute = minute;
+                            if(begDate_year!=10000&&begDate_month!=10000&&begDate_day!=10000&&begTime_hour!=10000&&begTime_minute!=10000
+                                    &&enDate_year!=10000&&enDate_month!=10000&&enDate_day!=10000&&enTime_hour!=10000&&enTime_minute!=10000) {
+                                if(minute<10) {
+                                    begTime_signup = String.format("%d:0%d", hour, minute);
+                                    beginTime_signup.setText(begTime_signup);
+                                }else {
+                                    begTime_signup = String.format("%d:%d", hour, minute);
+                                    beginTime_signup.setText(begTime_signup);
+                                }
+                            }else{
+                                begTime_signup_hour = 10000;
+                                begTime_signup_minute = 10000;
+                                Toast.makeText(com_updateActivity.this, "请先选择活动时间！", Toast.LENGTH_LONG).show();
+                            }
                         }
                     }, 0, 0, true).show();
                 }
@@ -191,8 +381,168 @@ public class com_updateActivity extends AppCompatActivity {
                     new DatePickerDialog(com_updateActivity.this, new DatePickerDialog.OnDateSetListener() {
                         @Override
                         public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                            enDate_signup = String.format("%d-%d-%d", year, month + 1, day);
-                            endDate_signup.setText(enDate_signup);
+                            enDate_signup_year = year;
+                            enDate_signup_month = month;
+                            enDate_signup_day = day;
+                            if(begDate_year!=10000&&begDate_month!=10000&&begDate_day!=10000&&begTime_hour!=10000&&begTime_minute!=10000
+                                    &&enDate_year!=10000&&enDate_month!=10000&&enDate_day!=10000&&enTime_hour!=10000&&enTime_minute!=10000) {
+                                if(begDate_signup_year!=10000&&begDate_signup_month!=10000&&begDate_signup_day!=10000
+                                        &&begTime_signup_hour!=10000&&begTime_minute!=10000){
+                                    if(enDate_signup_year == begDate_signup_year){
+                                        if(enDate_signup_month == begDate_signup_month){
+                                            if(enDate_signup_day == begDate_signup_day){
+                                                theSameDay_signup = true;
+                                                enDate_signup = String.format("%d-%d-%d", year, month + 1, day);
+                                                endDate_signup.setText(enDate_signup);
+                                            }else if(enDate_signup_day > begDate_signup_day){
+                                                if(enDate_signup_year == begDate_year){
+                                                    if(enDate_signup_month == begDate_month){
+                                                        if(enDate_signup_day <= begDate_day){
+                                                            theSameDay_signup = false;
+                                                            enDate_signup = String.format("%d-%d-%d", year, month + 1, day);
+                                                            endDate_signup.setText(enDate_signup);
+                                                        }else {
+                                                            theSameDay_signup = false;
+                                                            endDate_signup.setText("请重新选择");
+                                                            enDate_signup_year = 10000;
+                                                            enDate_signup_month = 10000;
+                                                            enDate_signup_day = 10000;
+                                                            Toast.makeText(com_updateActivity.this, "您选择的时间不合常理，请重新选择！", Toast.LENGTH_LONG).show();
+                                                        }
+                                                    }else if(enDate_signup_month < begDate_month){
+                                                        theSameDay_signup = false;
+                                                        enDate_signup = String.format("%d-%d-%d", year, month + 1, day);
+                                                        endDate_signup.setText(enDate_signup);
+                                                    }else {
+                                                        theSameDay_signup = false;
+                                                        endDate_signup.setText("请重新选择");
+                                                        enDate_signup_year = 10000;
+                                                        enDate_signup_month = 10000;
+                                                        enDate_signup_day = 10000;
+                                                        Toast.makeText(com_updateActivity.this, "您选择的时间不合常理，请重新选择！", Toast.LENGTH_LONG).show();
+                                                    }
+                                                }else {
+                                                    theSameDay_signup = false;
+                                                    enDate_signup = String.format("%d-%d-%d", year, month + 1, day);
+                                                    endDate_signup.setText(enDate_signup);
+                                                }
+                                            }else {
+                                                theSameDay_signup = false;
+                                                endDate_signup.setText("请重新选择");
+                                                enDate_signup_year = 10000;
+                                                enDate_signup_month = 10000;
+                                                enDate_signup_day = 10000;
+                                                Toast.makeText(com_updateActivity.this, "您选择的时间不合常理，请重新选择！", Toast.LENGTH_LONG).show();
+                                            }
+                                        }else if(enDate_signup_month > begDate_signup_month){
+                                            if(enDate_signup_year < begDate_year) {
+                                                theSameDay_signup = false;
+                                                enDate_signup = String.format("%d-%d-%d", year, month + 1, day);
+                                                endDate_signup.setText(enDate_signup);
+                                            }else if(enDate_signup_year == begDate_year){
+                                                if(enDate_signup_month == begDate_month){
+                                                    if(enDate_signup_day <= begDate_day){
+                                                        theSameDay_signup = false;
+                                                        enDate_signup = String.format("%d-%d-%d", year, month + 1, day);
+                                                        endDate_signup.setText(enDate_signup);
+                                                    }else {
+                                                        theSameDay_signup = false;
+                                                        endDate_signup.setText("请重新选择");
+                                                        enDate_signup_year = 10000;
+                                                        enDate_signup_month = 10000;
+                                                        enDate_signup_day = 10000;
+                                                        Toast.makeText(com_updateActivity.this, "您选择的时间不合常理，请重新选择！", Toast.LENGTH_LONG).show();
+                                                    }
+                                                }else if(enDate_signup_month < begDate_month){
+                                                    theSameDay_signup = false;
+                                                    enDate_signup = String.format("%d-%d-%d", year, month + 1, day);
+                                                    endDate_signup.setText(enDate_signup);
+                                                }else {
+                                                    theSameDay_signup = false;
+                                                    endDate_signup.setText("请重新选择");
+                                                    enDate_signup_year = 10000;
+                                                    enDate_signup_month = 10000;
+                                                    enDate_signup_day = 10000;
+                                                    Toast.makeText(com_updateActivity.this, "您选择的时间不合常理，请重新选择！", Toast.LENGTH_LONG).show();
+                                                }
+                                            }else {
+                                                theSameDay_signup = false;
+                                                endDate_signup.setText("请重新选择");
+                                                enDate_signup_year = 10000;
+                                                enDate_signup_month = 10000;
+                                                enDate_signup_day = 10000;
+                                                Toast.makeText(com_updateActivity.this, "您选择的时间不合常理，请重新选择！", Toast.LENGTH_LONG).show();
+                                            }
+                                        }else {
+                                            theSameDay_signup = false;
+                                            endDate_signup.setText("请重新选择");
+                                            enDate_signup_year = 10000;
+                                            enDate_signup_month = 10000;
+                                            enDate_signup_day = 10000;
+                                            Toast.makeText(com_updateActivity.this, "您选择的时间不合常理，请重新选择！", Toast.LENGTH_LONG).show();
+                                        }
+                                    }else if(enDate_signup_year > begDate_signup_year){
+                                        if(enDate_signup_year < begDate_year){
+                                            theSameDay_signup = false;
+                                            enDate_signup = String.format("%d-%d-%d", year, month + 1, day);
+                                            endDate_signup.setText(enDate_signup);
+                                        }else if(enDate_signup_year == begDate_year){
+                                            if(enDate_signup_month == begDate_month){
+                                                if(enDate_signup_day == begDate_day){
+                                                    theSameDay_signup = false;
+                                                    enDate_signup = String.format("%d-%d-%d", year, month + 1, day);
+                                                    endDate_signup.setText(enDate_signup);
+                                                }else if(enDate_signup_day < begDate_day){
+                                                    theSameDay_signup = false;
+                                                    enDate_signup = String.format("%d-%d-%d", year, month + 1, day);
+                                                    endDate_signup.setText(enDate_signup);
+                                                }else {
+                                                    theSameDay_signup = false;
+                                                    endDate_signup.setText("请重新选择");
+                                                    enDate_signup_year = 10000;
+                                                    enDate_signup_month = 10000;
+                                                    enDate_signup_day = 10000;
+                                                    Toast.makeText(com_updateActivity.this, "您选择的时间不合常理，请重新选择！", Toast.LENGTH_LONG).show();
+                                                }
+                                            }else if(enDate_signup_month < begDate_month){
+                                                theSameDay_signup = false;
+                                                enDate_signup = String.format("%d-%d-%d", year, month + 1, day);
+                                                endDate_signup.setText(enDate_signup);
+                                            }else {
+                                                theSameDay_signup = false;
+                                                endDate_signup.setText("请重新选择");
+                                                enDate_signup_year = 10000;
+                                                enDate_signup_month = 10000;
+                                                enDate_signup_day = 10000;
+                                                Toast.makeText(com_updateActivity.this, "您选择的时间不合常理，请重新选择！", Toast.LENGTH_LONG).show();
+                                            }
+                                        }else {
+                                            theSameDay_signup = false;
+                                            endDate_signup.setText("请重新选择");
+                                            enDate_signup_year = 10000;
+                                            enDate_signup_month = 10000;
+                                            enDate_signup_day = 10000;
+                                            Toast.makeText(com_updateActivity.this, "您选择的时间不合常理，请重新选择！", Toast.LENGTH_LONG).show();
+                                        }
+                                    }else {
+                                        theSameDay_signup = false;
+                                        endDate_signup.setText("请重新选择");
+                                        enDate_signup_year = 10000;
+                                        enDate_signup_month = 10000;
+                                        enDate_signup_day = 10000;
+                                        Toast.makeText(com_updateActivity.this, "您选择的时间不合常理，请重新选择！", Toast.LENGTH_LONG).show();
+                                    }
+                                }else {
+                                    enDate_signup_year = 10000;
+                                    enDate_signup_month = 10000;
+                                    enDate_signup_day = 10000;
+                                    Toast.makeText(com_updateActivity.this, "请先选择报名开始时间！", Toast.LENGTH_LONG).show();
+                                }
+                            }else{
+                                begTime_signup_hour = 10000;
+                                begTime_signup_minute = 10000;
+                                Toast.makeText(com_updateActivity.this, "请先选择活动时间！", Toast.LENGTH_LONG).show();
+                            }
                         }
                     }, 2018, 6, 24).show();
                 }
@@ -207,8 +557,60 @@ public class com_updateActivity extends AppCompatActivity {
                     new TimePickerDialog(com_updateActivity.this, new TimePickerDialog.OnTimeSetListener() {
                         @Override
                         public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-                            enTime_signup = String.format("%d:%d", hour, minute);
-                            endTime_signup.setText(enTime_signup);
+                            enTime_signup_hour = hour;
+                            enTime_signup_minute = minute;
+                            if(begDate_year!=10000&&begDate_month!=10000&&begDate_day!=10000&&begTime_hour!=10000&&begTime_minute!=10000
+                                    &&enDate_year!=10000&&enDate_month!=10000&&enDate_day!=10000&&enTime_hour!=10000&&enTime_minute!=10000) {
+                                if(enDate_signup_year!=10000&&enDate_signup_month!=10000&&enDate_signup_day!=10000) {
+                                    if(theSameDay_signup){
+                                        if(enTime_signup_hour == begTime_signup_hour){
+                                            if(enTime_signup_minute > begTime_signup_minute){
+                                                if(minute<10) {
+                                                    enTime_signup = String.format("%d:0%d", hour, minute);
+                                                    endTime_signup.setText(enTime_signup);
+                                                }else {
+                                                    enTime_signup = String.format("%d:%d", hour, minute);
+                                                    endTime_signup.setText(enTime_signup);
+                                                }
+                                            }else {
+                                                endTime_signup.setText("请重新选择");
+                                                enTime_signup_hour = 10000;
+                                                enTime_signup_minute = 10000;
+                                                Toast.makeText(com_updateActivity.this, "您选择的时间不合常理，请重新选择！", Toast.LENGTH_LONG).show();
+                                            }
+                                        }else if(enTime_signup_hour < begTime_signup_hour){
+                                            if(minute<10) {
+                                                enTime_signup = String.format("%d:0%d", hour, minute);
+                                                endTime_signup.setText(enTime_signup);
+                                            }else {
+                                                enTime_signup = String.format("%d:%d", hour, minute);
+                                                endTime_signup.setText(enTime_signup);
+                                            }
+                                        }else {
+                                            endTime_signup.setText("请重新选择");;
+                                            enTime_signup_hour = 10000;
+                                            enTime_signup_minute = 10000;
+                                            Toast.makeText(com_updateActivity.this, "您选择的时间不合常理，请重新选择！", Toast.LENGTH_LONG).show();
+                                        }
+                                    }else {
+                                        if(minute<10) {
+                                            enTime_signup = String.format("%d:0%d", hour, minute);
+                                            endTime_signup.setText(enTime_signup);
+                                        }else {
+                                            enTime_signup = String.format("%d:%d", hour, minute);
+                                            endTime_signup.setText(enTime_signup);
+                                        }
+                                    }
+                                }else {
+                                    enTime_signup_hour = 10000;
+                                    enTime_signup_minute = 10000;
+                                    Toast.makeText(com_updateActivity.this, "请先选择报名截止日期！", Toast.LENGTH_LONG).show();
+                                }
+                            }else {
+                                enTime_signup_hour = 10000;
+                                enTime_signup_minute = 10000;
+                                Toast.makeText(com_updateActivity.this, "请先选择活动时间！", Toast.LENGTH_LONG).show();
+                            }
                         }
                     }, 0, 0, true).show();
                 }
