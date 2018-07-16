@@ -686,7 +686,6 @@ public class com_updateActivity extends AppCompatActivity {
             public void run() {
                 if(ADD_SUCCEED == flag){
                     Toast.makeText(com_updateActivity.this,"活动已创建！",Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(com_updateActivity.this,com_viewActivity.class);
                     Intent intent = new Intent(getApplicationContext(),com_viewActivity.class);
                     intent.putExtra("activity_id",staticData.getCurrentActivity());
                     startActivity(intent);
@@ -699,7 +698,6 @@ public class com_updateActivity extends AppCompatActivity {
                     Toast.makeText(com_updateActivity.this,"更新失败！",Toast.LENGTH_LONG).show();
                 }else if(UPDATE_SUCCEED == flag){
                     Toast.makeText(com_updateActivity.this,"更新成功！",Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(com_updateActivity.this,com_viewActivity.class);
                     Intent intent = new Intent(getApplicationContext(),com_viewActivity.class);
                     intent.putExtra("activity_id",staticData.getCurrentActivity());
                     startActivity(intent);

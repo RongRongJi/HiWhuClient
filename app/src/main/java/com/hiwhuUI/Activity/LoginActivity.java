@@ -104,10 +104,6 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void run() {
                 if(StudentLogin == flag) {
-                    Toast.makeText(LoginActivity.this, "学生登录成功！", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
                     //Toast.makeText(LoginActivity.this, "学生登录成功！", Toast.LENGTH_SHORT).show();
                     final Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     new Thread(new Runnable() {
@@ -125,10 +121,6 @@ public class LoginActivity extends AppCompatActivity {
                     //startActivity(intent);
                     //finish();
                 }else if(SponsorLogin == flag){
-                    Toast.makeText(LoginActivity.this, "活动方登录成功！", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
                     //Toast.makeText(LoginActivity.this, "活动方登录成功！", Toast.LENGTH_SHORT).show();
                     final Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     new Thread(new Runnable() {
@@ -144,7 +136,6 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }).start();
                 }else{
-                    Toast.makeText(LoginActivity.this,"登录失败！",Toast.LENGTH_LONG).show();
                     DetailActivity.detailActivity.finish();
                     Toast.makeText(LoginActivity.this,"用户名或密码错误！",Toast.LENGTH_LONG).show();
                 }

@@ -300,9 +300,7 @@ public class navigationFragment extends Fragment {
                 });
             }
 
-            }
         }
         return view;
     }
-}
 }

@@ -75,12 +75,6 @@ public class RecyclerAdapter_activityCard extends RecyclerView.Adapter<RecyclerA
         final ActivityCard activityCard = cardList.get(position);
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                int userType = staticData.getUserType();
-                if(userType==1){
-                    Intent intent = new Intent(v.getContext(), stu_viewActivity.class);
-                    intent.putExtra("activity_id",activityCard.getActivity_id());
-                    v.getContext().startActivity(intent);
             public void onClick(final View v) {
                 //int userType = staticData.getUserType();
                 boolean isSponsorOpera = staticData.isSponsorCanOpera();
