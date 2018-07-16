@@ -4,32 +4,33 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <!--6.0重要权限-->
-    <uses-permission android:name="android.permission.CAMERA"><!--允许访问摄像头进行拍照--></uses-permission>
+    <!-- 6.0重要权限 -->
+    <uses-permission android:name="android.permission.CAMERA"> <!-- 允许访问摄像头进行拍照 -->
+    </uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"> <!-- 地址位置 -->
+    </uses-permission>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"> <!-- 读外置存储权限 -->
+    </uses-permission>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"> <!-- 允许程序写入外部存储，如SD卡上写文件 -->
+    </uses-permission>
 
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"><!--地址位置--></uses-permission>
+    <!-- 一般权限 -->
+    <uses-permission android:name="android.permission.INTERNET"> <!-- 访问网络连接，可能产生GPRS流量 -->
+    </uses-permission>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"> <!-- 系统报警窗口 -->
+    </uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"> <!-- 获取网络控制权限 -->
+    </uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"> <!-- wifi管理 -->
+    </uses-permission>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"> <!-- wifi的使用 -->
+    </uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"> <!-- 访问粗略的位置 -->
+    </uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"> <!-- 访问位置附加命令 -->
+    </uses-permission>
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"><!--读外置存储权限--></uses-permission>
-
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"><!--允许程序写入外部存储，如SD卡上写文件--></uses-permission>
-
-
-    <!--一般权限-->
-    <uses-permission android:name="android.permission.INTERNET"><!--访问网络连接，可能产生GPRS流量--></uses-permission>
-
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"><!--系统报警窗口--></uses-permission>
-
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"><!--获取网络控制权限--></uses-permission>
-
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"><!--wifi管理--></uses-permission>
-
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"><!--wifi的使用--></uses-permission>
-
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"><!--访问粗略的位置--></uses-permission>
-
-    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"><!--访问位置附加命令--></uses-permission>
-
-    <!--调用系统日历和插入日程权限-->
+    <!-- 调用系统日历和插入日程权限 -->
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
 
@@ -43,7 +44,7 @@
         <activity android:name="com.hiwhuUI.Activity.com_registActivity" />
         <activity android:name="com.hiwhuUI.Activity.stu_registActivity" />
         <activity android:name="com.hiwhuUI.Activity.MainActivity" />
-        <activity android:name="com.hiwhuUI.Activity.LoginActivity" >
+        <activity android:name="com.hiwhuUI.Activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -51,9 +52,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.hiwhuUI.Activity.com_viewActivity" />
-        <activity android:name="com.hiwhuUI.Activity.com_updateActivity">
-
-        </activity>
+        <activity android:name="com.hiwhuUI.Activity.com_updateActivity"></activity>
         <activity android:name="com.hiwhuUI.Activity.SignupActivity" />
         <activity android:name="com.hiwhuUI.Activity.stu_dataActivity" />
         <activity android:name="com.hiwhuUI.Activity.com_dataActivity" />
@@ -92,12 +91,16 @@
         <activity android:name="com.hiwhuUI.Activity.Map.LocationActivity" />
         <activity android:name="com.hiwhuUI.Activity.Map.SearchPositionActivity" />
 
-        <service android:enabled="true" android:name="com.baidu.location.f" android:process=":remote">
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote">
             <intent-filter>
-                <action android:name="com.baidu.location.service_v5.0.0"/>
+                <action android:name="com.baidu.location.service_v5.0.0" />
             </intent-filter>
         </service>
 
+        <activity android:name="com.hiwhuUI.Activity.process.DetailActivity"></activity>
     </application>
 
 </manifest>

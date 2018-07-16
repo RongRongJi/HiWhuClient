@@ -107,7 +107,7 @@ public class stu_viewActivity extends AppCompatActivity {
         btn_star.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(staticData.getStudentID()==null){
+                if(staticData.getUserType()==2){
                     Toast.makeText(stu_viewActivity.this,"请使用学生账号收藏！",Toast.LENGTH_LONG).show();
                 }else{
                     String url = staticData.getUrl()+"/StuCollectActivityServlet?studentID="+staticData.getStudentID()
@@ -136,9 +136,13 @@ public class stu_viewActivity extends AppCompatActivity {
         btn_comment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(stu_viewActivity.this, data_editActivity.class);
-                intent.putExtra("activity_id",activity_id);
-                startActivity(intent);
+                if(staticData.getUserType()==1) {
+                    Intent intent = new Intent(stu_viewActivity.this, data_editActivity.class);
+                    intent.putExtra("activity_id", activity_id);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(stu_viewActivity.this,"请使用学生账号评论！",Toast.LENGTH_LONG).show();
+                }
             }
         });
         btn_signup = findViewById(R.id.bottom_signup);
@@ -148,14 +152,18 @@ public class stu_viewActivity extends AppCompatActivity {
                 btn_signup.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if(staticData.activity.getRegistrationStartTime().equals("1000-12-31 00:00:00.0"))
-                        {
-                            Toast.makeText(stu_viewActivity.this,"不需要报名",Toast.LENGTH_SHORT).show();
+                        if(staticData.getUserType()==2){
+                            Toast.makeText(stu_viewActivity.this,"请使用学生账号报名！",Toast.LENGTH_LONG).show();
+                        }else {
+                            if(staticData.activity.getRegistrationStartTime().equals("1000-12-31 00:00:00.0"))
+                            {
+                                Toast.makeText(stu_viewActivity.this,"不需要报名",Toast.LENGTH_SHORT).show();
 
-                        }else{
-                            Intent intent = new Intent(stu_viewActivity.this, SignupActivity.class);
-                            intent.putExtra("activity_id",activity_id);
-                            startActivity(intent);
+                            }else{
+                                Intent intent = new Intent(stu_viewActivity.this, SignupActivity.class);
+                                intent.putExtra("activity_id",activity_id);
+                                startActivity(intent);
+                            }
                         }
                     }
                 });

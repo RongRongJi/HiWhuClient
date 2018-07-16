@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.design.widget.BottomNavigationView;
 
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -69,19 +70,17 @@ public class MainActivity extends AppCompatActivity{
 
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        FragmentTransaction transaction = fragmentManager.beginTransaction();
                         switch (item.getItemId()) {
                             case R.id.navigation_home:
                                 if (current == 0) return true;
+                                if(staticData.getUserType()==2){
+                                    staticData.setSponsorCanOpera(false);
+                                }
                                 current = 0;
-                                if(notice==null){
-                                    fragmentManager.beginTransaction().show(home).hide(user).commit();
-                                }
-                                else if(user==null){
-                                    fragmentManager.beginTransaction().show(home).hide(notice).commit();
-                                }
-                                else{
-                                    fragmentManager.beginTransaction().show(home).hide(notice).hide(user).commit();
-                                }
+                                if(notice!=null) transaction.hide(notice);
+                                if(user!=null) transaction.hide(user);
+                                transaction.show(home).commit();
                                 textView.setText("活动");
                                 toolbar.getMenu().findItem(R.id.search).setVisible(true);
                                 if (userType == 2) {
@@ -92,16 +91,16 @@ public class MainActivity extends AppCompatActivity{
                             case R.id.navigation_notice:
                                 if (current == 1) return true;
                                 else current = 1;
-
+                                if(staticData.getUserType()==2){
+                                    staticData.setSponsorCanOpera(false);
+                                }
+                                if(home!=null) transaction.hide(home);
+                                if(user!=null) transaction.hide(user);
                                 if (notice == null) {
                                     notice = navigationFragment.newInstance("消息");
-                                    if (user == null)
-                                        fragmentManager.beginTransaction().add(R.id.container_main, notice).hide(home).commit();
-                                    else
-                                        fragmentManager.beginTransaction().add(R.id.container_main, notice).hide(home).hide(user).commit();
-                                } else
-                                    fragmentManager.beginTransaction().hide(home).show(notice).hide(user).commit();
-
+                                    transaction.add(R.id.container_main,notice).commit();
+                                }
+                                else transaction.show(notice).commit();
                                 textView.setText("消息");
                                 toolbar.getMenu().findItem(R.id.search).setVisible(false);
                                 toolbar.getMenu().findItem(R.id.add).setVisible(false);
@@ -110,14 +109,16 @@ public class MainActivity extends AppCompatActivity{
                             case R.id.navigation_user:
                                 if (current == 2) return true;
                                 else current = 2;
+                                if(staticData.getUserType()==2){
+                                    staticData.setSponsorCanOpera(true);
+                                }
+                                if(home!=null) transaction.hide(home);
+                                if(notice!=null) transaction.hide(notice);
                                 if (user == null) {
                                     user = navigationFragment.newInstance("我的");
-                                    if (notice == null)
-                                        fragmentManager.beginTransaction().add(R.id.container_main, user).hide(home).commit();
-                                    else
-                                        fragmentManager.beginTransaction().add(R.id.container_main, user).hide(home).hide(notice).commit();
-                                } else
-                                    fragmentManager.beginTransaction().hide(home).hide(notice).show(user).commit();
+                                    transaction.add(R.id.container_main,user).commit();
+                                }
+                                else transaction.show(user).commit();
                                 textView.setText("我的");
                                 toolbar.getMenu().findItem(R.id.search).setVisible(false);
                                 toolbar.getMenu().findItem(R.id.add).setVisible(false);

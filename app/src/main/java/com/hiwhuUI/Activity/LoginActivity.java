@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hiwhu.hiwhuclient.R;
+import com.hiwhuUI.Activity.process.DetailActivity;
 
 import java.io.IOException;
 
@@ -54,6 +55,7 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                DetailActivity.start(view.getContext(),10);
                 String url = staticData.getUrl()+"/LoginServlet";
                 String account = username.getText().toString();
                 String pwd = password.getText().toString();
@@ -102,17 +104,40 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void run() {
                 if(StudentLogin == flag) {
-                    Toast.makeText(LoginActivity.this, "学生登录成功！", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
+                    //Toast.makeText(LoginActivity.this, "学生登录成功！", Toast.LENGTH_SHORT).show();
+                    final Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                Thread.sleep(1000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            startActivity(intent);
+                            finish();
+                        }
+                    }).start();
+                    //startActivity(intent);
+                    //finish();
                 }else if(SponsorLogin == flag){
-                    Toast.makeText(LoginActivity.this, "活动方登录成功！", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
+                    //Toast.makeText(LoginActivity.this, "活动方登录成功！", Toast.LENGTH_SHORT).show();
+                    final Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                Thread.sleep(1000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            startActivity(intent);
+                            finish();
+                        }
+                    }).start();
                 }else{
-                    Toast.makeText(LoginActivity.this,"登录失败！",Toast.LENGTH_LONG).show();
+                    DetailActivity.detailActivity.finish();
+                    Toast.makeText(LoginActivity.this,"用户名或密码错误！",Toast.LENGTH_LONG).show();
                 }
             }
         });

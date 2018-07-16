@@ -43,5 +43,5 @@ dependencies {
     //compile 'com.android.support:percent:28.2.1'
     compile 'com.google.code.gson:gson:2.7'
     compile files('libs/BaiduLBS_Android.jar')
-
+    compile 'com.github.ybq:Android-SpinKit:1.1.0'
 }

@@ -47,7 +47,7 @@ public class data_editActivity extends AppCompatActivity {
         //发表评论需要 student_id,activity_id; 发表回复需要 student_id,activity_id,ref_comment_id;
         //发表回顾需要 sponsor_id,activity_id; String sponsor_id = staticData.getSponsorID();
         //student_id = staticData.getStudentID();
-        if(staticData.getStudentID()!=null) fromUserID=staticData.getStudentID();
+        if(staticData.getUserType()==1) fromUserID=staticData.getStudentID();
         else fromUserID=staticData.getSponsorID();
         activity_id = getIntent().getStringExtra("activity_id");
         ref_comment_id = getIntent().getStringExtra("ref_comment_id");

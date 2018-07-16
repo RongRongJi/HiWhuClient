@@ -200,6 +200,13 @@ public class com_viewActivity extends AppCompatActivity {
         name.setText(staticData.activity.getTitle());
         starttime.setText(staticData.activity.getStartTIme());
         endtime.setText(staticData.activity.getEndTime());
+        if(staticData.activity.getRegistrationStartTime().equals("1000-12-31 00:00:00.0")){
+            resstarttime.setText("不需要报名");
+            resendtime.setText("不需要报名");
+        }else{
+            resstarttime.setText(staticData.activity.getRegistrationStartTime());
+            resendtime.setText(staticData.activity.getRegistrationEndTime());
+        }
         resstarttime.setText(staticData.activity.getRegistrationStartTime());
         resendtime.setText(staticData.activity.getRegistrationEndTime());
 

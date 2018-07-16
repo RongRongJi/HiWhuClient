@@ -118,6 +118,9 @@ public class navigationFragment extends Fragment {
                     @Override
                     public void onClick(View view) {
                         Intent intent = new  Intent(getActivity(),LoginActivity.class);
+                        staticData.setSponsorCanOpera(false);
+                        staticData.setStudentID(null);
+                        staticData.setSponsorID(null);
                         startActivity(intent);
                         getActivity().finish();
                     }
@@ -204,6 +207,7 @@ public class navigationFragment extends Fragment {
                         startActivity(intent);
                         staticData.setSponsorID(null);
                         staticData.setStudentID(null);
+                        staticData.setSponsorCanOpera(false);
                         getActivity().finish();
                     }
                 });
@@ -296,7 +300,7 @@ public class navigationFragment extends Fragment {
                 });
             }
 
-            }
+        }
         return view;
     }
 }
