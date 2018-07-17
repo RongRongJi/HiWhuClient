@@ -22,4 +22,5 @@ public class comResult {
     public String getState() {
         return state;
     }
+
 }

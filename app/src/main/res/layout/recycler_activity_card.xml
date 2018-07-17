@@ -74,14 +74,19 @@
 
         </LinearLayout>
 
-        <Button
+        <TextView
             android:id="@+id/card_activity_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingRight="24dp"
+            android:paddingLeft="24dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:background="@drawable/card_btn"
             android:textColor="#ffffff"
+            android:text="审核"
             android:textSize="16sp"
             android:layout_alignParentRight="true" />
 

@@ -29,9 +29,12 @@ import com.hiwhuUI.Activity.util.CommentExpandableListView;
 import com.hiwhuUI.Activity.util.ExpandAdapter_Comment;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import HttpConnect.GetActivityBySponsorID;
 import HttpConnect.GetAllActivity;
 import HttpConnect.GetCommentAndReply;
 import HttpConnect.GetCurrentActivity;
@@ -70,6 +73,7 @@ public class stu_viewActivity extends AppCompatActivity {
     private TextView details;
     private CommentExpandableListView listView;
     private ExpandAdapter_Comment adapter;
+    private int state = 0;  //获取活动状态, 0-可以报名; 1-报名截止; 2-不需要报名;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +90,7 @@ public class stu_viewActivity extends AppCompatActivity {
             }
         }
 
-        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar_stu_view);
+        toolbar = (Toolbar) findViewById(R.id.toolbar_stu_view);
         toolbar.setTitle("");
         toolbar_title = (TextView) findViewById(R.id.toolbar_stu_view_text);
         toolbar_title.setText("活动详情");
@@ -97,80 +101,67 @@ public class stu_viewActivity extends AppCompatActivity {
         stared = getResources().getDrawable(R.drawable.ic_star_black_24dp);
 
         btn_star = findViewById(R.id.bottom_star);
-        if(staticData.getStudentID()!=null){
-            star = GetCurrentCollection.isStar(activity_id);
-        }
-
+        star = GetCurrentCollection.isStar(activity_id);
         if(star) btn_star.setCompoundDrawablesWithIntrinsicBounds(null,stared,null,null);
         else btn_star.setCompoundDrawablesWithIntrinsicBounds(null,unstar,null,null);
 
         btn_star.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(staticData.getUserType()==2){
-                    Toast.makeText(stu_viewActivity.this,"请使用学生账号收藏！",Toast.LENGTH_LONG).show();
-                }else{
-                    String url = staticData.getUrl()+"/StuCollectActivityServlet?studentID="+staticData.getStudentID()
-                            +"&activityID="+activity_id;
-                    HttpUtil.sendOkHttpRequest(url, new okhttp3.Callback() {
-                        @Override
-                        public void onResponse(Call call, Response response) throws IOException {
-                            String s = response.body().string();
-                            if(s.equals("succeed\r\n")){
-                                Jump(true);
-                            }else{
-                                Jump(false);
-                            }
+                String url = staticData.getUrl()+"/StuCollectActivityServlet?studentID="+staticData.getStudentID()
+                        +"&activityID="+activity_id;
+                HttpUtil.sendOkHttpRequest(url, new okhttp3.Callback() {
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        String s = response.body().string();
+                        if(s.equals("succeed\r\n")){
+                            Jump(true);
+                        }else{
+                            Jump(false);
                         }
+                    }
 
-                        @Override
-                        public void onFailure(Call call, IOException e) {
-                            Log.e("error",e.toString());
-                        }
-                    });
-                }
-
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        Log.e("error",e.toString());
+                    }
+                });
             }
         });
+
         btn_comment = findViewById(R.id.bottom_comment);
         btn_comment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(staticData.getUserType()==1) {
-                    Intent intent = new Intent(stu_viewActivity.this, data_editActivity.class);
-                    intent.putExtra("activity_id", activity_id);
-                    startActivity(intent);
-                }else{
-                    Toast.makeText(stu_viewActivity.this,"请使用学生账号评论！",Toast.LENGTH_LONG).show();
-                }
+                Intent intent = new Intent(stu_viewActivity.this, data_editActivity.class);
+                intent.putExtra("activity_id", activity_id);
+                startActivity(intent);
             }
         });
+
         btn_signup = findViewById(R.id.bottom_signup);
-        int state = 0;  //通过 activity_id 获取活动状态, 0-可以报名; 1-报名截止;
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+        String time=df.format(new Date());// new Date()为获取当前系统时间
+        if(staticData.activity.getRegistrationStartTime().equals("1000-12-31 00:00:00.0")) state=2;
+        else if(GetActivityBySponsorID.compare(staticData.activity.getRegistrationEndTime(),time)) state=1;
+
         switch (state){
             case 0:
                 btn_signup.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if(staticData.getUserType()==2){
-                            Toast.makeText(stu_viewActivity.this,"请使用学生账号报名！",Toast.LENGTH_LONG).show();
-                        }else {
-                            if(staticData.activity.getRegistrationStartTime().equals("1000-12-31 00:00:00.0"))
-                            {
-                                Toast.makeText(stu_viewActivity.this,"不需要报名",Toast.LENGTH_SHORT).show();
-
-                            }else{
-                                Intent intent = new Intent(stu_viewActivity.this, SignupActivity.class);
-                                intent.putExtra("activity_id",activity_id);
-                                startActivity(intent);
-                            }
-                        }
+                        Intent intent = new Intent(stu_viewActivity.this, SignupActivity.class);
+                        intent.putExtra("activity_id",activity_id);
+                        startActivity(intent);
                     }
                 });
                 break;
             case 1:
                 btn_signup.setText("报名已截止");
                 btn_signup.setClickable(false);
+                break;
+            case 2:
+                btn_signup.setVisibility(View.GONE);
                 break;
         }
 
@@ -185,7 +176,7 @@ public class stu_viewActivity extends AppCompatActivity {
         name.setText(staticData.activity.getTitle());
         starttime.setText(staticData.activity.getStartTIme());
         endtime.setText(staticData.activity.getEndTime());
-        if(staticData.activity.getRegistrationStartTime().equals("1000-12-31 00:00:00.0")){
+        if(state==2){
             resstarttime.setText("不需要报名");
             resendtime.setText("不需要报名");
         }else{
@@ -286,14 +277,6 @@ public class stu_viewActivity extends AppCompatActivity {
                 }else {
                     expandableListView.expandGroup(groupPosition, true);
                 }
-                return true;
-            }
-        });
-
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int flatPos, long l) {
-                //得到点击的父位置，子位置
                 return true;
             }
         });

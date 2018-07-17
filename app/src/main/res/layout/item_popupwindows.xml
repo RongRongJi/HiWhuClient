@@ -6,25 +6,46 @@
     android:visibility="visible"
     android:orientation="vertical">
 
-        <Button
-            android:id="@+id/item_popupwindows_camera"
-            android:layout_width="match_parent"
-            android:layout_height="60dip"
-            android:text="拍照"
-            android:gravity="center"
-            android:textSize="17sp"/>
-        <Button
-            android:id="@+id/item_popupwindows_photo"
-            android:layout_width="match_parent"
-            android:layout_height="60dip"
-            android:text="从相册选择图片"
-            android:gravity="center"
-            android:textSize="17sp"/>
-         <Button
-             android:id="@+id/item_popupwindows_cancel"
-             android:layout_width="match_parent"
-             android:layout_height="60dip"
-             android:text="取消"
-             android:gravity="center"
-             android:textSize="17sp"/>
+    <TextView
+        android:id="@+id/item_popupwindows_camera"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:background="@drawable/bottom_btn"
+        android:text="拍照"
+        android:gravity="center"
+        android:textSize="16sp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#f1f1f1">
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/item_popupwindows_photo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:background="@drawable/bottom_btn"
+        android:text="从相册选择图片"
+        android:gravity="center"
+        android:textSize="16sp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#f1f1f1">
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/item_popupwindows_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:background="@drawable/bottom_btn"
+        android:text="取消"
+        android:gravity="center"
+        android:textSize="16sp"/>
+
 </LinearLayout>

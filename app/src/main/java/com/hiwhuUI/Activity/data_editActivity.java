@@ -25,13 +25,12 @@ import okhttp3.Response;
 public class data_editActivity extends AppCompatActivity {
     private String activity_id;
     private String ref_comment_id;
-    private String student_id;
     private String ref_comment_content;
     private String fromUserID;
     private String data;
     final int COMMENT = 0;//写评论
     final int REF = 1;//回复评论
-    private int type;
+    private int type = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +43,6 @@ public class data_editActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //发表评论需要 student_id,activity_id; 发表回复需要 student_id,activity_id,ref_comment_id;
-        //发表回顾需要 sponsor_id,activity_id; String sponsor_id = staticData.getSponsorID();
-        //student_id = staticData.getStudentID();
         if(staticData.getUserType()==1) fromUserID=staticData.getStudentID();
         else fromUserID=staticData.getSponsorID();
         activity_id = getIntent().getStringExtra("activity_id");
@@ -59,6 +55,10 @@ public class data_editActivity extends AppCompatActivity {
         et.setHint(name_pre);
         et.setSelection(et.getText().length());
 
+        //确定
+        Button bt2 = (Button)findViewById(R.id.btn2_data_edit);
+        EditText editText = (EditText)findViewById(R.id.edit_data) ;
+
         if(ref_comment_id!=null){
             type = REF;
             et.setHint("回复："+ref_comment_content);
@@ -67,12 +67,11 @@ public class data_editActivity extends AppCompatActivity {
         else if(activity_id!=null) {
             type = COMMENT;
             title.setText("写评论");
+            bt2.setText("评论");
+            editText.setHint("你可以发表对该活动的评论，或者提出一些疑问，活动方会为你解答这些问题");
         }
         else title.setText("编辑资料");
 
-        //确定
-        Button bt2 = (Button)findViewById(R.id.btn2_data_edit);
-        Button bt1 = (Button)findViewById(R.id.btn1_data_edit);
         //确定返回
         bt2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,13 +129,6 @@ public class data_editActivity extends AppCompatActivity {
                     setResult(RESULT_OK,intent);
                     finish();
                 }
-            }
-        });
-        //取消返回
-        bt1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
             }
         });
     }

@@ -1,21 +1,28 @@
 package com.hiwhuUI.Activity.message;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.hiwhu.hiwhuclient.R;
+import com.hiwhuUI.Activity.com_viewActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import HttpConnect.GetRefCount;
+import entity.CommentWithActivity;
+
 public class stuReply extends AppCompatActivity {
 
         private List<comResult> RemindList = new ArrayList<>();
+        private GetRefCount grc;
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -44,32 +51,20 @@ public class stuReply extends AppCompatActivity {
             ResultAdapter adapter = new ResultAdapter(stuReply.this,R.layout.com_result_item,RemindList);
             ListView listView = (ListView)findViewById(R.id.result_list);
             listView.setAdapter(adapter);
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                    Intent intent = new Intent(stuReply.this,com_viewActivity.class);
+                    intent.putExtra("activity_id",grc.commentCountList.get(position).getActivityID());
+                    startActivity(intent);
+                }
+            });
         }
         private void initComResult(){
-            for (int i = 0; i <1; i++){
-                comResult result1 = new comResult("好想回家避暑啊",R.drawable.jump1,"2");
-                RemindList.add(result1);
-                comResult result2 = new comResult("好好写前端",R.drawable.jump1,"2");
-                RemindList.add(result2);
-                comResult result3 = new comResult("技术经理是个大猪蹄子",R.drawable.jump1,"1");
-                RemindList.add(result3);
-                comResult result4 = new comResult("项目经理世最可",R.drawable.jump1,"1");
-                RemindList.add(result4);
-                comResult result5 = new comResult("咕咕咕咕咕",R.drawable.jump1,"1");
-                RemindList.add(result5);
-                comResult result6 = new comResult("百度地图API",R.drawable.jump1,"1");
-                RemindList.add(result6);
-                comResult result7 = new comResult("想吃火锅了",R.drawable.jump1,"1");
-                RemindList.add(result7);
-                comResult result8 = new comResult("还行吧好歹这是学生界面",R.drawable.jump1,"1");
-                RemindList.add(result8);
-                comResult result9 = new comResult("真香",R.drawable.jump1,"1");
-                RemindList.add(result9);
-                comResult result10 = new comResult("？",R.drawable.jump1,"1");
-                RemindList.add(result10);
-                comResult result11 = new comResult("什么意思",R.drawable.jump1,"1");
-                RemindList.add(result11);
-                comResult result12 = new comResult("seventeen七月十六回归了解一下呗",R.drawable.jump1,"1");
-                RemindList.add(result12);
-            }}
-    }
+            grc = GetRefCount.GetActivityInit();
+            for(CommentWithActivity cwa : grc.commentCountList){
+                comResult result = new comResult(cwa.getTitle(),R.drawable.jump1,String.valueOf(cwa.getCount()));
+                RemindList.add(result);
+            }
+        }
+}

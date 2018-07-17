@@ -1,6 +1,5 @@
 package com.hiwhuUI.Activity;
 
-import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.Cursor;
@@ -8,31 +7,36 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hiwhu.hiwhuclient.R;
-
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-
-import javax.xml.transform.OutputKeys;
-
+import HttpConnect.GetCurrentSponsor;
+import HttpConnect.UploadImg;
+import data.staticData;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
+
+import static com.baidu.mapapi.BMapManager.getContext;
 
 public class com_describeActivity extends AppCompatActivity {
 
@@ -43,16 +47,30 @@ public class com_describeActivity extends AppCompatActivity {
     public static final int CHANGE_DESCRIBE =5;
     private  PopupWindow pop = null;//弹窗
     private Uri imageUri;
+    private Toolbar toolbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_com_describe);
 
-        RelativeLayout relativeLayout1 = (RelativeLayout) findViewById(R.id.com_describe_p1);
-        RelativeLayout relativeLayout2 = (RelativeLayout) findViewById(R.id.com_describe_p2);
-        RelativeLayout relativeLayout3 = (RelativeLayout) findViewById(R.id.com_describe_p3);
-        TextView tv5 = (TextView)findViewById(R.id.text5_com_describe_p4);
+        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar_com_describe);
+        toolbar.setTitle("");
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        LinearLayout relativeLayout1 = (LinearLayout) findViewById(R.id.com_describe_p1);
+        LinearLayout relativeLayout2 = (LinearLayout) findViewById(R.id.com_describe_p2);
+        LinearLayout relativeLayout3 = (LinearLayout) findViewById(R.id.com_describe_p3);
+        TextView tv5 = (TextView)findViewById(R.id.text2_com_describe_p4);
+
+        ImageView headImage = (ImageView)findViewById(R.id.imag_com_describe_p1);
+        //设置圆形头像
+        Glide.with(this).load(staticData.getUrl()+"/"+staticData.sponsor.getHeadProtrait()).skipMemoryCache(true) // 不使用内存缓存
+                .diskCacheStrategy(DiskCacheStrategy.NONE) // 不使用磁盘缓存
+                .bitmapTransform(new CropCircleTransformation(getContext()))
+                .into(headImage);
 
         relativeLayout1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,10 +85,23 @@ public class com_describeActivity extends AppCompatActivity {
                 pop.setOutsideTouchable(true);
                 pop.setContentView(view);
                 pop.showAtLocation(view, Gravity.BOTTOM,0,0);
+                // 设置背景颜色变暗
+                WindowManager.LayoutParams lp = getWindow().getAttributes();
+                lp.alpha = 0.7f;
+                getWindow().setAttributes(lp);
+                pop.setOnDismissListener(new PopupWindow.OnDismissListener() {
 
-                Button bt1 = (Button) view.findViewById(R.id.item_popupwindows_camera);
-                Button bt2 = (Button) view.findViewById(R.id.item_popupwindows_photo);
-                Button bt3 = (Button) view.findViewById(R.id.item_popupwindows_cancel);
+                    @Override
+                    public void onDismiss() {
+                        WindowManager.LayoutParams lp = getWindow().getAttributes();
+                        lp.alpha = 1f;
+                        getWindow().setAttributes(lp);
+                    }
+                });
+
+                TextView bt1 = (TextView) view.findViewById(R.id.item_popupwindows_camera);
+                TextView bt2 = (TextView) view.findViewById(R.id.item_popupwindows_photo);
+                TextView bt3 = (TextView) view.findViewById(R.id.item_popupwindows_cancel);
 
                 //相机
                 bt1.setOnClickListener(new View.OnClickListener() {
@@ -101,7 +132,8 @@ public class com_describeActivity extends AppCompatActivity {
                 });
                 //相册
                 bt2.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View v) {Intent intent = new Intent();
+                    public void onClick(View v) {
+                        Intent intent = new Intent();
                         /* 开启Pictures画面Type设定为image */
                         intent.setType("image/*");
                         /* 使用Intent.ACTION_GET_CONTENT这个Action */
@@ -121,8 +153,9 @@ public class com_describeActivity extends AppCompatActivity {
             }
 
         });
-
         //社团名称
+        TextView comName = (TextView)findViewById(R.id.text2_com_describe_p2);
+        comName.setText(staticData.sponsor.getSponsorName());
         relativeLayout2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -133,8 +166,9 @@ public class com_describeActivity extends AppCompatActivity {
                 startActivityForResult(intent,CHANGE_NAME);
             }
         });
-
         //联系方式
+        TextView telNum = (TextView)findViewById(R.id.text2_com_describe_p3);
+        telNum.setText(staticData.sponsor.getPhoneNum());
         relativeLayout3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -146,13 +180,14 @@ public class com_describeActivity extends AppCompatActivity {
 
             }
         });
-
         //简介
+        TextView comIntroduction = (TextView)findViewById(R.id.text2_com_describe_p4);
+        comIntroduction.setText(staticData.sponsor.getIntroduction());
         tv5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextView tv5 = (TextView) findViewById(R.id.text5_com_describe_p4);
-                String dc = (String) tv5.getText();
+                TextView text = (TextView) findViewById(R.id.text2_com_describe_p4);
+                String dc = (String) text.getHint();
                 Intent intent = new Intent(com_describeActivity.this,data_editActivity.class);
                 intent.putExtra("data",dc);
                 startActivityForResult(intent,CHANGE_DESCRIBE);
@@ -161,20 +196,27 @@ public class com_describeActivity extends AppCompatActivity {
 
 
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if(id==android.R.id.home){
+            finish();
+            return true;
+        }
+        else return false;
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
 
             case TAKE_PHOTO:
                 if (resultCode == RESULT_OK) {
-                    try {
-                        Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver()
-                                .openInputStream(imageUri));
-                        ImageView imageView = (ImageView) findViewById(R.id.imag_com_describe_p1);
-                        imageView.setImageBitmap(bitmap);
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
+                    File file = new File(getExternalCacheDir(),"output_image.jpg");
+                    Upload upload = new Upload(file);
+                    upload.execute(staticData.getUrl()+"/ChangeHeadImageServlet?type=2&sponsorID="+staticData.sponsor.getSponsorID());
                 }
                 break;
 
@@ -182,14 +224,9 @@ public class com_describeActivity extends AppCompatActivity {
                 Uri uri = data.getData();
                 Log.e("uri", uri.toString());
                 ContentResolver cr = this.getContentResolver();
-                try {
-                    Bitmap bitmap = BitmapFactory.decodeStream(cr.openInputStream(uri));
-                    ImageView imageView = (ImageView) findViewById(R.id.imag_com_describe_p1);
-                    /* 将Bitmap设定到ImageView */
-                    imageView.setImageBitmap(bitmap);
-                } catch (FileNotFoundException e) {
-                    Log.e("Exception", e.getMessage(), e);
-                }
+                File file = new File(selectPic(uri));
+                Upload upload = new Upload(file);
+                upload.execute(staticData.getUrl()+"/ChangeHeadImageServlet?type=2&sponsorID="+staticData.sponsor.getSponsorID());
                 break;
             case CHANGE_NAME:
                 if (resultCode==RESULT_OK){
@@ -208,7 +245,7 @@ public class com_describeActivity extends AppCompatActivity {
             case CHANGE_DESCRIBE:
                 if (resultCode==RESULT_OK){
                     String returneddata = data.getStringExtra("data");
-                    TextView tv5 = (TextView)findViewById(R.id.text5_com_describe_p4);
+                    TextView tv5 = (TextView)findViewById(R.id.text2_com_describe_p4);
                     tv5.setText(returneddata);
                 }
                 break;
@@ -219,6 +256,51 @@ public class com_describeActivity extends AppCompatActivity {
     }
 
 
+    private String selectPic(Uri selectImageUri) {
+        String[] filePathColumn = {MediaStore.Images.Media.DATA};
+        Cursor cursor = getContentResolver().query(selectImageUri, filePathColumn, null, null, null);
+        cursor.moveToFirst();
+        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+        String path = cursor.getString(columnIndex);
+        cursor.close();
+        return path;
+    }
+
+
+    //实现异步操作接口
+    class Upload extends AsyncTask<String,Void,String> {
+        File file;
+        public Upload(File file){
+            this.file = file;
+        }
+        @Override
+        protected String doInBackground(String... strings) {
+            return UploadImg.uploadFile(file,strings[0]);
+
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            Log.e("return---", s);
+            if(s.equals("succeed")){
+                GetCurrentSponsor.GetSponsorInit();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //设置圆形头像
+                        ImageView headImage = (ImageView)findViewById(R.id.imag_com_describe_p1);
+                        Glide.with(getContext()).load(staticData.getUrl()+"/"+staticData.sponsor.getHeadProtrait()).skipMemoryCache(true) // 不使用内存缓存
+                                .diskCacheStrategy(DiskCacheStrategy.NONE) // 不使用磁盘缓存
+                                .bitmapTransform(new CropCircleTransformation(getContext()))
+                                .into(headImage);
+                    }
+                });
+            }
+        }
+
+
+    }
 
 }
 

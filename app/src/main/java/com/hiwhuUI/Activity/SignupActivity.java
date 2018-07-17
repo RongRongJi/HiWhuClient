@@ -1,11 +1,13 @@
 package com.hiwhuUI.Activity;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hiwhu.hiwhuclient.R;
@@ -33,12 +35,32 @@ public class SignupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
+        //更改标题栏
+        TextView title = (TextView)findViewById(R.id.text_title) ;
+        title.setText("报名");
+        Button back = (Button)findViewById(R.id.button_backward);
+        back.setText("返回");
+        //返回消息主页
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        Button forward = (Button)findViewById(R.id.button_forward);
+        forward.setText(null);
+        //隐藏默认标题栏
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null){
+            actionBar.hide();
+        }
+
         name = (EditText)findViewById(R.id.p1_edit_stu_num);
         number = (EditText)findViewById(R.id.p2_edit_stu_username);
         phone = (EditText)findViewById(R.id.p3_edit_stu_password);
         qq = (EditText)findViewById(R.id.p4_edit_stu_ident);
         Button submit =(Button)findViewById(R.id.btn_confirm);
-        Button cancel = (Button)findViewById(R.id.btn_cancel);
+        Button cancel = (Button)findViewById(R.id.button_backward);
         final String activityID = getIntent().getStringExtra("activity_id");
         //Toast.makeText(SignupActivity.this, activity_id, Toast.LENGTH_SHORT).show();
 
