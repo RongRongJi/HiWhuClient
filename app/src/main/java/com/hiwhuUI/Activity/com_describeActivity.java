@@ -1,6 +1,5 @@
 package com.hiwhuUI.Activity;
 
-import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.Cursor;
@@ -14,12 +13,15 @@ import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -27,16 +29,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hiwhu.hiwhuclient.R;
-
-import org.w3c.dom.Text;
-
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-
-import javax.xml.transform.OutputKeys;
-
-import HttpConnect.GetCurrentCollection;
 import HttpConnect.GetCurrentSponsor;
 import HttpConnect.UploadImg;
 import data.staticData;
@@ -53,16 +47,23 @@ public class com_describeActivity extends AppCompatActivity {
     public static final int CHANGE_DESCRIBE =5;
     private  PopupWindow pop = null;//弹窗
     private Uri imageUri;
+    private Toolbar toolbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_com_describe);
 
-        RelativeLayout relativeLayout1 = (RelativeLayout) findViewById(R.id.com_describe_p1);
-        RelativeLayout relativeLayout2 = (RelativeLayout) findViewById(R.id.com_describe_p2);
-        RelativeLayout relativeLayout3 = (RelativeLayout) findViewById(R.id.com_describe_p3);
-        TextView tv5 = (TextView)findViewById(R.id.text5_com_describe_p4);
+        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar_com_describe);
+        toolbar.setTitle("");
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        LinearLayout relativeLayout1 = (LinearLayout) findViewById(R.id.com_describe_p1);
+        LinearLayout relativeLayout2 = (LinearLayout) findViewById(R.id.com_describe_p2);
+        LinearLayout relativeLayout3 = (LinearLayout) findViewById(R.id.com_describe_p3);
+        TextView tv5 = (TextView)findViewById(R.id.text2_com_describe_p4);
 
         ImageView headImage = (ImageView)findViewById(R.id.imag_com_describe_p1);
         //设置圆形头像
@@ -70,7 +71,6 @@ public class com_describeActivity extends AppCompatActivity {
                 .diskCacheStrategy(DiskCacheStrategy.NONE) // 不使用磁盘缓存
                 .bitmapTransform(new CropCircleTransformation(getContext()))
                 .into(headImage);
-
 
         relativeLayout1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,10 +85,23 @@ public class com_describeActivity extends AppCompatActivity {
                 pop.setOutsideTouchable(true);
                 pop.setContentView(view);
                 pop.showAtLocation(view, Gravity.BOTTOM,0,0);
+                // 设置背景颜色变暗
+                WindowManager.LayoutParams lp = getWindow().getAttributes();
+                lp.alpha = 0.7f;
+                getWindow().setAttributes(lp);
+                pop.setOnDismissListener(new PopupWindow.OnDismissListener() {
 
-                Button bt1 = (Button) view.findViewById(R.id.item_popupwindows_camera);
-                Button bt2 = (Button) view.findViewById(R.id.item_popupwindows_photo);
-                Button bt3 = (Button) view.findViewById(R.id.item_popupwindows_cancel);
+                    @Override
+                    public void onDismiss() {
+                        WindowManager.LayoutParams lp = getWindow().getAttributes();
+                        lp.alpha = 1f;
+                        getWindow().setAttributes(lp);
+                    }
+                });
+
+                TextView bt1 = (TextView) view.findViewById(R.id.item_popupwindows_camera);
+                TextView bt2 = (TextView) view.findViewById(R.id.item_popupwindows_photo);
+                TextView bt3 = (TextView) view.findViewById(R.id.item_popupwindows_cancel);
 
                 //相机
                 bt1.setOnClickListener(new View.OnClickListener() {
@@ -140,7 +153,6 @@ public class com_describeActivity extends AppCompatActivity {
             }
 
         });
-
         //社团名称
         TextView comName = (TextView)findViewById(R.id.text2_com_describe_p2);
         comName.setText(staticData.sponsor.getSponsorName());
@@ -154,7 +166,6 @@ public class com_describeActivity extends AppCompatActivity {
                 startActivityForResult(intent,CHANGE_NAME);
             }
         });
-
         //联系方式
         TextView telNum = (TextView)findViewById(R.id.text2_com_describe_p3);
         telNum.setText(staticData.sponsor.getPhoneNum());
@@ -169,15 +180,14 @@ public class com_describeActivity extends AppCompatActivity {
 
             }
         });
-
         //简介
-        TextView comIntroduction = (TextView)findViewById(R.id.text5_com_describe_p4);
+        TextView comIntroduction = (TextView)findViewById(R.id.text2_com_describe_p4);
         comIntroduction.setText(staticData.sponsor.getIntroduction());
         tv5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextView tv5 = (TextView) findViewById(R.id.text5_com_describe_p4);
-                String dc = (String) tv5.getText();
+                TextView text = (TextView) findViewById(R.id.text2_com_describe_p4);
+                String dc = (String) text.getHint();
                 Intent intent = new Intent(com_describeActivity.this,data_editActivity.class);
                 intent.putExtra("data",dc);
                 startActivityForResult(intent,CHANGE_DESCRIBE);
@@ -186,6 +196,18 @@ public class com_describeActivity extends AppCompatActivity {
 
 
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if(id==android.R.id.home){
+            finish();
+            return true;
+        }
+        else return false;
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
@@ -223,7 +245,7 @@ public class com_describeActivity extends AppCompatActivity {
             case CHANGE_DESCRIBE:
                 if (resultCode==RESULT_OK){
                     String returneddata = data.getStringExtra("data");
-                    TextView tv5 = (TextView)findViewById(R.id.text5_com_describe_p4);
+                    TextView tv5 = (TextView)findViewById(R.id.text2_com_describe_p4);
                     tv5.setText(returneddata);
                 }
                 break;
