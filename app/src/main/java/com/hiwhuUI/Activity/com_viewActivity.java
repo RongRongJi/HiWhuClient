@@ -70,59 +70,6 @@ public class com_viewActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-/*        toolbar.setOnMenuItemClickListener(new android.support.v7.widget.Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-                switch (menuItem.getItemId()) {
-                    case R.id.activity_edit:
-                        Toast.makeText(com_viewActivity.this,"重新编辑",Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(com_viewActivity.this,com_updateActivity.class);
-                        intent.putExtra("activity_id",activity_id);
-                        startActivity(intent);
-                        finish();
-                        return true;
-                    case R.id.activity_delete:
-                        AlertDialog.Builder dialog = new AlertDialog.Builder(com_viewActivity.this);
-                        dialog.setTitle("你确定要删除该活动吗？");
-                        dialog.setMessage("删除后将不可恢复");
-                        dialog.setCancelable(false);
-                        dialog.setPositiveButton("删除", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int which) {
-                                String url = staticData.getUrl()+"/DeleteActivityServlet"
-                                        +"?activityID="+activity_id;
-                                HttpUtil.sendOkHttpRequest(url, new okhttp3.Callback() {
-                                    @Override
-                                    public void onResponse(Call call, Response response) throws IOException {
-                                        String s = response.body().string();
-                                        Log.e("return---", s);
-                                        if(s.equals("succeed")){
-                                            Jump(true);
-                                            staticData.setCurrentActivity(null);
-                                        }else{
-                                            Jump(false);
-                                        }
-                                    }
-                                    @Override
-                                    public void onFailure(Call call, IOException e) {
-                                        Log.e("error",e.toString());
-                                    }
-                                });
-
-                            }
-                        });
-                        dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int which) {
-                            }
-                        });
-                        dialog.show();
-                        return true;
-                }
-                return false;
-            }
-        });*/
-
         name = (TextView)findViewById(R.id.activity_name);
         starttime = (TextView)findViewById(R.id.activity_startTime);
         endtime = (TextView)findViewById(R.id.activity_endTime);
@@ -206,23 +153,25 @@ public class com_viewActivity extends AppCompatActivity {
             }
         });
 
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int flatPos, long l) {
-                //得到点击的父位置，子位置
-                long packedPos = ((ExpandableListView)parent).getExpandableListPosition(flatPos);
-                int groupPosition= ExpandableListView.getPackedPositionGroup(packedPos);
-                int childPosition = ExpandableListView.getPackedPositionChild(packedPos);
-                if(childPosition == -1){//-1-父项; >=0-子项;
-                    Intent intent = new Intent(com_viewActivity.this,data_editActivity.class);
-                    intent.putExtra("activity_id",activity_id);
-                    intent.putExtra("ref_comment_id",adapter.getGroup(groupPosition).getCommentId());
-                    intent.putExtra("ref_comment_content",adapter.getGroup(groupPosition).getContent());
-                    startActivity(intent);
+        if(staticData.isSponsorCanOpera()){
+            listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                @Override
+                public boolean onItemLongClick(AdapterView<?> parent, View view, int flatPos, long l) {
+                    //得到点击的父位置，子位置
+                    long packedPos = ((ExpandableListView)parent).getExpandableListPosition(flatPos);
+                    int groupPosition= ExpandableListView.getPackedPositionGroup(packedPos);
+                    int childPosition = ExpandableListView.getPackedPositionChild(packedPos);
+                    if(childPosition == -1){//-1-父项; >=0-子项;
+                        Intent intent = new Intent(com_viewActivity.this,data_editActivity.class);
+                        intent.putExtra("activity_id",activity_id);
+                        intent.putExtra("ref_comment_id",adapter.getGroup(groupPosition).getCommentId());
+                        intent.putExtra("ref_comment_content",adapter.getGroup(groupPosition).getContent());
+                        startActivity(intent);
+                    }
+                    return true;
                 }
-                return true;
-            }
-        });
+            });
+        }
     }
 
     public void Jump(final boolean flag){
@@ -261,13 +210,6 @@ public class com_viewActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
-/*        if(id==android.R.id.home){
-            finish();
-            return true;
-        }
-        else return false;*/
-
         switch (id) {
             case android.R.id.home:
                 finish();

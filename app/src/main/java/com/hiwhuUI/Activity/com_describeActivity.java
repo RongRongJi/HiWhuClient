@@ -19,6 +19,7 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -47,15 +48,17 @@ public class com_describeActivity extends AppCompatActivity {
     private  PopupWindow pop = null;//弹窗
     private Uri imageUri;
     private Toolbar toolbar;
-    private LinearLayout LinearLayout1;
-    private LinearLayout LinearLayout2;
-    private LinearLayout LinearLayout3;
-    private LinearLayout LinearLayout4;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_com_describe);
+
+        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar_com_describe);
+        toolbar.setTitle("");
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         LinearLayout relativeLayout1 = (LinearLayout) findViewById(R.id.com_describe_p1);
         LinearLayout relativeLayout2 = (LinearLayout) findViewById(R.id.com_describe_p2);
@@ -82,8 +85,19 @@ public class com_describeActivity extends AppCompatActivity {
                 pop.setOutsideTouchable(true);
                 pop.setContentView(view);
                 pop.showAtLocation(view, Gravity.BOTTOM,0,0);
+                // 设置背景颜色变暗
+                WindowManager.LayoutParams lp = getWindow().getAttributes();
+                lp.alpha = 0.7f;
+                getWindow().setAttributes(lp);
+                pop.setOnDismissListener(new PopupWindow.OnDismissListener() {
 
-
+                    @Override
+                    public void onDismiss() {
+                        WindowManager.LayoutParams lp = getWindow().getAttributes();
+                        lp.alpha = 1f;
+                        getWindow().setAttributes(lp);
+                    }
+                });
 
                 TextView bt1 = (TextView) view.findViewById(R.id.item_popupwindows_camera);
                 TextView bt2 = (TextView) view.findViewById(R.id.item_popupwindows_photo);
@@ -182,6 +196,18 @@ public class com_describeActivity extends AppCompatActivity {
 
 
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if(id==android.R.id.home){
+            finish();
+            return true;
+        }
+        else return false;
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
@@ -227,17 +253,6 @@ public class com_describeActivity extends AppCompatActivity {
                 break;
         }
         super.onActivityResult(requestCode, resultCode, data);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if(id==android.R.id.home){
-            finish();
-            return true;
-        }
-        else return false;
     }
 
 
