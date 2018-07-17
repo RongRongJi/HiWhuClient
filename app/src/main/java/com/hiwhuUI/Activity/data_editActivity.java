@@ -43,11 +43,15 @@ public class data_editActivity extends AppCompatActivity {
         TextView title = (TextView) findViewById(R.id.toolbar_data_edit_text);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        EditText editText = (EditText)findViewById(R.id.edit_data) ;
+
+        //确定
+        Button bt2 = (Button)findViewById(R.id.btn2_data_edit);
 
         //发表评论需要 student_id,activity_id; 发表回复需要 student_id,activity_id,ref_comment_id;
         //发表回顾需要 sponsor_id,activity_id; String sponsor_id = staticData.getSponsorID();
         //student_id = staticData.getStudentID();
-        if(staticData.getUserType()==1) fromUserID=staticData.getStudentID();
+        if(staticData.getStudentID()!=null) fromUserID=staticData.getStudentID();
         else fromUserID=staticData.getSponsorID();
         activity_id = getIntent().getStringExtra("activity_id");
         ref_comment_id = getIntent().getStringExtra("ref_comment_id");
@@ -67,12 +71,12 @@ public class data_editActivity extends AppCompatActivity {
         else if(activity_id!=null) {
             type = COMMENT;
             title.setText("写评论");
+            bt2.setText("评论");
+            editText.setHint("你可以发表对该活动的评论，或者提出一些疑问，活动方会为你解答这些问题");
         }
         else title.setText("编辑资料");
 
-        //确定
-        Button bt2 = (Button)findViewById(R.id.btn2_data_edit);
-        Button bt1 = (Button)findViewById(R.id.btn1_data_edit);
+
         //确定返回
         bt2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,13 +134,6 @@ public class data_editActivity extends AppCompatActivity {
                     setResult(RESULT_OK,intent);
                     finish();
                 }
-            }
-        });
-        //取消返回
-        bt1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
             }
         });
     }

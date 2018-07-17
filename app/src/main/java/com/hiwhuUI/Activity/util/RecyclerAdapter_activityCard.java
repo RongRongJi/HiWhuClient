@@ -79,17 +79,11 @@ public class RecyclerAdapter_activityCard extends RecyclerView.Adapter<RecyclerA
                 //int userType = staticData.getUserType();
                 boolean isSponsorOpera = staticData.isSponsorCanOpera();
 
-                DetailActivity.start(v.getContext(),10);
+                //DetailActivity.start(v.getContext(),10);
                 if(!isSponsorOpera){
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Intent intent = new Intent(v.getContext(), stu_viewActivity.class);
-                            intent.putExtra("activity_id",activityCard.getActivity_id());
-                            v.getContext().startActivity(intent);
-                        }
-                    }).start();
-
+                    Intent intent = new Intent(v.getContext(), stu_viewActivity.class);
+                    intent.putExtra("activity_id",activityCard.getActivity_id());
+                    v.getContext().startActivity(intent);
                 }
                 else{
                     Intent intent = new Intent(v.getContext(), com_viewActivity.class);
