@@ -6,18 +6,16 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import data.staticData;
-import entity.Activity;
 import entity.CommentWithActivity;
 import okhttp3.Call;
 import okhttp3.Response;
 
-public class GetCommentCount {
+public class GetRefCount {
     public boolean lock = false;//线程锁
-    private String url = staticData.getUrl()+"/GetCommentCountServlet?type=2&sponsorID="+staticData.getSponsorID();
+    private String url = staticData.getUrl()+"/GetCommentCountServlet?type=1&studentID="+staticData.getStudentID();
 
     public List<CommentWithActivity> commentCountList=null;
     public void sendRequestWithOkHttp() {
@@ -42,8 +40,8 @@ public class GetCommentCount {
         lock = true;
     }
 
-    public static GetCommentCount GetActivityInit(){
-        GetCommentCount gcs = new GetCommentCount();
+    public static GetRefCount GetActivityInit(){
+        GetRefCount gcs = new GetRefCount();
         gcs.sendRequestWithOkHttp();
         while(!gcs.lock){
             try {

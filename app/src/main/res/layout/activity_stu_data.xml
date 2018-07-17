@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.hiwhuUI.Activity.stu_dataActivity"
     android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#fff"
+        android:orientation="vertical">
     <RelativeLayout
         android:id="@+id/stu_data_back"
         android:layout_width="match_parent"
@@ -187,10 +192,16 @@
             android:layout_marginTop="50dip"
             android:layout_marginLeft="30dip"
             android:layout_marginRight="30dip"
+            android:layout_marginBottom="50dip"
             android:text="退出登录"
             android:background="#cbcbcb"
             android:textSize="18sp"
             android:textColor="#fff"/>
     </RelativeLayout>
-
-</LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="100dip"
+            android:text="   "/>
+    </LinearLayout>
+</ScrollView>

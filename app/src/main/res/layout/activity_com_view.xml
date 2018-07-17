@@ -43,7 +43,7 @@
                 android:id="@+id/activity_poster"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:scaleType="fitCenter"/>
+                android:scaleType="centerCrop"/>
 
             <TextView
                 android:id="@+id/activity_name"
