@@ -9,6 +9,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -22,6 +24,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -32,6 +35,7 @@ import com.hiwhuUI.Activity.Map.LocationActivity;
 import com.hiwhuUI.Activity.process.DetailActivity;
 
 import java.io.File;
+import java.net.URLEncoder;
 
 import HttpConnect.UploadImg;
 import data.staticData;
@@ -46,12 +50,15 @@ public class com_updateActivity extends AppCompatActivity {
     final static int ADD_SUCCEED=4;
     final static int ADD_FAILED=5;
     //调用1-系统相册 2-百度地图
-    private static final int IMAGE = 1;
+    private static final int IMAGE_UPDATE = 1;
     private static final int ADDRESS = 2;
+    private static final int IMAGE_CHANGE = 3;
+    static int UPDATE_OR_CHANGE = 1;
 
     private TextView text_image;
     private TextView text_type;
     private TextView text_address;
+    private ImageButton button_image;
 
     private Button beginDate;
     private Button beginTime;
@@ -116,6 +123,9 @@ public class com_updateActivity extends AppCompatActivity {
         if (actionBar != null){
             actionBar.hide();
         }
+
+        button_image = (ImageButton)findViewById(R.id.button_image);
+
         beginDate = (Button)findViewById(R.id.beginDate);
         beginDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -712,21 +722,32 @@ public class com_updateActivity extends AppCompatActivity {
         switch (v.getId()) {
             case R.id.button_image:
                 //调用相册
-                if (Build.VERSION.SDK_INT >= 23) {
-                    int REQUEST_CODE_CONTACT = 101;
-                    String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
-                    //验证是否许可权限
-                    for (String str : permissions) {
-                        if (this.checkSelfPermission(str) != PackageManager.PERMISSION_GRANTED) {
-                            //申请权限
-                            this.requestPermissions(permissions, REQUEST_CODE_CONTACT);
-                            return;
+                switch (UPDATE_OR_CHANGE) {
+                    case 1:
+                        if (Build.VERSION.SDK_INT >= 23) {
+                            int REQUEST_CODE_CONTACT = 101;
+                            String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                            //验证是否许可权限
+                            for (String str : permissions) {
+                                if (this.checkSelfPermission(str) != PackageManager.PERMISSION_GRANTED) {
+                                    //申请权限
+                                    this.requestPermissions(permissions, REQUEST_CODE_CONTACT);
+                                    return;
+                                }
+                            }
                         }
-                    }
+                        Intent intent = new Intent(Intent.ACTION_PICK,
+                                MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        startActivityForResult(intent, UPDATE_OR_CHANGE);
+                        break;
+                    case 2:
+                        Intent intent1 = new Intent(com_updateActivity.this,ImageActivity.class);
+                        startActivity(intent1);
+                        break;
+                    default:
+                        break;
                 }
-                Intent intent = new Intent(Intent.ACTION_PICK,
-                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(intent, IMAGE);
+
                 break;
             case R.id.button_address:
                 Intent intent2 = new Intent(com_updateActivity.this, LocationActivity.class);
@@ -758,10 +779,10 @@ public class com_updateActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         //获取图片路径
-        if (requestCode == IMAGE && resultCode == Activity.RESULT_OK && data != null) {
+        if (requestCode == IMAGE_UPDATE && resultCode == Activity.RESULT_OK && data != null) {
             super.onActivityResult(requestCode, resultCode, data);
             switch (requestCode) {
-                case IMAGE:
+                case IMAGE_UPDATE:
                     if (resultCode == RESULT_OK) {
                         selectPic(data);
                     }
@@ -793,7 +814,10 @@ public class com_updateActivity extends AppCompatActivity {
         cursor.moveToFirst();
         int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
         imagePath = cursor.getString(columnIndex);
+        Bitmap bm = BitmapFactory.decodeFile(imagePath);
+        button_image.setImageBitmap(bm);
         cursor.close();
+        UPDATE_OR_CHANGE = 2;
         text_image = (TextView)findViewById(R.id.text_image);
         text_image.setText("图片上传成功！");
     }
