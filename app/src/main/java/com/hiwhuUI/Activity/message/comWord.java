@@ -1,20 +1,28 @@
 package com.hiwhuUI.Activity.message;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.hiwhu.hiwhuclient.R;
+import com.hiwhuUI.Activity.com_viewActivity;
+import com.hiwhuUI.Activity.stu_viewActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import HttpConnect.GetCommentCount;
+import entity.CommentWithActivity;
+
 public class comWord extends AppCompatActivity {
     private List<comResult> wordList = new ArrayList<>();
+    private GetCommentCount gcc;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,32 +51,20 @@ public class comWord extends AppCompatActivity {
         ResultAdapter adapter = new ResultAdapter(comWord.this,R.layout.com_result_item,wordList);
         ListView listView = (ListView)findViewById(R.id.result_list);
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Intent intent = new Intent(comWord.this,com_viewActivity.class);
+                intent.putExtra("activity_id",gcc.commentCountList.get(position).getActivityID());
+                startActivity(intent);
+            }
+        });
     }
-    private void initComResult(){
-        for (int i = 0; i <1; i++){
-            comResult result1 = new comResult("奇迹list出现了",R.drawable.jump1,"5");
-            wordList.add(result1);
-            comResult result2 = new comResult("好好敲代码",R.drawable.jump1,"2");
-            wordList.add(result2);
-            comResult result3 = new comResult("十五个字就该换行了",R.drawable.jump1,"1");
-            wordList.add(result3);
-            comResult result4 = new comResult("项目经理世最可",R.drawable.jump1,"1");
-            wordList.add(result4);
-            comResult result5 = new comResult("当着技术经理的面咕咕咕",R.drawable.jump1,"0");
-            wordList.add(result5);
-            comResult result6 = new comResult("地图实现了吗",R.drawable.jump1,"0");
-            wordList.add(result6);
-            comResult result7 = new comResult("第二期迭代好危险",R.drawable.jump1,"0");
-            wordList.add(result7);
-            comResult result8 = new comResult("我们的页面是不是有点难看啊",R.drawable.jump1,"0");
-            wordList.add(result8);
-            comResult result9 = new comResult("真香",R.drawable.jump1,"0");
-            wordList.add(result9);
-            comResult result10 = new comResult("？",R.drawable.jump1,"0");
-            wordList.add(result10);
-            comResult result11 = new comResult("什么意思",R.drawable.jump1,"0");
-            wordList.add(result11);
-            comResult result12 = new comResult("seventeen七月十六回归了解一下呗",R.drawable.jump1,"0");
-            wordList.add(result12);
-        }}
+    private void initComResult() {
+        gcc = GetCommentCount.GetActivityInit();
+        for (CommentWithActivity cwa : gcc.commentCountList) {
+            comResult result = new comResult(cwa.getTitle(), R.drawable.jump1, String.valueOf(cwa.getCount()));
+            wordList.add(result);
+        }
+    }
 }
