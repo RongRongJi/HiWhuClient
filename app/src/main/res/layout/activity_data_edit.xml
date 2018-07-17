@@ -37,33 +37,34 @@
         <EditText
             android:id="@+id/edit_data"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2"
-            android:layout_margin="8dp"
-            android:padding="4dp"
+            android:layout_height="220dip"
+            android:layout_marginTop="20dip"
+            android:layout_marginLeft="15dip"
+            android:layout_marginRight="15dip"
+            android:maxLines="10"
             android:textSize="16sp"
-            android:background="@drawable/around_border"
-            android:gravity="top"/>
+            android:background="#fff"
+            android:gravity="left|top"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:gravity="top">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dip"
+            android:layout_marginRight="15dip"
+            android:layout_marginTop="20dip">
 
             <Button
                 android:id="@+id/btn2_data_edit"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:background="@drawable/card_btn"
-                android:textColor="#ffffff"
-                android:text="确 定"
+                android:layout_height="50dip"
+                android:layout_centerHorizontal="true"
+                android:text="确定"
+                android:textColor="#fff"
                 android:textSize="16sp"
-                android:gravity="center"/>
+                android:background="@color/colorPrimary"/>
 
-        </LinearLayout>
+
+        </RelativeLayout>
 
     </LinearLayout>
 

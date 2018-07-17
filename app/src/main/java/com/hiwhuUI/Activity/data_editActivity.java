@@ -55,6 +55,10 @@ public class data_editActivity extends AppCompatActivity {
         et.setHint(name_pre);
         et.setSelection(et.getText().length());
 
+        //确定
+        Button bt2 = (Button)findViewById(R.id.btn2_data_edit);
+        EditText editText = (EditText)findViewById(R.id.edit_data) ;
+
         if(ref_comment_id!=null){
             type = REF;
             et.setHint("回复："+ref_comment_content);
@@ -63,11 +67,11 @@ public class data_editActivity extends AppCompatActivity {
         else if(activity_id!=null) {
             type = COMMENT;
             title.setText("写评论");
+            bt2.setText("评论");
+            editText.setHint("你可以发表对该活动的评论，或者提出一些疑问，活动方会为你解答这些问题");
         }
         else title.setText("编辑资料");
 
-        //确定
-        Button bt2 = (Button)findViewById(R.id.btn2_data_edit);
         //确定返回
         bt2.setOnClickListener(new View.OnClickListener() {
             @Override
