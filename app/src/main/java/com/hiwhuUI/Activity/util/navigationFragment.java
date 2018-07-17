@@ -1,8 +1,13 @@
 package com.hiwhuUI.Activity.util;
 
 
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -31,15 +36,21 @@ import com.hiwhuUI.Activity.com_describeActivity;
 import com.hiwhuUI.Activity.message.comWord;
 import com.hiwhuUI.Activity.message.stuReply;
 import com.hiwhuUI.Activity.message.stuResult;
+import com.hiwhuUI.Activity.stu_dataActivity;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import HttpConnect.GetCurrentSponsor;
 import HttpConnect.GetCurrentStudent;
+import HttpConnect.UploadImg;
 import data.staticData;
 import jp.wasabeef.glide.transformations.BlurTransformation;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
+
+import static com.baidu.mapapi.BMapManager.getContext;
+import static com.hiwhuUI.Activity.stu_dataActivity.CHOOSE_PHOTO;
 
 public class navigationFragment extends Fragment {
     public static navigationFragment newInstance(String info) {
@@ -107,7 +118,6 @@ public class navigationFragment extends Fragment {
                 Glide.with(this).load(R.drawable.stu_data_back)
                         .bitmapTransform(new BlurTransformation(getContext(), 25), new CenterCrop(getContext()))
                         .into(back);
-
                 //设置圆形头像
                 Glide.with(this).load(url).skipMemoryCache(true) // 不使用内存缓存
                         .diskCacheStrategy(DiskCacheStrategy.NONE) // 不使用磁盘缓存
@@ -159,6 +169,18 @@ public class navigationFragment extends Fragment {
                         Intent intent = new Intent(getActivity(), ListActivity.class);
                         intent.putExtra("id",4);
                         startActivity(intent);
+                    }
+                });
+                head.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent();
+                        /* 开启Pictures画面Type设定为image */
+                        intent.setType("image/*");
+                        /* 使用Intent.ACTION_GET_CONTENT这个Action */
+                        intent.setAction(Intent.ACTION_GET_CONTENT);
+                        /* 取得相片后返回本画面 */
+                        startActivityForResult(intent, CHOOSE_PHOTO);
                     }
                 });
 
@@ -303,4 +325,69 @@ public class navigationFragment extends Fragment {
         }
         return view;
     }
+
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case CHOOSE_PHOTO:
+                Uri uri = data.getData();
+                Log.e("uri", uri.toString());
+                ContentResolver cr = getActivity().getContentResolver();
+                File file = new File(selectPic(uri));
+                Upload upload = new Upload(file);
+                upload.execute(staticData.getUrl()+"/ChangeHeadImageServlet?type=1&studentID="+staticData.student.getStudentID());
+                break;
+            default:
+                break;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private String selectPic(Uri selectImageUri) {
+        String[] filePathColumn = {MediaStore.Images.Media.DATA};
+        Cursor cursor = getActivity().getContentResolver().query(selectImageUri, filePathColumn, null, null, null);
+        cursor.moveToFirst();
+        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+        String path = cursor.getString(columnIndex);
+        cursor.close();
+        return path;
+    }
+
+
+    //实现异步操作接口
+    class Upload extends AsyncTask<String,Void,String> {
+        File file;
+        public Upload(File file){
+            this.file = file;
+        }
+        @Override
+        protected String doInBackground(String... strings) {
+            return UploadImg.uploadFile(file,strings[0]);
+
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            Log.e("return---", s);
+            if(s.equals("succeed")){
+                GetCurrentStudent.GetStudentInit();
+                    getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //设置圆形头像
+                        ImageView head = (ImageView)getActivity().findViewById(R.id.stu_h_head);
+                        Glide.with(getContext()).load(staticData.getUrl()+"/"+staticData.student.getHeadProtrait()).skipMemoryCache(true) // 不使用内存缓存
+                                .diskCacheStrategy(DiskCacheStrategy.NONE) // 不使用磁盘缓存
+                                .bitmapTransform(new CropCircleTransformation(getContext()))
+                                .into(head);
+                    }
+                });
+            }
+        }
+
+    }
+
 }

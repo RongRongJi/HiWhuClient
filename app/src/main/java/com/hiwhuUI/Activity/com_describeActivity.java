@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
@@ -24,7 +25,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hiwhu.hiwhuclient.R;
+
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -32,7 +36,13 @@ import java.io.IOException;
 
 import javax.xml.transform.OutputKeys;
 
+import HttpConnect.GetCurrentCollection;
+import HttpConnect.GetCurrentSponsor;
+import HttpConnect.UploadImg;
+import data.staticData;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
+
+import static com.baidu.mapapi.BMapManager.getContext;
 
 public class com_describeActivity extends AppCompatActivity {
 
@@ -53,6 +63,14 @@ public class com_describeActivity extends AppCompatActivity {
         RelativeLayout relativeLayout2 = (RelativeLayout) findViewById(R.id.com_describe_p2);
         RelativeLayout relativeLayout3 = (RelativeLayout) findViewById(R.id.com_describe_p3);
         TextView tv5 = (TextView)findViewById(R.id.text5_com_describe_p4);
+
+        ImageView headImage = (ImageView)findViewById(R.id.imag_com_describe_p1);
+        //设置圆形头像
+        Glide.with(this).load(staticData.getUrl()+"/"+staticData.sponsor.getHeadProtrait()).skipMemoryCache(true) // 不使用内存缓存
+                .diskCacheStrategy(DiskCacheStrategy.NONE) // 不使用磁盘缓存
+                .bitmapTransform(new CropCircleTransformation(getContext()))
+                .into(headImage);
+
 
         relativeLayout1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,7 +119,8 @@ public class com_describeActivity extends AppCompatActivity {
                 });
                 //相册
                 bt2.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View v) {Intent intent = new Intent();
+                    public void onClick(View v) {
+                        Intent intent = new Intent();
                         /* 开启Pictures画面Type设定为image */
                         intent.setType("image/*");
                         /* 使用Intent.ACTION_GET_CONTENT这个Action */
@@ -123,6 +142,8 @@ public class com_describeActivity extends AppCompatActivity {
         });
 
         //社团名称
+        TextView comName = (TextView)findViewById(R.id.text2_com_describe_p2);
+        comName.setText(staticData.sponsor.getSponsorName());
         relativeLayout2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -135,6 +156,8 @@ public class com_describeActivity extends AppCompatActivity {
         });
 
         //联系方式
+        TextView telNum = (TextView)findViewById(R.id.text2_com_describe_p3);
+        telNum.setText(staticData.sponsor.getPhoneNum());
         relativeLayout3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -148,6 +171,8 @@ public class com_describeActivity extends AppCompatActivity {
         });
 
         //简介
+        TextView comIntroduction = (TextView)findViewById(R.id.text5_com_describe_p4);
+        comIntroduction.setText(staticData.sponsor.getIntroduction());
         tv5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -167,14 +192,9 @@ public class com_describeActivity extends AppCompatActivity {
 
             case TAKE_PHOTO:
                 if (resultCode == RESULT_OK) {
-                    try {
-                        Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver()
-                                .openInputStream(imageUri));
-                        ImageView imageView = (ImageView) findViewById(R.id.imag_com_describe_p1);
-                        imageView.setImageBitmap(bitmap);
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
+                    File file = new File(getExternalCacheDir(),"output_image.jpg");
+                    Upload upload = new Upload(file);
+                    upload.execute(staticData.getUrl()+"/ChangeHeadImageServlet?type=2&sponsorID="+staticData.sponsor.getSponsorID());
                 }
                 break;
 
@@ -182,14 +202,9 @@ public class com_describeActivity extends AppCompatActivity {
                 Uri uri = data.getData();
                 Log.e("uri", uri.toString());
                 ContentResolver cr = this.getContentResolver();
-                try {
-                    Bitmap bitmap = BitmapFactory.decodeStream(cr.openInputStream(uri));
-                    ImageView imageView = (ImageView) findViewById(R.id.imag_com_describe_p1);
-                    /* 将Bitmap设定到ImageView */
-                    imageView.setImageBitmap(bitmap);
-                } catch (FileNotFoundException e) {
-                    Log.e("Exception", e.getMessage(), e);
-                }
+                File file = new File(selectPic(uri));
+                Upload upload = new Upload(file);
+                upload.execute(staticData.getUrl()+"/ChangeHeadImageServlet?type=2&sponsorID="+staticData.sponsor.getSponsorID());
                 break;
             case CHANGE_NAME:
                 if (resultCode==RESULT_OK){
@@ -219,6 +234,51 @@ public class com_describeActivity extends AppCompatActivity {
     }
 
 
+    private String selectPic(Uri selectImageUri) {
+        String[] filePathColumn = {MediaStore.Images.Media.DATA};
+        Cursor cursor = getContentResolver().query(selectImageUri, filePathColumn, null, null, null);
+        cursor.moveToFirst();
+        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+        String path = cursor.getString(columnIndex);
+        cursor.close();
+        return path;
+    }
+
+
+    //实现异步操作接口
+    class Upload extends AsyncTask<String,Void,String> {
+        File file;
+        public Upload(File file){
+            this.file = file;
+        }
+        @Override
+        protected String doInBackground(String... strings) {
+            return UploadImg.uploadFile(file,strings[0]);
+
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            Log.e("return---", s);
+            if(s.equals("succeed")){
+                GetCurrentSponsor.GetSponsorInit();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //设置圆形头像
+                        ImageView headImage = (ImageView)findViewById(R.id.imag_com_describe_p1);
+                        Glide.with(getContext()).load(staticData.getUrl()+"/"+staticData.sponsor.getHeadProtrait()).skipMemoryCache(true) // 不使用内存缓存
+                                .diskCacheStrategy(DiskCacheStrategy.NONE) // 不使用磁盘缓存
+                                .bitmapTransform(new CropCircleTransformation(getContext()))
+                                .into(headImage);
+                    }
+                });
+            }
+        }
+
+
+    }
 
 }
 
