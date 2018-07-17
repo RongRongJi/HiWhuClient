@@ -1,130 +1,210 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.hiwhuUI.Activity.com_describeActivity"
-    android:background="#f1f1f1">
-    <TextView
-        android:id="@+id/com_describe_top"
-        android:layout_width="match_parent"
-        android:layout_height="40dip"
-        android:text="社 团 资 料"
-        android:textSize="17sp"
-        android:background="#49b3b6"
-        android:gravity="center"/>
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#f5f5f5">
 
-    <RelativeLayout
-        android:id="@+id/com_describe_p1"
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="60dip"
-        android:layout_below="@+id/com_describe_top"
-        android:background="@drawable/bottom_border">
-        <TextView
-            android:id="@+id/text1_com_describe_p1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="5dip"
-            android:text="头像"
-            android:gravity="center_vertical|left"
-            android:textSize="17sp"/>
-        <TextView
-            android:id="@+id/text2_com_describe_p1"
-            android:layout_width="5dip"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true" />
-        <ImageView
-            android:id="@+id/imag_com_describe_p1"
-            android:layout_width="50dip"
-            android:layout_height="50dip"
-            android:layout_toLeftOf="@+id/text2_com_describe_p1"
-            android:layout_centerVertical="true" />
-    </RelativeLayout>
+        android:layout_height="wrap_content">
 
-    <RelativeLayout
-        android:id="@+id/com_describe_p2"
-        android:layout_width="match_parent"
-        android:layout_height="55dip"
-        android:layout_below="@+id/com_describe_p1"
-        android:background="@drawable/bottom_border">
-        <TextView
-            android:id="@+id/text1_com_describe_p2"
+        <android.support.v7.widget.Toolbar
+            android:background="#49b3b6"
+            android:id= "@+id/toolbar_com_describe"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="5dip"
-            android:text="社团名称"
-            android:gravity="center_vertical|left"
-            android:textSize="17sp"/>
-        <ImageView
-            android:id="@+id/imag_com_describe_p2"
-            android:layout_width="30dip"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:src="@drawable/jump1"/>
-        <TextView
-            android:id="@+id/text2_com_describe_p2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_toLeftOf="@+id/imag_com_describe_p2"
-            android:text="武汉大学国际软件学院体育部"
-            android:textSize="17sp"
-            android:gravity="center_vertical|right"/>
-    </RelativeLayout>
+            android:layout_height="?android:attr/actionBarSize">
 
-    <RelativeLayout
-        android:id="@+id/com_describe_p3"
+            <TextView
+                android:id= "@+id/toolbar_com_describe_text"
+                android:layout_gravity="center"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="55dip"
-        android:layout_below="@+id/com_describe_p2"
-        android:background="@drawable/bottom_border">
-        <TextView
-            android:id="@+id/text1_com_describe_p3"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:ignore="PrivateResource">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="5dip"
-            android:text="联系方式"
-            android:gravity="center_vertical|left"
-            android:textSize="17sp"/>
-        <ImageView
-            android:id="@+id/imag_com_describe_p3"
-            android:layout_width="30dip"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:src="@drawable/jump1"/>
-        <TextView
-            android:id="@+id/text2_com_describe_p3"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_toLeftOf="@id/imag_com_describe_p3"
-            android:text="13277036335"
-            android:textSize="17sp"
-            android:gravity="center_vertical|right"/>
-    </RelativeLayout>
-    <RelativeLayout
-        android:id="@+id/com_describe_p4"
-        android:layout_width="335dip"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/com_describe_p3"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/around_border">
-        <TextView
-            android:id="@+id/text6_com_describe_p4"
-            android:layout_width="match_parent"
-            android:layout_height="40dip"
-            android:text="社团简介"
-            android:textSize="17sp"
-            android:gravity="center"
-            android:background="#49b3b6"/>
-        <TextView
-            android:id="@+id/text5_com_describe_p4"
-            android:layout_below="@+id/text6_com_describe_p4"
-            android:layout_width="355dip"
-            android:layout_centerHorizontal="true"
             android:layout_height="wrap_content"
-            android:background="@drawable/around_border"
-            android:text="  请编辑你的社团简介:"
-            android:textSize="17sp"/>
-    </RelativeLayout>
+            android:orientation="vertical">
 
-</RelativeLayout>
+            <LinearLayout
+                android:id="@+id/com_describe_p1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:background="#ffffff"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/text1_com_describe_p1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="头像"
+                    android:textColor="#999999"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end">
+
+                    <ImageView
+                        android:id="@+id/imag_com_describe_p1"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/com_describe_p2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:background="#ffffff"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/text1_com_describe_p2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="社团名称"
+                    android:textColor="#999999"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/text2_com_describe_p2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:textColor="#666666"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end">
+
+                    <ImageView
+                        android:id="@+id/imag_com_describe_p2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_navigate_next_black_24dp"
+                        android:background="@android:color/transparent"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/com_describe_p3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:background="#ffffff"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/text1_com_describe_p3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="联系方式"
+                    android:textColor="#999999"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/text2_com_describe_p3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:textColor="#666666"
+                    android:textSize="16sp"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end">
+
+                    <ImageView
+                        android:id="@+id/imag_com_describe_p3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_navigate_next_black_24dp"
+                        android:background="@android:color/transparent"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/com_describe_p4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:background="#ffffff"
+                android:orientation="horizontal"
+                android:gravity="top">
+
+                <TextView
+                    android:id="@+id/text1_com_describe_p4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="社团简介"
+                    android:textColor="#999999"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/text2_com_describe_p4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:hint="请编辑你的社团简介"
+                    android:textColorHint="#999999"
+                    android:textColor="#666666"
+                    android:textSize="16sp"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end">
+
+                    <ImageView
+                        android:id="@+id/imag_com_describe_p4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_navigate_next_black_24dp"
+                        android:background="@android:color/transparent"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</android.support.design.widget.CoordinatorLayout>

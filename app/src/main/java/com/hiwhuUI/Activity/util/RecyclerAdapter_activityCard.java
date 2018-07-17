@@ -42,7 +42,7 @@ public class RecyclerAdapter_activityCard extends RecyclerView.Adapter<RecyclerA
         TextView card_title;
         TextView card_time;
         TextView card_location;
-        Button card_btn;
+        TextView card_btn;
 
         public ViewHolder(View view) {
             super(view);
@@ -51,7 +51,7 @@ public class RecyclerAdapter_activityCard extends RecyclerView.Adapter<RecyclerA
             card_title = (TextView)view.findViewById(R.id.card_activity_title);
             card_time = (TextView)view.findViewById(R.id.card_activity_time);
             card_location = (TextView)view.findViewById(R.id.card_activity_location);
-            card_btn = (Button)view.findViewById(R.id.card_activity_btn);
+            card_btn = (TextView)view.findViewById(R.id.card_activity_btn);
         }
     }
 
@@ -76,11 +76,8 @@ public class RecyclerAdapter_activityCard extends RecyclerView.Adapter<RecyclerA
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                //int userType = staticData.getUserType();
-                boolean isSponsorOpera = staticData.isSponsorCanOpera();
-
                 DetailActivity.start(v.getContext(),10);
-                if(!isSponsorOpera){
+                if(staticData.getUserType()==1){
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
@@ -108,10 +105,9 @@ public class RecyclerAdapter_activityCard extends RecyclerView.Adapter<RecyclerA
         }
         switch (option){
             case 0:
-                holder.card_btn.setVisibility(View.INVISIBLE);
+                holder.card_btn.setVisibility(View.GONE);
                 break;
             case 2:
-                holder.card_btn.setText("审核");
                 holder.card_btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

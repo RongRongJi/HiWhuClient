@@ -1,9 +1,7 @@
 package com.hiwhuUI.Activity;
 
-import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -13,14 +11,16 @@ import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -30,8 +30,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import javax.xml.transform.OutputKeys;
-
+import data.staticData;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 public class com_describeActivity extends AppCompatActivity {
@@ -43,18 +42,33 @@ public class com_describeActivity extends AppCompatActivity {
     public static final int CHANGE_DESCRIBE =5;
     private  PopupWindow pop = null;//弹窗
     private Uri imageUri;
+    private Toolbar toolbar;
+    private LinearLayout LinearLayout1;
+    private LinearLayout LinearLayout2;
+    private LinearLayout LinearLayout3;
+    private LinearLayout LinearLayout4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_com_describe);
 
-        RelativeLayout relativeLayout1 = (RelativeLayout) findViewById(R.id.com_describe_p1);
-        RelativeLayout relativeLayout2 = (RelativeLayout) findViewById(R.id.com_describe_p2);
-        RelativeLayout relativeLayout3 = (RelativeLayout) findViewById(R.id.com_describe_p3);
-        TextView tv5 = (TextView)findViewById(R.id.text5_com_describe_p4);
+        toolbar = (Toolbar) findViewById(R.id.toolbar_com_describe);
+        toolbar.setTitle("");
+        TextView textView = (TextView) findViewById(R.id.toolbar_com_describe_text);
+        textView.setText("社团资料");
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        relativeLayout1.setOnClickListener(new View.OnClickListener() {
+        LinearLayout1 = (LinearLayout) findViewById(R.id.com_describe_p1);
+        LinearLayout2 = (LinearLayout) findViewById(R.id.com_describe_p2);
+        LinearLayout3 = (LinearLayout) findViewById(R.id.com_describe_p3);
+        LinearLayout4 = (LinearLayout) findViewById(R.id.com_describe_p4);
+
+        ImageView img = (ImageView)findViewById(R.id.imag_com_describe_p1);
+        Glide.with(this).load(staticData.getUrl()+"/"+staticData.sponsor.getHeadProtrait())
+                .into(img);
+        LinearLayout1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -68,9 +82,9 @@ public class com_describeActivity extends AppCompatActivity {
                 pop.setContentView(view);
                 pop.showAtLocation(view, Gravity.BOTTOM,0,0);
 
-                Button bt1 = (Button) view.findViewById(R.id.item_popupwindows_camera);
-                Button bt2 = (Button) view.findViewById(R.id.item_popupwindows_photo);
-                Button bt3 = (Button) view.findViewById(R.id.item_popupwindows_cancel);
+                TextView bt1 = (TextView) view.findViewById(R.id.item_popupwindows_camera);
+                TextView bt2 = (TextView) view.findViewById(R.id.item_popupwindows_photo);
+                TextView bt3 = (TextView) view.findViewById(R.id.item_popupwindows_cancel);
 
                 //相机
                 bt1.setOnClickListener(new View.OnClickListener() {
@@ -122,8 +136,10 @@ public class com_describeActivity extends AppCompatActivity {
 
         });
 
+        TextView tv2 = (TextView) findViewById(R.id.text2_com_describe_p2);
+        tv2.setText(staticData.sponsor.getSponsorName());
         //社团名称
-        relativeLayout2.setOnClickListener(new View.OnClickListener() {
+        LinearLayout2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 TextView tv = (TextView) findViewById(R.id.text2_com_describe_p2);
@@ -134,8 +150,10 @@ public class com_describeActivity extends AppCompatActivity {
             }
         });
 
+        TextView tv3 = (TextView) findViewById(R.id.text2_com_describe_p3);
+        tv3.setText(staticData.sponsor.getPhoneNum());
         //联系方式
-        relativeLayout3.setOnClickListener(new View.OnClickListener() {
+        LinearLayout3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 TextView tv = (TextView) findViewById(R.id.text2_com_describe_p3);
@@ -147,12 +165,14 @@ public class com_describeActivity extends AppCompatActivity {
             }
         });
 
+        TextView text = (TextView) findViewById(R.id.text2_com_describe_p4);
+        text.setText(staticData.sponsor.getIntroduction());
         //简介
-        tv5.setOnClickListener(new View.OnClickListener() {
+        LinearLayout4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextView tv5 = (TextView) findViewById(R.id.text5_com_describe_p4);
-                String dc = (String) tv5.getText();
+                TextView text = (TextView) findViewById(R.id.text2_com_describe_p4);
+                String dc = (String) text.getHint();
                 Intent intent = new Intent(com_describeActivity.this,data_editActivity.class);
                 intent.putExtra("data",dc);
                 startActivityForResult(intent,CHANGE_DESCRIBE);
@@ -208,7 +228,7 @@ public class com_describeActivity extends AppCompatActivity {
             case CHANGE_DESCRIBE:
                 if (resultCode==RESULT_OK){
                     String returneddata = data.getStringExtra("data");
-                    TextView tv5 = (TextView)findViewById(R.id.text5_com_describe_p4);
+                    TextView tv5 = (TextView)findViewById(R.id.text2_com_describe_p4);
                     tv5.setText(returneddata);
                 }
                 break;
@@ -216,6 +236,17 @@ public class com_describeActivity extends AppCompatActivity {
                 break;
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if(id==android.R.id.home){
+            finish();
+            return true;
+        }
+        else return false;
     }
 
 

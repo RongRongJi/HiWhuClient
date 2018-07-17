@@ -31,8 +31,7 @@
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/container_com_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="50dp">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -243,69 +242,5 @@
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
-
-    <LinearLayout
-        android:id="@+id/bottom_stu_view"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_gravity="bottom"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/bottom_star"
-            android:text="收藏"
-            android:textColor="#49b3b6"
-            android:textSize="12sp"
-            android:typeface="serif"
-            android:background="@drawable/bottom_btn"
-            android:drawableTint="#49b3b6"
-            android:layout_gravity="center_vertical"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
-
-        <Button
-            android:id="@+id/bottom_comment"
-            android:drawableTop="@drawable/ic_create_black_24dp"
-            android:text="写评论"
-            android:textColor="#49b3b6"
-            android:textSize="12sp"
-            android:typeface="serif"
-            android:background="@drawable/bottom_btn"
-            android:drawableTint="#49b3b6"
-            android:layout_gravity="center_vertical"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
-
-        <Button
-            android:id="@+id/bottom_checkup"
-            android:drawableTop="@drawable/ic_group_add_black_24dp"
-            android:text="审核"
-            android:textColor="#49b3b6"
-            android:textSize="12sp"
-            android:typeface="serif"
-            android:background="@drawable/bottom_btn"
-            android:drawableTint="#49b3b6"
-            android:layout_gravity="center_vertical"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
-
-        <Button
-            android:id="@+id/bottom_review"
-            android:drawableTop="@drawable/ic_playlist_add_black_24dp"
-            android:text="发表回顾"
-            android:textColor="#49b3b6"
-            android:textSize="12sp"
-            android:typeface="serif"
-            android:background="@drawable/bottom_btn"
-            android:drawableTint="#49b3b6"
-            android:layout_gravity="center_vertical"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
-
-    </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>
