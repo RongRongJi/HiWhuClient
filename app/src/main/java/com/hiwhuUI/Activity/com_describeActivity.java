@@ -1,7 +1,9 @@
 package com.hiwhuUI.Activity;
 
+import android.Manifest;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,6 +12,8 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,6 +29,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -37,6 +42,7 @@ import data.staticData;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 import static com.baidu.mapapi.BMapManager.getContext;
+import static com.hiwhuUI.Activity.com_updateActivity.UPDATE_OR_CHANGE;
 
 public class com_describeActivity extends AppCompatActivity {
 
@@ -107,38 +113,56 @@ public class com_describeActivity extends AppCompatActivity {
                 bt1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        File outputImage = new File(getExternalCacheDir(),"output_image.jpg");
-                        try{
-                            if(outputImage.exists()){
-                                outputImage.delete();
+                        if (ContextCompat.checkSelfPermission(getContext(),
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                                != PackageManager.PERMISSION_GRANTED)
+                        {
+                            Toast.makeText(getContext(),"请开启相机权限",Toast.LENGTH_SHORT);
+                            return;
+                            //权限还没有授予，需要在这里写申请权限的代码
+                        }else {
+                            //权限已经被授予，在这里直接写要执行的相应方法即可
+                            File outputImage = new File(getExternalCacheDir(),"output_image.jpg");
+                            try{
+                                if(outputImage.exists()){
+                                    outputImage.delete();
+                                }
+                                outputImage.createNewFile();
+                            }catch (IOException e){
+                                e.printStackTrace();
                             }
-                            outputImage.createNewFile();
-                        }catch (IOException e){
-                            e.printStackTrace();
-                        }
-                        if(Build.VERSION.SDK_INT>=24){
-                            imageUri = FileProvider.getUriForFile(com_describeActivity.this,
-                                    "com.hiwhu.fileprovider",
-                                    outputImage);
+                            if(Build.VERSION.SDK_INT>=24){
+                                imageUri = FileProvider.getUriForFile(com_describeActivity.this,
+                                        "com.hiwhu.fileprovider",
+                                        outputImage);
 
-                        }else{
-                            imageUri = Uri.fromFile(outputImage);
+                            }else{
+                                imageUri = Uri.fromFile(outputImage);
+                            }
+                            Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+                            intent.putExtra(MediaStore.EXTRA_OUTPUT,imageUri);
+                            startActivityForResult(intent,TAKE_PHOTO);
+                            pop.dismiss();
                         }
-                        Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-                        intent.putExtra(MediaStore.EXTRA_OUTPUT,imageUri);
-                        startActivityForResult(intent,TAKE_PHOTO);
-                        pop.dismiss();
                     }
                 });
                 //相册
                 bt2.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        Intent intent = new Intent();
-                        /* 开启Pictures画面Type设定为image */
-                        intent.setType("image/*");
-                        /* 使用Intent.ACTION_GET_CONTENT这个Action */
-                        intent.setAction(Intent.ACTION_GET_CONTENT);
-                        /* 取得相片后返回本画面 */
+                        if (Build.VERSION.SDK_INT >= 23) {
+                            int REQUEST_CODE_CONTACT = 101;
+                            String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                            //验证是否许可权限
+                            for (String str : permissions) {
+                                if (checkSelfPermission(str) != PackageManager.PERMISSION_GRANTED) {
+                                    //申请权限
+                                    requestPermissions(permissions, REQUEST_CODE_CONTACT);
+                                    return;
+                                }
+                            }
+                        }
+                        Intent intent = new Intent(Intent.ACTION_PICK,
+                                MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                         startActivityForResult(intent, CHOOSE_PHOTO);
                         pop.dismiss();
                     }
@@ -163,6 +187,7 @@ public class com_describeActivity extends AppCompatActivity {
                 String name = (String) tv.getText();
                 Intent intent = new Intent(com_describeActivity.this,data_editActivity.class);
                 intent.putExtra("data",name);
+                intent.putExtra("type",3);
                 startActivityForResult(intent,CHANGE_NAME);
             }
         });
@@ -176,6 +201,7 @@ public class com_describeActivity extends AppCompatActivity {
                 String tele = (String) tv.getText();
                 Intent intent = new Intent(com_describeActivity.this,data_editActivity.class);
                 intent.putExtra("data",tele);
+                intent.putExtra("type",4);
                 startActivityForResult(intent,CHANGE_TELE);
 
             }
@@ -190,12 +216,50 @@ public class com_describeActivity extends AppCompatActivity {
                 String dc = (String) text.getHint();
                 Intent intent = new Intent(com_describeActivity.this,data_editActivity.class);
                 intent.putExtra("data",dc);
+                intent.putExtra("type",5);
                 startActivityForResult(intent,CHANGE_DESCRIBE);
             }
         });
-
-
     }
+
+
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            //申请WRITE_EXTERNAL_STORAGE权限
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA},
+                    1);}
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        doNext(requestCode, grantResults);
+    }
+
+    private void doNext(int requestCode, int[] grantResults) {
+        if (requestCode == 1) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission Granted
+            }else{
+
+            }
+        }
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if(hasFocus){
+            //GetCurrentSponsor.GetSponsorInit();
+            //TextView comName = (TextView)findViewById(R.id.text2_com_describe_p2);
+            //comName.setText(staticData.sponsor.getSponsorName());
+        }
+    }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -221,6 +285,8 @@ public class com_describeActivity extends AppCompatActivity {
                 break;
 
             case CHOOSE_PHOTO:
+                if(data==null)return;
+                if(data.getData()==null)return;
                 Uri uri = data.getData();
                 Log.e("uri", uri.toString());
                 ContentResolver cr = this.getContentResolver();
