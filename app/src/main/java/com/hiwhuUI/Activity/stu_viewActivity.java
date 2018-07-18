@@ -1,29 +1,37 @@
 package com.hiwhuUI.Activity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.Gravity;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ExpandableListView;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.github.ybq.android.spinkit.style.DoubleBounce;
+import com.github.ybq.android.spinkit.style.ThreeBounce;
 import com.hiwhu.hiwhuclient.R;
 import com.hiwhuUI.Activity.util.CommentExpandableListView;
 import com.hiwhuUI.Activity.util.ExpandAdapter_Comment;
@@ -47,6 +55,8 @@ import entity.Reply;
 import entity.ReplyCard;
 import okhttp3.Call;
 import okhttp3.Response;
+
+import static com.hiwhuUI.Activity.process.Colors.colors;
 
 public class stu_viewActivity extends AppCompatActivity {
 
@@ -74,6 +84,8 @@ public class stu_viewActivity extends AppCompatActivity {
     private CommentExpandableListView listView;
     private ExpandAdapter_Comment adapter;
     private int state = 0;  //获取活动状态, 0-可以报名; 1-报名截止; 2-不需要报名;
+    private GetCommentAndReply gcar;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +93,6 @@ public class stu_viewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_stu_view);
 
         activity_id = getIntent().getStringExtra("activity_id");
-        GetCurrentActivity.GetActivityInit(activity_id);
 
         //收藏初始化
         if(staticData.getStudentID()!=null){
@@ -139,6 +150,94 @@ public class stu_viewActivity extends AppCompatActivity {
             }
         });
 
+
+
+        name = (TextView)findViewById(R.id.activity_name);
+        starttime = (TextView)findViewById(R.id.activity_startTime);
+        endtime = (TextView)findViewById(R.id.activity_endTime);
+        resstarttime = (TextView)findViewById(R.id.join_startTime);
+        resendtime = (TextView)findViewById(R.id.join_endTime);
+        position = (TextView)findViewById(R.id.activity_position);
+        details = (TextView) findViewById(R.id.details);
+
+        name.setText("加载中...");
+        starttime.setText("加载中...");
+        endtime.setText("加载中...");
+        resstarttime.setText("加载中...");
+        resendtime.setText("加载中...");
+        position.setText("加载中...");
+        details.setText("加载中...");
+
+        image = (ImageView)findViewById(R.id.activity_poster);
+        Glide.with(getBaseContext()).load(R.drawable.logo)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.drawable.logo)
+                .error(R.drawable.logo)
+                .crossFade().into(image);
+
+        map_btn = (ImageView)findViewById(R.id.map_menu);
+        //注册上下文浮动菜单
+        registerForContextMenu(map_btn);
+
+        listView = (CommentExpandableListView)findViewById(R.id.comment_list);
+
+
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if(hasFocus){
+            createProgressBar();
+            new Thread(
+                    new Runnable() {
+                        @Override
+                        public void run() {
+                            activity_id = getIntent().getStringExtra("activity_id");
+                            GetCurrentActivity.GetActivityInit(activity_id);
+                            //gcar = GetCommentAndReply.GetCollectionInit(activity_id);
+                            Message msg = new Message();
+                            msg.what=0;
+                            handler.sendMessage(msg);
+                            new Thread(
+                                    new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            activity_id = getIntent().getStringExtra("activity_id");
+                                            //GetCurrentActivity.GetActivityInit(activity_id);
+                                            gcar = GetCommentAndReply.GetCollectionInit(activity_id);
+                                            Message msg = new Message();
+                                            msg.what=1;
+                                            handler.sendMessage(msg);
+                                        }
+                                    }
+                            ).start();
+                        }
+                    }
+            ).start();
+        }
+    }
+
+
+    @SuppressLint("HandlerLeak")
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case 0:
+                    initInfo();
+                    initImage();
+                    //initComment();
+                    initUI();
+                    break;
+                case 1:
+                    initComment();
+                    break;
+            }
+        }
+    };
+
+    private void initInfo(){
         btn_signup = findViewById(R.id.bottom_signup);
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
         String time=df.format(new Date());// new Date()为获取当前系统时间
@@ -164,15 +263,6 @@ public class stu_viewActivity extends AppCompatActivity {
                 btn_signup.setVisibility(View.GONE);
                 break;
         }
-
-        name = (TextView)findViewById(R.id.activity_name);
-        starttime = (TextView)findViewById(R.id.activity_startTime);
-        endtime = (TextView)findViewById(R.id.activity_endTime);
-        resstarttime = (TextView)findViewById(R.id.join_startTime);
-        resendtime = (TextView)findViewById(R.id.join_endTime);
-        position = (TextView)findViewById(R.id.activity_position);
-        details = (TextView) findViewById(R.id.details);
-
         name.setText(staticData.activity.getTitle());
         starttime.setText(staticData.activity.getStartTIme());
         endtime.setText(staticData.activity.getEndTime());
@@ -197,20 +287,19 @@ public class stu_viewActivity extends AppCompatActivity {
         }
         details.setText(staticData.activity.getActivityProfile());
 
+
+    }
+
+    private void initImage(){
         image = (ImageView)findViewById(R.id.activity_poster);
         Glide.with(getBaseContext()).load(staticData.getUrl()+"/"+staticData.activity.getImage())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .placeholder(R.drawable.logo)
                 .error(R.drawable.logo)
                 .crossFade().into(image);
+    }
 
-        map_btn = (ImageView)findViewById(R.id.map_menu);
-        //注册上下文浮动菜单
-        registerForContextMenu(map_btn);
-
-        listView = (CommentExpandableListView)findViewById(R.id.comment_list);
-
-        GetCommentAndReply gcar = GetCommentAndReply.GetCollectionInit(activity_id);
+    private void initComment(){
         List<CommentAndReply> sList = gcar.sList;
 
         List<CommentCard> commentList = new ArrayList<>();
@@ -229,6 +318,35 @@ public class stu_viewActivity extends AppCompatActivity {
         commentList2.addAll(commentList);
         initExpandableListView(commentList2);
     }
+
+
+    private void initUI(){
+        image.setFocusable(true);
+        image.setFocusableInTouchMode(true);
+        image.requestFocus();
+        progressBar.setVisibility(View.GONE);
+    }
+
+    private void createProgressBar(){
+        Context mContext=this;
+        //整个Activity布局的最终父布局,参见参考资料
+        FrameLayout rootFrameLayout=(FrameLayout) findViewById(android.R.id.content);
+        FrameLayout.LayoutParams layoutParams=
+                new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+        layoutParams.gravity= Gravity.CENTER;
+        progressBar=new ProgressBar(mContext);
+        progressBar.setLayoutParams(layoutParams);
+        progressBar.setVisibility(View.VISIBLE);
+        ThreeBounce doubleBounce = new ThreeBounce();
+        doubleBounce.setBounds(0, 0, 100, 100);
+        doubleBounce.setColor(colors[7]);
+        progressBar.setIndeterminateDrawable(doubleBounce);
+        rootFrameLayout.addView(progressBar);
+
+    }
+
+
+
 
     //收藏动作
     private void Jump(final boolean flag){

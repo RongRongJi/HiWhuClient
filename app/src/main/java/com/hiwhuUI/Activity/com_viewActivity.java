@@ -1,24 +1,34 @@
 package com.hiwhuUI.Activity;
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Handler;
+import android.os.Message;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.view.View;
 import android.widget.ExpandableListView;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 import android.view.MenuItem;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.github.ybq.android.spinkit.style.DoubleBounce;
+import com.github.ybq.android.spinkit.style.ThreeBounce;
 import com.hiwhu.hiwhuclient.R;
 import com.hiwhuUI.Activity.util.CommentExpandableListView;
 import com.hiwhuUI.Activity.util.ExpandAdapter_Comment;
@@ -40,6 +50,8 @@ import okhttp3.Response;
 
 import android.widget.TextView;
 
+import static com.hiwhuUI.Activity.process.Colors.colors;
+
 public class com_viewActivity extends AppCompatActivity {
     private String activity_id;
     private Toolbar toolbar;
@@ -54,14 +66,13 @@ public class com_viewActivity extends AppCompatActivity {
     private TextView details;
     private CommentExpandableListView listView;
     private ExpandAdapter_Comment adapter;
+    private GetCommentAndReply gcar;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_com_view);
-
-        activity_id = getIntent().getStringExtra("activity_id");
-        GetCurrentActivity.GetActivityInit(activity_id);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar_com_view);
         toolbar.setTitle("");
@@ -69,7 +80,6 @@ public class com_viewActivity extends AppCompatActivity {
         toolbar_title.setText("活动详情");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         name = (TextView)findViewById(R.id.activity_name);
         starttime = (TextView)findViewById(R.id.activity_startTime);
         endtime = (TextView)findViewById(R.id.activity_endTime);
@@ -77,6 +87,99 @@ public class com_viewActivity extends AppCompatActivity {
         resendtime = (TextView)findViewById(R.id.join_endTime);
         position = (TextView)findViewById(R.id.activity_position);
         details = (TextView) findViewById(R.id.details);
+        name.setText("加载中...");
+        starttime.setText("加载中...");
+        endtime.setText("加载中...");
+        resstarttime.setText("加载中...");
+        resendtime.setText("加载中...");
+        position.setText("加载中...");
+        details.setText("加载中...");
+
+        image = (ImageView)findViewById(R.id.activity_poster);
+        Glide.with(getBaseContext()).load(R.drawable.logo)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.drawable.logo)
+                .error(R.drawable.logo)
+                .crossFade().into(image);
+        listView = (CommentExpandableListView)findViewById(R.id.comment_list);
+
+        //createProgressBar();
+    }
+
+    private void createProgressBar(){
+        Context mContext=this;
+        //整个Activity布局的最终父布局,参见参考资料
+        FrameLayout rootFrameLayout=(FrameLayout) findViewById(android.R.id.content);
+        FrameLayout.LayoutParams layoutParams=
+                new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+        layoutParams.gravity= Gravity.CENTER;
+        progressBar=new ProgressBar(mContext);
+        progressBar.setLayoutParams(layoutParams);
+        progressBar.setVisibility(View.VISIBLE);
+        ThreeBounce doubleBounce = new ThreeBounce();
+        doubleBounce.setBounds(0, 0, 100, 100);
+        doubleBounce.setColor(colors[7]);
+        progressBar.setIndeterminateDrawable(doubleBounce);
+        rootFrameLayout.addView(progressBar);
+
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if(hasFocus){
+            createProgressBar();
+            new Thread(
+                    new Runnable() {
+                        @Override
+                        public void run() {
+                            activity_id = getIntent().getStringExtra("activity_id");
+                            GetCurrentActivity.GetActivityInit(activity_id);
+                            //gcar = GetCommentAndReply.GetCollectionInit(activity_id);
+                            Message msg = new Message();
+                            msg.what=0;
+                            handler.sendMessage(msg);
+                            new Thread(
+                                    new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            activity_id = getIntent().getStringExtra("activity_id");
+                                            //GetCurrentActivity.GetActivityInit(activity_id);
+                                            gcar = GetCommentAndReply.GetCollectionInit(activity_id);
+                                            Message msg = new Message();
+                                            msg.what=1;
+                                            handler.sendMessage(msg);
+                                        }
+                                    }
+                            ).start();
+                        }
+                    }
+            ).start();
+        }
+    }
+
+
+
+    @SuppressLint("HandlerLeak")
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case 0:
+                    initInfo();
+                    initImage();
+                    //initComment();
+                    initUI();
+                    break;
+                case 1:
+                    initComment();
+                    break;
+            }
+        }
+    };
+
+    private void initInfo(){
+        activity_id = getIntent().getStringExtra("activity_id");
 
         name.setText(staticData.activity.getTitle());
         starttime.setText(staticData.activity.getStartTIme());
@@ -88,8 +191,6 @@ public class com_viewActivity extends AppCompatActivity {
             resstarttime.setText(staticData.activity.getRegistrationStartTime());
             resendtime.setText(staticData.activity.getRegistrationEndTime());
         }
-        resstarttime.setText(staticData.activity.getRegistrationStartTime());
-        resendtime.setText(staticData.activity.getRegistrationEndTime());
 
         if(staticData.activity.getLocation()!=null){
             String[] locations = staticData.activity.getLocation().split("\\|\\|");
@@ -102,16 +203,17 @@ public class com_viewActivity extends AppCompatActivity {
         }
 
         details.setText(staticData.activity.getActivityProfile());
+    }
 
-        image = (ImageView)findViewById(R.id.activity_poster);
+    private void initImage(){
         Glide.with(getBaseContext()).load(staticData.getUrl()+"/"+staticData.activity.getImage())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .placeholder(R.drawable.logo)
                 .error(R.drawable.logo)
                 .crossFade().into(image);
+    }
 
-        listView = (CommentExpandableListView)findViewById(R.id.comment_list);
-        GetCommentAndReply gcar = GetCommentAndReply.GetCollectionInit(activity_id);
+    private void initComment(){
         List<CommentAndReply> sList = gcar.sList;
 
         List<CommentCard> commentList = new ArrayList<>();
@@ -129,6 +231,13 @@ public class com_viewActivity extends AppCompatActivity {
         }
         commentList2.addAll(commentList);
         initExpandableListView(commentList2);
+    }
+
+    public void initUI(){
+        image.setFocusable(true);
+        image.setFocusableInTouchMode(true);
+        image.requestFocus();
+        progressBar.setVisibility(View.GONE);
     }
 
     private void initExpandableListView(final List<CommentCard> commentList){

@@ -29,11 +29,14 @@
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView
+        android:focusableInTouchMode="true"
+        android:focusable="true"
         android:id="@+id/container_com_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -41,7 +44,7 @@
             <ImageView
                 android:id="@+id/activity_poster"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="350dip"
                 android:scaleType="centerCrop"/>
 
             <TextView
