@@ -54,8 +54,8 @@ public class com_updateActivity extends AppCompatActivity {
     //调用1-系统相册 2-百度地图
     private static final int IMAGE_UPDATE = 1;
     private static final int ADDRESS = 2;
-    private static final int IMAGE_CHANGE = 3;
-    static int UPDATE_OR_CHANGE = 1;
+    private static final int IMAGE_DELETE = 3;
+    static int UPDATE_OR_DELETE = 1;
 
     private TextView text_image;
     private TextView text_type;
@@ -115,7 +115,7 @@ public class com_updateActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        UPDATE_OR_CHANGE = 1;
+        UPDATE_OR_DELETE = 1;
 
         super.onCreate(savedInstanceState);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
@@ -736,8 +736,8 @@ public class com_updateActivity extends AppCompatActivity {
         switch (v.getId()) {
             case R.id.button_image:
                 //调用相册
-                switch (UPDATE_OR_CHANGE) {
-                    case 1:
+                switch (UPDATE_OR_DELETE) {
+                    case IMAGE_UPDATE:
                         if (Build.VERSION.SDK_INT >= 23) {
                             int REQUEST_CODE_CONTACT = 101;
                             String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
@@ -752,12 +752,12 @@ public class com_updateActivity extends AppCompatActivity {
                         }
                         Intent intent = new Intent(Intent.ACTION_PICK,
                                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                        startActivityForResult(intent, UPDATE_OR_CHANGE);
+                        startActivityForResult(intent, UPDATE_OR_DELETE);
                         break;
-                    case 2:
+                    case IMAGE_DELETE:
                         Intent intent1 = new Intent(com_updateActivity.this,ImageActivity.class);
                         intent1.putExtra("picPath",imagePath);
-                        startActivity(intent1);
+                        startActivityForResult(intent1, UPDATE_OR_DELETE);
                         break;
                     default:
                         break;
@@ -806,6 +806,20 @@ public class com_updateActivity extends AppCompatActivity {
 
             }
         }
+        if (requestCode == IMAGE_DELETE && resultCode == Activity.RESULT_OK && data != null) {
+            super.onActivityResult(requestCode, resultCode, data);
+            switch (requestCode) {
+                case IMAGE_DELETE:
+                    if (resultCode == RESULT_OK) {
+                        UPDATE_OR_DELETE = 1;
+                        imagePath = null;
+                        text_image.setText("点击上传封面图片");
+                        button_image.setImageDrawable(getResources().getDrawable(R.drawable.acu_picture));
+                    }
+                    break;
+
+            }
+        }
         if(requestCode == ADDRESS && resultCode == Activity.RESULT_OK && data != null){
             super.onActivityResult(requestCode, resultCode, data);
             switch (requestCode) {
@@ -834,7 +848,7 @@ public class com_updateActivity extends AppCompatActivity {
         Bitmap bm = BitmapFactory.decodeFile(imagePath);
         button_image.setImageBitmap(bm);
         cursor.close();
-        UPDATE_OR_CHANGE = 2;
+        UPDATE_OR_DELETE = 3;
         text_image = (TextView)findViewById(R.id.text_image);
         text_image.setText("图片上传成功！");
     }
