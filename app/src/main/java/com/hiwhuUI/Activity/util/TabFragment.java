@@ -15,6 +15,7 @@ import com.hiwhu.hiwhuclient.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import HttpConnect.GetAllActivity;
 import data.staticData;
 import entity.Activity;
 import entity.ActivityCard;
@@ -29,7 +30,7 @@ public class TabFragment extends Fragment {
 
         List<ActivityCard> cardList=new ArrayList<>();
         cardList.clear();
-
+        GetAllActivity.GetActivityInit();
         List<Activity> list = staticData.activityList;
         switch (TAG){
             case staticData.TUIJIAN:
