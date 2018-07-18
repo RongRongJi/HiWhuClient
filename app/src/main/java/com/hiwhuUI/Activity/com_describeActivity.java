@@ -163,6 +163,7 @@ public class com_describeActivity extends AppCompatActivity {
                 String name = (String) tv.getText();
                 Intent intent = new Intent(com_describeActivity.this,data_editActivity.class);
                 intent.putExtra("data",name);
+                intent.putExtra("type",3);
                 startActivityForResult(intent,CHANGE_NAME);
             }
         });
@@ -176,6 +177,7 @@ public class com_describeActivity extends AppCompatActivity {
                 String tele = (String) tv.getText();
                 Intent intent = new Intent(com_describeActivity.this,data_editActivity.class);
                 intent.putExtra("data",tele);
+                intent.putExtra("type",4);
                 startActivityForResult(intent,CHANGE_TELE);
 
             }
@@ -190,12 +192,23 @@ public class com_describeActivity extends AppCompatActivity {
                 String dc = (String) text.getHint();
                 Intent intent = new Intent(com_describeActivity.this,data_editActivity.class);
                 intent.putExtra("data",dc);
+                intent.putExtra("type",5);
                 startActivityForResult(intent,CHANGE_DESCRIBE);
             }
         });
-
-
     }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if(hasFocus){
+            GetCurrentSponsor.GetSponsorInit();
+            TextView comName = (TextView)findViewById(R.id.text2_com_describe_p2);
+            comName.setText(staticData.sponsor.getSponsorName());
+        }
+    }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
