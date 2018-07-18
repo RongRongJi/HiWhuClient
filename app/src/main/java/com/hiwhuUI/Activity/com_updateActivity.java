@@ -19,12 +19,14 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -69,12 +71,13 @@ public class com_updateActivity extends AppCompatActivity {
     private Button endDate_signup;
     private Button endTime_signup;
     private String begDate,begTime,enDate,enTime,begDate_signup,begTime_signup,
-                enDate_signup,enTime_signup;
+            enDate_signup,enTime_signup;
 
     private RadioButton button_need;
 
     //服务器所需要的数据
-    private String imagePath;
+
+    private String imagePath=null;
     private String activitytype = "0";
     private String title = null;
     private String startTime = null;
@@ -112,12 +115,23 @@ public class com_updateActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        UPDATE_OR_CHANGE = 1;
+
         super.onCreate(savedInstanceState);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         setContentView(R.layout.activity_com_update);
 
         final String activity_id = getIntent().getStringExtra("activity_id");
 
+        Button back = (Button)findViewById(R.id.button_backward);
+        back.setText("返回");
+        //返回消息主页
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         //隐藏默认标题栏
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null){
@@ -742,6 +756,7 @@ public class com_updateActivity extends AppCompatActivity {
                         break;
                     case 2:
                         Intent intent1 = new Intent(com_updateActivity.this,ImageActivity.class);
+                        intent1.putExtra("picPath",imagePath);
                         startActivity(intent1);
                         break;
                     default:
@@ -779,6 +794,7 @@ public class com_updateActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         //获取图片路径
+
         if (requestCode == IMAGE_UPDATE && resultCode == Activity.RESULT_OK && data != null) {
             super.onActivityResult(requestCode, resultCode, data);
             switch (requestCode) {
@@ -787,6 +803,7 @@ public class com_updateActivity extends AppCompatActivity {
                         selectPic(data);
                     }
                     break;
+
             }
         }
         if(requestCode == ADDRESS && resultCode == Activity.RESULT_OK && data != null){
@@ -859,3 +876,4 @@ public class com_updateActivity extends AppCompatActivity {
 
     }
 }
+

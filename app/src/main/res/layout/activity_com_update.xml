@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/id_scrollView"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="wrap_content">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <include layout="@layout/activity_com_update_title" />
 
@@ -274,28 +278,67 @@
             android:layout_gravity="center"
             android:src="@drawable/acu_line" />
 
+        <!-- 活动分类 -->
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="50dip"
+            android:layout_marginLeft="16dip">
+
+            <TextView
+                android:id="@+id/activity_type"
+                android:layout_width="wrap_content"
+                android:layout_height="50dip"
+                android:gravity="center"
+                android:text="活动分类:"
+                android:textColor="#7D7D7D"
+                android:textSize="16sp" />
+
+            <ImageButton
+                android:id="@+id/button_type"
+                android:layout_width="70dip"
+                android:layout_height="50dip"
+                android:layout_toRightOf="@+id/activity_type"
+                android:background="#00000000"
+                android:onClick="onClick"
+                android:paddingBottom="14dip"
+                android:paddingTop="14dip"
+                android:scaleType="fitCenter"
+                android:src="@drawable/acu_type" />
+
+            <TextView
+                android:id="@+id/text_type"
+                android:layout_width="wrap_content"
+                android:layout_height="50dip"
+                android:layout_toRightOf="@+id/button_type"
+                android:gravity="center"
+                android:text="请选择分类"
+                android:textColor="#7D7D7D"
+                android:textSize="16sp" />
+
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="360dip"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/acu_line" />
+
         <!-- 活动图片 -->
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dip">
 
-            <TextView
-                android:id="@+id/text_pic"
-                android:layout_width="wrap_content"
-                android:layout_height="50dip"
-                android:gravity="center"
-                android:text="封面图片:"
-                android:textColor="#7D7D7D"
-                android:textSize="16sp" />
 
             <ImageButton
                 android:id="@+id/button_image"
                 android:layout_width="70dip"
-                android:layout_height="50dip"
-                android:layout_toRightOf="@+id/text_pic"
+                android:layout_height="100dip"
                 android:background="#00000000"
                 android:onClick="onClick"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="20dip"
                 android:paddingBottom="14dip"
                 android:paddingTop="14dip"
                 android:scaleType="fitCenter"
@@ -304,10 +347,10 @@
             <TextView
                 android:id="@+id/text_image"
                 android:layout_width="wrap_content"
-                android:layout_height="50dip"
+                android:layout_height="100dip"
                 android:layout_toRightOf="@+id/button_image"
                 android:gravity="center"
-                android:text="请选择图片"
+                android:text="点击上传封面图片"
                 android:textColor="#7D7D7D"
                 android:textSize="16sp" />
         </RelativeLayout>
@@ -318,57 +361,7 @@
             android:layout_gravity="center"
             android:src="@drawable/acu_line" />
 
-        <!-- 活动分类 -->
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="50dip"
-        android:layout_marginLeft="16dip">
-
-        <TextView
-            android:id="@+id/activity_type"
-            android:layout_width="wrap_content"
-            android:layout_height="50dip"
-            android:gravity="center"
-            android:text="活动分类:"
-            android:textColor="#7D7D7D"
-            android:textSize="16sp" />
-
-        <ImageButton
-            android:id="@+id/button_type"
-            android:layout_width="70dip"
-            android:layout_height="50dip"
-            android:layout_toRightOf="@+id/activity_type"
-            android:background="#00000000"
-            android:onClick="onClick"
-            android:paddingBottom="14dip"
-            android:paddingTop="14dip"
-            android:scaleType="fitCenter"
-            android:src="@drawable/acu_type" />
-
-        <TextView
-            android:id="@+id/text_type"
-            android:layout_width="wrap_content"
-            android:layout_height="50dip"
-            android:layout_toRightOf="@+id/button_type"
-            android:gravity="center"
-            android:text="请选择分类"
-            android:textColor="#7D7D7D"
-            android:textSize="16sp" />
-
-    </RelativeLayout>
-
-    <ImageView
-            android:layout_width="360dip"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:src="@drawable/acu_line" />
-
         <!-- 活动简介 -->
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -389,7 +382,10 @@
                 android:textColor="#555555"
                 android:textSize="16sp" />
         </LinearLayout>
-    </ScrollView>
-
-
-</LinearLayout>
+        <TextView
+            android:layout_width="0dip"
+            android:layout_height="0dip"
+            android:layout_marginTop="10dip"
+            android:text="    "/>
+    </LinearLayout>
+</ScrollView>
