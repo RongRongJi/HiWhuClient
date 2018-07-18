@@ -241,7 +241,7 @@ public class stu_viewActivity extends AppCompatActivity {
         btn_signup = findViewById(R.id.bottom_signup);
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
         String time=df.format(new Date());// new Date()为获取当前系统时间
-        if(staticData.activity.getRegistrationStartTime().equals("1000-12-31 00:00:00.0")) state=2;
+        if(staticData.activity.getRegistrationStartTime().equals("1000-12-31 01:00:00.0")) state=2;
         else if(GetActivityBySponsorID.compare(staticData.activity.getRegistrationEndTime(),time)) state=1;
 
         switch (state){

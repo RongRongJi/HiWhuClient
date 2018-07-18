@@ -39,6 +39,7 @@ import com.hiwhuUI.Activity.process.DetailActivity;
 import java.io.File;
 import java.net.URLEncoder;
 
+import HttpConnect.GetCurrentActivity;
 import HttpConnect.UploadImg;
 import data.staticData;
 
@@ -82,8 +83,8 @@ public class com_updateActivity extends AppCompatActivity {
     private String title = null;
     private String startTime = null;
     private String endTime_String = null;
-    private String registrationStartTime = "1000-12-31 0:0";//不需要报名的报名伪时间
-    private String registrationEndTime = "1000-12-31 0:0";
+    private String registrationStartTime = "1000-12-31 1:0";//不需要报名的报名伪时间
+    private String registrationEndTime = "1000-12-31 1:0";
     private String location=null;
     private Double latitude=null;
     private Double longitude=null;
@@ -702,6 +703,14 @@ public class com_updateActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void initInfo(){
+        String activity_id = getIntent().getStringExtra("activity_id");
+        if(activity_id==null) return;
+        else{
+            GetCurrentActivity.GetActivityInit(activity_id);
+        }
     }
 
     public void Jump(final int flag){

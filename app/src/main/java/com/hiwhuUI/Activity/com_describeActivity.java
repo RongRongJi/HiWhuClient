@@ -42,7 +42,6 @@ import data.staticData;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 import static com.baidu.mapapi.BMapManager.getContext;
-import static com.hiwhuUI.Activity.com_updateActivity.UPDATE_OR_CHANGE;
 
 public class com_describeActivity extends AppCompatActivity {
 

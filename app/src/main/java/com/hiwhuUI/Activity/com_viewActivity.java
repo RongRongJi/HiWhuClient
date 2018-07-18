@@ -186,7 +186,7 @@ public class com_viewActivity extends AppCompatActivity {
         name.setText(staticData.activity.getTitle());
         starttime.setText(staticData.activity.getStartTIme());
         endtime.setText(staticData.activity.getEndTime());
-        if(staticData.activity.getRegistrationStartTime().equals("1000-12-31 00:00:00.0")){
+        if(staticData.activity.getRegistrationStartTime().equals("1000-12-31 01:00:00.0")){
             resstarttime.setText("不需要报名");
             resendtime.setText("不需要报名");
         }else{
@@ -349,7 +349,7 @@ public class com_viewActivity extends AppCompatActivity {
                                 Log.e("return---", s);
                                 if(s.equals("succeed")){
                                     Jump(true);
-                                    staticData.setCurrentActivity(null);
+                                    //staticData.setCurrentActivity(null);
                                 }else{
                                     Jump(false);
                                 }
