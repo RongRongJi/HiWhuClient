@@ -15,13 +15,16 @@ import com.hiwhu.hiwhuclient.R;
 public class ImageActivity extends AppCompatActivity {
 
     private ImageView imageView;
+    private String picPath = null;
+
+    private TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image);
         Intent intent = getIntent();
-        String picPath = intent.getStringExtra("picPath");
+        picPath = intent.getStringExtra("picPath");
 
         //更改标题栏
         TextView title = (TextView)findViewById(R.id.text_title) ;
@@ -35,15 +38,24 @@ public class ImageActivity extends AppCompatActivity {
                 finish();
             }
         });
-        Button forward = (Button)findViewById(R.id.button_forward);
+        final Button forward = (Button)findViewById(R.id.button_forward);
         forward.setText("删除");
+        //删除图片
+        forward.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                com_updateActivity.UPDATE_OR_DELETE = 3;
+                textView = (TextView)findViewById(R.id.text_image);
+                textView.setText("点击上传封面图片");
+                finish();
+            }
+        });
 
         //隐藏默认标题栏
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null){
             actionBar.hide();
         }
-
 
         imageView = (ImageView)findViewById(R.id.imageView);
         //显示图片
@@ -52,22 +64,6 @@ public class ImageActivity extends AppCompatActivity {
         Log.d("ImageActivity",picPath);
         Uri uri = Uri.parse((String) picPath);
         imageView.setImageURI(uri);
-    }
-
-    public void imageOnClick(View view){
-        switch (view.getId()){
-            case R.id.button_backward:
-                Intent intent = new Intent(ImageActivity.this, com_updateActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.button_forward:
-                com_updateActivity.UPDATE_OR_CHANGE = 1;
-                //删除图片
-                //Intent intent2 = new Intent(ImageActivity.this,com_updateActivity.class);
-                //picPath = null;
-                //intent2.putExtra("deletePath",picPath);
-                break;
-        }
     }
 }
 
