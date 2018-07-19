@@ -27,15 +27,15 @@ public class TabFragment extends Fragment {
 
     private int TAG;
     private SwipeRefreshLayout swipeRefresh;
+    private List<ActivityCard> cardList;
+    RecyclerAdapter_activityCard recyclerAdapter;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tabs, container, false);
 
-        List<ActivityCard> cardList=new ArrayList<>();
-        cardList.clear();
+        cardList=new ArrayList<>();
         GetAllActivity.GetActivityInit();
         List<Activity> list = staticData.activityList;
-        initList();
         switch (TAG){
             case staticData.TUIJIAN:
                 for (int i = 0; i <list.size() ; i++) {
@@ -54,7 +54,7 @@ public class TabFragment extends Fragment {
         }
 
 
-        RecyclerAdapter_activityCard recyclerAdapter = new RecyclerAdapter_activityCard(cardList,0);
+        recyclerAdapter = new RecyclerAdapter_activityCard(cardList,0);
         RecyclerView recyclerView=(RecyclerView)view.findViewById(R.id.tab_card_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext(),LinearLayoutManager.VERTICAL,false));
         recyclerView.setAdapter(recyclerAdapter);
@@ -68,21 +68,29 @@ public class TabFragment extends Fragment {
             }
         });
 
+
+
         return view;
     }
+
+    //@Override public void setUserVisibleHint(boolean isVisibleToUser) {
+    //    if(isVisibleToUser&&swipeRefresh!=null){
+    //        swipeRefresh.setRefreshing(true);
+    //    }
+    //}
+
+
+
     private void refreshTab(){
         new Thread(new Runnable() {
             @Override
             public void run() {
-                try {
-                    Thread.sleep(3000);
-                }catch (InterruptedException e){
-                    e.printStackTrace();
-                }
+                GetAllActivity.GetActivityInit();
                 getActivity().runOnUiThread(new Runnable(){
                     @Override
                     public void run(){
-                        //adapter.notifyDataSetChanged();
+                        initUI();
+                        recyclerAdapter.notifyDataSetChanged();
                         swipeRefresh.setRefreshing(false);
                     }
                 });
@@ -90,8 +98,25 @@ public class TabFragment extends Fragment {
         }).start();
     }
 
-    public void initList(){
-
+    private void initUI(){
+        cardList.clear();
+        List<Activity> list = staticData.activityList;
+        switch (TAG){
+            case staticData.TUIJIAN:
+                for (int i = 0; i <list.size() ; i++) {
+                    //获取后台活动数据
+                    ActivityCard a = list.get(i).toActivityCard();
+                    cardList.add(a);
+                }
+                break;
+            default:
+                for(int i=0;i<list.size();i++){
+                    if(list.get(i).getType().equals(String.valueOf(TAG))){
+                        ActivityCard a = list.get(i).toActivityCard();
+                        cardList.add(a);
+                    }
+                }
+        }
     }
     public void setTAG(int TAG){
         this.TAG = TAG;

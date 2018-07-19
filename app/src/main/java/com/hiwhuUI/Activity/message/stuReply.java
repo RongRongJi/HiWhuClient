@@ -24,9 +24,11 @@ public class stuReply extends AppCompatActivity {
 
         private List<comResult> RemindList = new ArrayList<>();
         private GetRefCount grc;
+        ResultAdapter adapter;
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
+            RemindList = new ArrayList<>();
             setContentView(R.layout.activity_com_m_result);
             //更改标题栏
             TextView title = (TextView)findViewById(R.id.text_title) ;
@@ -49,7 +51,7 @@ public class stuReply extends AppCompatActivity {
             }
 
             initComResult();
-            ResultAdapter adapter = new ResultAdapter(stuReply.this,R.layout.com_result_item,RemindList);
+            adapter = new ResultAdapter(stuReply.this,R.layout.com_result_item,RemindList);
             ListView listView = (ListView)findViewById(R.id.result_list);
             listView.setAdapter(adapter);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -67,12 +69,18 @@ public class stuReply extends AppCompatActivity {
                 @Override
                 public void onRefresh() {
                     initComResult();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            adapter.notifyDataSetChanged();
+                        }
+                    });
                     refreshableView.finishRefreshing();
                 }
             }, 0);
         }
         private void initComResult(){
-            RemindList=new ArrayList<>();
+            RemindList = new ArrayList<>();
             grc = GetRefCount.GetActivityInit();
             for(CommentWithActivity cwa : grc.commentCountList){
                 comResult result = new comResult(cwa.getTitle(),R.drawable.jump1,String.valueOf(cwa.getCount()));

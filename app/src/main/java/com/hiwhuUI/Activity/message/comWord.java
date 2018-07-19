@@ -24,9 +24,11 @@ import entity.CommentWithActivity;
 public class comWord extends AppCompatActivity {
     private List<comResult> wordList = new ArrayList<>();
     private GetCommentCount gcc;
+    ResultAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        wordList = new ArrayList<>();
         setContentView(R.layout.activity_com_m_result);
         //更改标题栏
         TextView title = (TextView)findViewById(R.id.text_title) ;
@@ -49,7 +51,7 @@ public class comWord extends AppCompatActivity {
         }
 
         initComResult();
-        ResultAdapter adapter = new ResultAdapter(comWord.this,R.layout.com_result_item,wordList);
+        adapter = new ResultAdapter(comWord.this,R.layout.com_result_item,wordList);
         ListView listView = (ListView)findViewById(R.id.result_list);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -67,13 +69,19 @@ public class comWord extends AppCompatActivity {
             @Override
             public void onRefresh() {
                 initComResult();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        adapter.notifyDataSetChanged();
+                    }
+                });
                 refreshableView.finishRefreshing();
             }
         }, 0);
     }
 
     private void initComResult() {
-        wordList=new ArrayList<>();
+        wordList = new ArrayList<>();
         gcc = GetCommentCount.GetActivityInit();
         for (CommentWithActivity cwa : gcc.commentCountList) {
             comResult result = new comResult(cwa.getTitle(), R.drawable.jump1, String.valueOf(cwa.getCount()));

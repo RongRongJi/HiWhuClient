@@ -26,9 +26,11 @@ import entity.Stu_apply_activity;
 public class stuResult extends AppCompatActivity {
     private List<comResult> resultList = new ArrayList<>();
     private GetAllAppliedActivity gaaa;
+    ResultAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        resultList = new ArrayList<>();
         setContentView(R.layout.activity_com_m_result);
         //更改标题栏
         TextView title = (TextView)findViewById(R.id.text_title) ;
@@ -51,7 +53,7 @@ public class stuResult extends AppCompatActivity {
         }
 
         initComResult();
-        ResultAdapter adapter = new ResultAdapter(stuResult.this,R.layout.com_result_item,resultList);
+        adapter = new ResultAdapter(stuResult.this,R.layout.com_result_item,resultList);
         ListView listView = (ListView)findViewById(R.id.result_list);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -69,6 +71,12 @@ public class stuResult extends AppCompatActivity {
             @Override
             public void onRefresh() {
                 initComResult();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        adapter.notifyDataSetChanged();
+                    }
+                });
                 refreshableView.finishRefreshing();
             }
         }, 0);
@@ -76,7 +84,7 @@ public class stuResult extends AppCompatActivity {
 
     //list初始化
     private void initComResult(){
-        resultList=new ArrayList<>();
+        resultList = new ArrayList<>();
         gaaa = GetAllAppliedActivity.GetActivityInit();
         for(Message saa : gaaa.commentCountList){
             comResult result = new comResult(saa.getContent(),0,null);

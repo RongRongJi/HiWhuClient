@@ -26,10 +26,11 @@ public class comM_result extends AppCompatActivity {
     List<entity.Activity> activityList=null;
 
     RefreshableView refreshableView;
+    ResultAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        resultList = new ArrayList<>();
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_com_m_result);
 
@@ -56,7 +57,7 @@ public class comM_result extends AppCompatActivity {
         }
 
         initComResult();
-        ResultAdapter adapter = new ResultAdapter(comM_result.this,R.layout.com_result_item,resultList);
+        adapter = new ResultAdapter(comM_result.this,R.layout.com_result_item,resultList);
         ListView listView = (ListView)findViewById(R.id.result_list);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -68,11 +69,18 @@ public class comM_result extends AppCompatActivity {
             }
         });
 
+
         //下拉刷新
         refreshableView.setOnRefreshListener(new RefreshableView.PullToRefreshListener() {
             @Override
             public void onRefresh() {
-               initComResult();
+                initComResult();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        adapter.notifyDataSetChanged();
+                    }
+                });
                 refreshableView.finishRefreshing();
             }
         }, 0);
@@ -80,7 +88,7 @@ public class comM_result extends AppCompatActivity {
 
     //list初始化
     private void initComResult(){
-        resultList=new ArrayList<>();
+        resultList = new ArrayList<>();
         GetActivityBySponsorID gabs = GetActivityBySponsorID.GetActivityInit(staticData.getSponsorID());
         activityList = gabs.activityList;
         for (int i = 0; i <activityList.size(); i++){
