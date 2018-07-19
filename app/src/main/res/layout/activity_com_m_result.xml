@@ -4,12 +4,17 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-   <include layout="@layout/activity_com_update_title"/>
+    <include layout="@layout/activity_com_update_title"/>
+    <com.hiwhuUI.Activity.function.RefreshableView
+        android:id="@+id/refreshable_view"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        <ListView
+            android:id="@+id/result_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <ListView
-        android:id="@+id/result_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </ListView>
+        </ListView>
+    </com.hiwhuUI.Activity.function.RefreshableView>
 </LinearLayout>
+

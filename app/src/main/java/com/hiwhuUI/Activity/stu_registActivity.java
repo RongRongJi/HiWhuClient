@@ -1,6 +1,7 @@
 package com.hiwhuUI.Activity;
 
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,6 +26,26 @@ public class stu_registActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stu_regist);
+
+        //更改标题栏
+        TextView title = (TextView)findViewById(R.id.text_title) ;
+        title.setText("注册");
+        Button back = (Button)findViewById(R.id.button_backward);
+        back.setText("返回");
+        //返回消息主页
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        Button forward = (Button)findViewById(R.id.button_forward);
+        forward.setText(null);
+        //隐藏默认标题栏
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null){
+            actionBar.hide();
+        }
 
         final EditText stuIdtext = (EditText) findViewById(R.id.p1_edit_stu_num);
         final EditText userNametext = (EditText) findViewById(R.id.p2_edit_stu_username);

@@ -5,6 +5,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
@@ -16,16 +17,24 @@ import com.hiwhuUI.Activity.stu_viewActivity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.hiwhuUI.Activity.function.RefreshableView;
 import HttpConnect.GetActivityBySponsorID;
 import data.staticData;
 
 public class comM_result extends AppCompatActivity {
     private List<comResult> resultList = new ArrayList<>();
     List<entity.Activity> activityList=null;
+
+    RefreshableView refreshableView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_com_m_result);
+
+        refreshableView = (RefreshableView) findViewById(R.id.refreshable_view);
+
         //更改标题栏
         TextView title = (TextView)findViewById(R.id.text_title) ;
         title.setText("活动上传结果");
@@ -58,6 +67,19 @@ public class comM_result extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        //下拉刷新
+        refreshableView.setOnRefreshListener(new RefreshableView.PullToRefreshListener() {
+            @Override
+            public void onRefresh() {
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                refreshableView.finishRefreshing();
+            }
+        }, 0);
     }
 
     //list初始化
@@ -73,3 +95,4 @@ public class comM_result extends AppCompatActivity {
 
 
 }
+
