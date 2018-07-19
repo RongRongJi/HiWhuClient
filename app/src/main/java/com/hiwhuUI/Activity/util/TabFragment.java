@@ -3,8 +3,11 @@ package com.hiwhuUI.Activity.util;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +26,7 @@ import entity.ActivityCard;
 public class TabFragment extends Fragment {
 
     private int TAG;
-
+    private SwipeRefreshLayout swipeRefresh;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tabs, container, false);
@@ -32,6 +35,7 @@ public class TabFragment extends Fragment {
         cardList.clear();
         GetAllActivity.GetActivityInit();
         List<Activity> list = staticData.activityList;
+        initList();
         switch (TAG){
             case staticData.TUIJIAN:
                 for (int i = 0; i <list.size() ; i++) {
@@ -55,10 +59,40 @@ public class TabFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext(),LinearLayoutManager.VERTICAL,false));
         recyclerView.setAdapter(recyclerAdapter);
 
+        swipeRefresh = (SwipeRefreshLayout)view.findViewById(R.id.swipe_refresh);
+        swipeRefresh.setColorSchemeResources(R.color.colorPrimary);
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshTab();
+            }
+        });
 
         return view;
     }
+    private void refreshTab(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(3000);
+                }catch (InterruptedException e){
+                    e.printStackTrace();
+                }
+                getActivity().runOnUiThread(new Runnable(){
+                    @Override
+                    public void run(){
+                        //adapter.notifyDataSetChanged();
+                        swipeRefresh.setRefreshing(false);
+                    }
+                });
+            }
+        }).start();
+    }
 
+    public void initList(){
+
+    }
     public void setTAG(int TAG){
         this.TAG = TAG;
     }
