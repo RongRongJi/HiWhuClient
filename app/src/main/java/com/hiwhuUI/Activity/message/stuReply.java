@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.hiwhu.hiwhuclient.R;
 import com.hiwhuUI.Activity.com_viewActivity;
+import com.hiwhuUI.Activity.function.RefreshableView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,8 +60,19 @@ public class stuReply extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
+
+            //下拉刷新
+            final RefreshableView refreshableView = (RefreshableView) findViewById(R.id.refreshable_view);
+            refreshableView.setOnRefreshListener(new RefreshableView.PullToRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    initComResult();
+                    refreshableView.finishRefreshing();
+                }
+            }, 0);
         }
         private void initComResult(){
+            RemindList=new ArrayList<>();
             grc = GetRefCount.GetActivityInit();
             for(CommentWithActivity cwa : grc.commentCountList){
                 comResult result = new comResult(cwa.getTitle(),R.drawable.jump1,String.valueOf(cwa.getCount()));

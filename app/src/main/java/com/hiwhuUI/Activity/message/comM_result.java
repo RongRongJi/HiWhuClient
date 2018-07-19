@@ -72,11 +72,7 @@ public class comM_result extends AppCompatActivity {
         refreshableView.setOnRefreshListener(new RefreshableView.PullToRefreshListener() {
             @Override
             public void onRefresh() {
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+               initComResult();
                 refreshableView.finishRefreshing();
             }
         }, 0);
@@ -84,6 +80,7 @@ public class comM_result extends AppCompatActivity {
 
     //list初始化
     private void initComResult(){
+        resultList=new ArrayList<>();
         GetActivityBySponsorID gabs = GetActivityBySponsorID.GetActivityInit(staticData.getSponsorID());
         activityList = gabs.activityList;
         for (int i = 0; i <activityList.size(); i++){

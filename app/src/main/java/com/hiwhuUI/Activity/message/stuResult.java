@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.hiwhu.hiwhuclient.R;
 import com.hiwhuUI.Activity.com_viewActivity;
+import com.hiwhuUI.Activity.function.RefreshableView;
 import com.hiwhuUI.Activity.stu_viewActivity;
 
 import java.util.ArrayList;
@@ -61,10 +62,21 @@ public class stuResult extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        //下拉刷新
+        final RefreshableView refreshableView = (RefreshableView) findViewById(R.id.refreshable_view);
+        refreshableView.setOnRefreshListener(new RefreshableView.PullToRefreshListener() {
+            @Override
+            public void onRefresh() {
+                initComResult();
+                refreshableView.finishRefreshing();
+            }
+        }, 0);
     }
 
     //list初始化
     private void initComResult(){
+        resultList=new ArrayList<>();
         gaaa = GetAllAppliedActivity.GetActivityInit();
         for(Message saa : gaaa.commentCountList){
             comResult result = new comResult(saa.getContent(),0,null);

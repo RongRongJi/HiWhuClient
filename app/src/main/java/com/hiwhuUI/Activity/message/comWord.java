@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.hiwhu.hiwhuclient.R;
 import com.hiwhuUI.Activity.com_viewActivity;
+import com.hiwhuUI.Activity.function.RefreshableView;
 import com.hiwhuUI.Activity.stu_viewActivity;
 
 import java.util.ArrayList;
@@ -59,8 +60,20 @@ public class comWord extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        //下拉刷新
+        final RefreshableView refreshableView = (RefreshableView) findViewById(R.id.refreshable_view);
+        refreshableView.setOnRefreshListener(new RefreshableView.PullToRefreshListener() {
+            @Override
+            public void onRefresh() {
+                initComResult();
+                refreshableView.finishRefreshing();
+            }
+        }, 0);
     }
+
     private void initComResult() {
+        wordList=new ArrayList<>();
         gcc = GetCommentCount.GetActivityInit();
         for (CommentWithActivity cwa : gcc.commentCountList) {
             comResult result = new comResult(cwa.getTitle(), R.drawable.jump1, String.valueOf(cwa.getCount()));

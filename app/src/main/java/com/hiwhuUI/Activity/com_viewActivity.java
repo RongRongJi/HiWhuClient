@@ -50,6 +50,8 @@ import okhttp3.Response;
 
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import static com.hiwhuUI.Activity.process.Colors.colors;
 
 public class com_viewActivity extends AppCompatActivity {
@@ -170,6 +172,9 @@ public class com_viewActivity extends AppCompatActivity {
                 case 1:
                     initComment();
                     break;
+                case 2:
+                    initComment();
+                    break;
             }
         }
     };
@@ -235,11 +240,52 @@ public class com_viewActivity extends AppCompatActivity {
         image.requestFocus();
         progressBar.setVisibility(View.GONE);
 
+        more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!currentPage){
+                    if(!canshow) {
+                        canshow = true;
+                        return;
+                    }
+                    if(pb_bottom.getVisibility()!=View.VISIBLE){
+                        pb_bottom.setVisibility(View.VISIBLE);
+                        more.setVisibility(View.GONE);
+                        return;
+                    }
+                    canshow = false;
+                    new Thread(
+                            new Runnable() {
+                                @Override
+                                public void run() {
+                                    //activity_id = getIntent().getStringExtra("activity_id");
+                                    //GetCurrentActivity.GetActivityInit(activity_id);
+                                    if(activity_id!=null) {
+                                        //activity_id = getIntent().getStringExtra("activity_id");
+                                        //GetCurrentActivity.GetActivityInit(activity_id);
+                                        currentPage = true;
+                                        gcar = GetCommentAndReply.GetCollectionInit(activity_id);
+                                        Message msg = new Message();
+                                        msg.what = 1;
+                                        handler.sendMessage(msg);
+                                    }
+                                }
+                            }
+                    ).start();
+                }
+                else {
+                    //Toast.makeText(com_viewActivity.this,"没有更多评论了",Toast.LENGTH_LONG).show();
+                    canshow = false;
+                }
+            }
+        });
+
+
         NestedScrollView nestedScrollView = (NestedScrollView) findViewById(R.id.container_com_view);
         nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                if (scrollY == (v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight())) {
+                if (scrollY <= (v.getChildAt(0).getHeight() - v.getHeight())) {
                     if(!currentPage){
                         if(!canshow) {
                             canshow = true;
@@ -255,13 +301,15 @@ public class com_viewActivity extends AppCompatActivity {
                                 new Runnable() {
                                     @Override
                                     public void run() {
-                                        activity_id = getIntent().getStringExtra("activity_id");
-                                        //GetCurrentActivity.GetActivityInit(activity_id);
-                                        currentPage = true;
-                                        gcar = GetCommentAndReply.GetCollectionInit(activity_id);
-                                        Message msg = new Message();
-                                        msg.what=1;
-                                        handler.sendMessage(msg);
+                                        if(activity_id!=null) {
+                                            //activity_id = getIntent().getStringExtra("activity_id");
+                                            //GetCurrentActivity.GetActivityInit(activity_id);
+                                            currentPage = true;
+                                            gcar = GetCommentAndReply.GetCollectionInit(activity_id);
+                                            Message msg = new Message();
+                                            msg.what = 1;
+                                            handler.sendMessage(msg);
+                                        }
                                     }
                                 }
                         ).start();
@@ -376,6 +424,7 @@ public class com_viewActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int which) {
                         String url = staticData.getUrl()+"/DeleteActivityServlet"
                                 +"?activityID="+activity_id;
+                        activity_id=null;
                         HttpUtil.sendOkHttpRequest(url, new okhttp3.Callback() {
                             @Override
                             public void onResponse(Call call, Response response) throws IOException {
