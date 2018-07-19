@@ -36,7 +36,7 @@
 
         <EditText
             android:id="@+id/edit_username"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"
             android:hint="请输入您的学号/社团名称"
@@ -77,7 +77,7 @@
 
         <EditText
             android:id="@+id/edit_password"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="50dip"
             android:background="@null"
