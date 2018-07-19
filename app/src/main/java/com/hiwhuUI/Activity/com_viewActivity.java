@@ -142,11 +142,13 @@ public class com_viewActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             activity_id = getIntent().getStringExtra("activity_id");
-                            GetCurrentActivity.GetActivityInit(activity_id);
-                            //gcar = GetCommentAndReply.GetCollectionInit(activity_id);
-                            Message msg = new Message();
-                            msg.what=0;
-                            handler.sendMessage(msg);
+                            if(activity_id!=null){
+                                GetCurrentActivity.GetActivityInit(activity_id);
+                                //gcar = GetCommentAndReply.GetCollectionInit(activity_id);
+                                Message msg = new Message();
+                                msg.what=0;
+                                handler.sendMessage(msg);
+                            }
                         }
                     }
             ).start();
