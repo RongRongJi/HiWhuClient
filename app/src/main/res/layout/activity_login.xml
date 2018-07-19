@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/login"
-    tools:context="com.hiwhuUI.Activity.LoginActivity">
-
-
-
+    android:orientation="vertical"
+    android:id="@+id/login">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
     <ImageView
         android:id="@+id/img_logo"
         android:layout_width="wrap_content"
@@ -16,75 +14,118 @@
         android:layout_marginTop="1dp"
         android:layout_centerHorizontal="true"
         android:src="@drawable/logo" />
-
+</RelativeLayout>
+<!--账号-->
     <RelativeLayout
         android:id="@+id/p1_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/img_logo">
+        android:layout_marginTop="30dip"
+        android:layout_marginLeft="40dip"
+        android:layout_marginRight="40dip">
+
+        <ImageView
+            android:id="@+id/text_username"
+            android:layout_width="wrap_content"
+            android:layout_height="30dip"
+            android:src="@drawable/account"
+            android:paddingBottom="2dip"
+            android:paddingTop="2dip"
+            android:scaleType="fitCenter"
+            android:layout_marginRight="20dip"/>
+
         <EditText
             android:id="@+id/edit_username"
-            android:layout_width="240dp"
-            android:layout_height="60dp"
-            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:background="@null"
-            android:hint="请输入您的学号/用户名"
-            android:textSize="15sp"
+            android:hint="请输入您的学号/社团名称"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="50dip"
+            android:textSize="16sp"
             android:singleLine="true"
             android:maxLines="1"/>
-        <TextView
-            android:id="@+id/text_username"
-            android:layout_width="100dp"
-            android:layout_height="60dp"
-            android:gravity="center"
-            android:layout_toLeftOf="@+id/edit_username"
-            android:text="账号"/>
-
     </RelativeLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:src="@drawable/acu_line"
+        android:layout_marginLeft="40dip"
+        android:layout_marginRight="40dip"
+        android:layout_marginTop="20dip"/>
+
+<!--密码-->
     <RelativeLayout
         android:id="@+id/p2_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/p1_username">
+        android:layout_marginTop="20dip"
+        android:layout_marginLeft="40dip"
+        android:layout_marginRight="40dip">
+
+        <ImageView
+            android:id="@+id/text_password"
+            android:layout_width="wrap_content"
+            android:layout_height="30dip"
+            android:src="@drawable/password"
+            android:paddingBottom="2dip"
+            android:paddingTop="2dip"
+            android:scaleType="fitCenter"
+            android:layout_marginRight="20dip"/>
 
         <EditText
             android:id="@+id/edit_password"
-            android:layout_width="240dp"
-            android:layout_height="60dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dip"
             android:background="@null"
             android:hint="请输入您的密码"
+            android:layout_centerVertical="true"
             android:inputType="textPassword"
             android:maxLines="1"
-            android:textSize="15sp" />
-        <TextView
-            android:id="@+id/text_password"
-            android:layout_width="100dp"
-            android:layout_height="60dp"
-            android:gravity="center"
-            android:layout_toLeftOf="@+id/edit_password"
-            android:text="密码"/>
+            android:textSize="16sp" />
 
     </RelativeLayout>
 
-    <Button
-        android:id="@+id/btn_login"
-        android:layout_width="250dp"
+    <ImageView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/p2_password"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:text="登录"
-        android:textColor="#fff"
-        android:textSize="18sp" />
+        android:layout_gravity="center"
+        android:src="@drawable/acu_line"
+        android:layout_marginLeft="40dip"
+        android:layout_marginRight="40dip"
+        android:layout_marginTop="20dip"/>
 
+<!--登录按钮-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dip"
+        android:layout_marginLeft="40dip"
+        android:layout_marginRight="40dip">
+
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="登录"
+            android:textColor="#fff"
+            android:textSize="18sp"
+            android:background="@color/colorPrimary"/>
+    </RelativeLayout>
+
+<!--注册入口-->
     <RelativeLayout
         android:id="@+id/p3_regist"
-        android:layout_width="250dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btn_login"
-        android:layout_centerHorizontal="true">
+        android:layout_marginRight="40dip"
+        android:layout_marginLeft="40dip"
+        android:layout_marginTop="10dip">
 
         <TextView
             android:id="@+id/text_reg_stu"
@@ -92,14 +133,14 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:text="学生注册"
-            android:textSize="13sp"/>
+            android:textSize="14sp"/>
         <TextView
             android:id="@+id/text_reg_com"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:text="社团注册"
-            android:textSize="13sp"/>
+            android:textSize="14sp"/>
     </RelativeLayout>
 
-</RelativeLayout>
+</LinearLayout>

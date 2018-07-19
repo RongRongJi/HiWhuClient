@@ -1,6 +1,7 @@
 package com.hiwhuUI.Activity;
 
 import android.annotation.SuppressLint;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -9,6 +10,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -36,6 +38,7 @@ import com.hiwhu.hiwhuclient.R;
 import com.hiwhuUI.Activity.util.CommentExpandableListView;
 import com.hiwhuUI.Activity.util.ExpandAdapter_Comment;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -86,6 +89,11 @@ public class stu_viewActivity extends AppCompatActivity {
     private int state = 0;  //获取活动状态, 0-可以报名; 1-报名截止; 2-不需要报名;
     private GetCommentAndReply gcar;
     private ProgressBar progressBar;
+    private boolean currentPage = false;
+    private TextView more;
+    private ProgressBar pb_bottom;
+    private boolean canshow = false;
+    final int COMMENT = 0;//写评论
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +115,8 @@ public class stu_viewActivity extends AppCompatActivity {
         toolbar_title.setText("活动详情");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        more = (TextView) findViewById(R.id.more);
+        pb_bottom = (ProgressBar)findViewById(R.id.pb_bottom);
 
         unstar = getResources().getDrawable(R.drawable.ic_star_border_black_24dp);
         stared = getResources().getDrawable(R.drawable.ic_star_black_24dp);
@@ -146,7 +156,7 @@ public class stu_viewActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(stu_viewActivity.this, data_editActivity.class);
                 intent.putExtra("activity_id", activity_id);
-                startActivity(intent);
+                startActivityForResult(intent,COMMENT);
             }
         });
 
@@ -199,19 +209,6 @@ public class stu_viewActivity extends AppCompatActivity {
                             Message msg = new Message();
                             msg.what=0;
                             handler.sendMessage(msg);
-                            new Thread(
-                                    new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            activity_id = getIntent().getStringExtra("activity_id");
-                                            //GetCurrentActivity.GetActivityInit(activity_id);
-                                            gcar = GetCommentAndReply.GetCollectionInit(activity_id);
-                                            Message msg = new Message();
-                                            msg.what=1;
-                                            handler.sendMessage(msg);
-                                        }
-                                    }
-                            ).start();
                         }
                     }
             ).start();
@@ -325,6 +322,44 @@ public class stu_viewActivity extends AppCompatActivity {
         image.setFocusableInTouchMode(true);
         image.requestFocus();
         progressBar.setVisibility(View.GONE);
+
+        NestedScrollView nestedScrollView = (NestedScrollView) findViewById(R.id.container_stu_view);
+        nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                if (scrollY == (v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight())) {
+                    if(!currentPage){
+                        if(!canshow) {
+                            canshow = true;
+                            return;
+                        }
+                        if(pb_bottom.getVisibility()!=View.VISIBLE){
+                            pb_bottom.setVisibility(View.VISIBLE);
+                            more.setVisibility(View.GONE);
+                            return;
+                        }
+                        canshow = false;
+                        new Thread(
+                                new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        activity_id = getIntent().getStringExtra("activity_id");
+                                        //GetCurrentActivity.GetActivityInit(activity_id);
+                                        currentPage = true;
+                                        gcar = GetCommentAndReply.GetCollectionInit(activity_id);
+                                        Message msg = new Message();
+                                        msg.what=1;
+                                        handler.sendMessage(msg);
+                                    }
+                                }
+                        ).start();
+                    }
+                    else {
+                        canshow = false;
+                    }
+                }
+            }
+        });
     }
 
     private void createProgressBar(){
@@ -398,6 +433,7 @@ public class stu_viewActivity extends AppCompatActivity {
                 return true;
             }
         });
+        pb_bottom.setVisibility(View.GONE);
     }
 
 
@@ -539,5 +575,21 @@ public class stu_viewActivity extends AppCompatActivity {
             return true;
         }
         else return false;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case COMMENT:
+                if (resultCode == RESULT_OK) {
+                    currentPage = false;
+                    canshow = false;
+                    more.setVisibility(View.VISIBLE);
+                }
+                break;
+            default:
+                break;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

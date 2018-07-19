@@ -68,6 +68,11 @@ public class com_viewActivity extends AppCompatActivity {
     private ExpandAdapter_Comment adapter;
     private GetCommentAndReply gcar;
     private ProgressBar progressBar;
+    private boolean currentPage = false;
+    private TextView more;
+    private ProgressBar pb_bottom;
+    private boolean canshow = false;
+    final int REF = 1;//回复评论
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +92,9 @@ public class com_viewActivity extends AppCompatActivity {
         resendtime = (TextView)findViewById(R.id.join_endTime);
         position = (TextView)findViewById(R.id.activity_position);
         details = (TextView) findViewById(R.id.details);
+        more = (TextView) findViewById(R.id.more);
+        pb_bottom = (ProgressBar)findViewById(R.id.pb_bottom);
+
         name.setText("加载中...");
         starttime.setText("加载中...");
         endtime.setText("加载中...");
@@ -139,19 +147,6 @@ public class com_viewActivity extends AppCompatActivity {
                                 Message msg = new Message();
                                 msg.what=0;
                                 handler.sendMessage(msg);
-                                new Thread(
-                                        new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                activity_id = getIntent().getStringExtra("activity_id");
-                                                //GetCurrentActivity.GetActivityInit(activity_id);
-                                                gcar = GetCommentAndReply.GetCollectionInit(activity_id);
-                                                Message msg = new Message();
-                                                msg.what=1;
-                                                handler.sendMessage(msg);
-                                            }
-                                        }
-                                ).start();
                             }
                         }
                     }
@@ -239,6 +234,45 @@ public class com_viewActivity extends AppCompatActivity {
         image.setFocusableInTouchMode(true);
         image.requestFocus();
         progressBar.setVisibility(View.GONE);
+
+        NestedScrollView nestedScrollView = (NestedScrollView) findViewById(R.id.container_com_view);
+        nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                if (scrollY == (v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight())) {
+                    if(!currentPage){
+                        if(!canshow) {
+                            canshow = true;
+                            return;
+                        }
+                        if(pb_bottom.getVisibility()!=View.VISIBLE){
+                            pb_bottom.setVisibility(View.VISIBLE);
+                            more.setVisibility(View.GONE);
+                            return;
+                        }
+                        canshow = false;
+                        new Thread(
+                                new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        activity_id = getIntent().getStringExtra("activity_id");
+                                        //GetCurrentActivity.GetActivityInit(activity_id);
+                                        currentPage = true;
+                                        gcar = GetCommentAndReply.GetCollectionInit(activity_id);
+                                        Message msg = new Message();
+                                        msg.what=1;
+                                        handler.sendMessage(msg);
+                                    }
+                                }
+                        ).start();
+                    }
+                    else {
+                        //Toast.makeText(com_viewActivity.this,"没有更多评论了",Toast.LENGTH_LONG).show();
+                        canshow = false;
+                    }
+                }
+            }
+        });
     }
 
     private void initExpandableListView(final List<CommentCard> commentList){
@@ -276,12 +310,13 @@ public class com_viewActivity extends AppCompatActivity {
                         intent.putExtra("activity_id",activity_id);
                         intent.putExtra("ref_comment_id",adapter.getGroup(groupPosition).getCommentId());
                         intent.putExtra("ref_comment_content",adapter.getGroup(groupPosition).getContent());
-                        startActivity(intent);
+                        startActivityForResult(intent,REF);
                     }
                     return true;
                 }
             });
         }
+        pb_bottom.setVisibility(View.GONE);
     }
 
     public void Jump(final boolean flag){
@@ -370,5 +405,21 @@ public class com_viewActivity extends AppCompatActivity {
                 return true;
         }
         return false;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case REF:
+                if (resultCode == RESULT_OK) {
+                    currentPage = false;
+                    canshow = false;
+                    more.setVisibility(View.VISIBLE);
+                }
+                break;
+            default:
+                break;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

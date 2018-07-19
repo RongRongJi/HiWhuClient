@@ -242,6 +242,23 @@
                 android:orientation="vertical"
                 android:scrollbars="none"/>
 
+            <TextView
+                android:id="@+id/more"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="下拉加载评论"
+                android:textColor="#999999"
+                android:textSize="14sp"
+                android:padding="12dp"
+                android:background="#ffffff"
+                android:gravity="center"/>
+
+            <ProgressBar
+                android:id="@+id/pb_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
+
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>

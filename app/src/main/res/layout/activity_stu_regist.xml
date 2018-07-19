@@ -1,115 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.hiwhuUI.Activity.stu_registActivity">
+    android:orientation="vertical">
 
-    <RelativeLayout
-        android:id="@+id/p1_stu_num"
-        android:layout_width="350dp"
-        android:layout_height="60dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="80dp">
+    <include layout="@layout/activity_com_update_title" />
+
+    <!--标题：个人信息-->
+    <TextView
+        android:id="@+id/signUpTitle1"
+        android:layout_width="wrap_content"
+        android:layout_height="50dip"
+        android:layout_marginTop="20dip"
+        android:text="学生注册"
+        android:textSize="24sp"
+        android:textColor="#000000"
+        android:layout_marginLeft="20dip"/>
+
+<!--学号-->
         <TextView
             android:id="@+id/p1_text_stu_num"
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
+            android:layout_width="wrap_content"
+            android:layout_height="30dip"
+            android:gravity="center_vertical"
             android:text="学号"
-            android:gravity="center"
-            android:textSize="17sp"/>
+            android:textSize="16sp"
+            android:textColor="#000000"
+            android:layout_marginLeft="20dip"/>
         <EditText
             android:id="@+id/p1_edit_stu_num"
-            android:layout_width="240dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="30dip"
             android:hint="请输入你的学号"
-            android:background="@drawable/edittext"
-            android:textSize="15sp"/>
-    </RelativeLayout>
+            android:background="#00000000"
+            android:textSize="16sp"
+            android:layout_marginLeft="20dip"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:src="@drawable/acu_line"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"/>
 
-    <RelativeLayout
-        android:id="@+id/p2_stu_username"
-        android:layout_width="350dp"
-        android:layout_height="60dp"
-        android:layout_below="@+id/p1_stu_num"
-        android:layout_centerHorizontal="true">
+    <!--姓名-->
         <TextView
             android:id="@+id/p2_text_stu_username"
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="30dip"
+            android:gravity="center_vertical"
             android:text="姓名"
-            android:layout_alignParentLeft="true"
-            android:gravity="center"
-            android:textSize="17sp"/>
+            android:textSize="16sp"
+            android:textColor="#000000"
+            android:layout_marginLeft="20dip"/>
         <EditText
             android:id="@+id/p2_edit_stu_username"
-            android:layout_width="240dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="30dip"
             android:hint="请输入你的姓名"
-            android:background="@drawable/edittext"
-            android:textSize="15sp"/>
-    </RelativeLayout>
+            android:background="#00000000"
+            android:textSize="16sp"
+            android:layout_marginLeft="20dip"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:src="@drawable/acu_line"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"/>
 
-    <RelativeLayout
-        android:id="@+id/p3_stu_password"
-        android:layout_width="350dp"
-        android:layout_height="60dp"
-        android:layout_below="@+id/p2_stu_username"
-        android:layout_centerHorizontal="true">
+<!--密码-->
         <TextView
             android:id="@+id/p3_text_stu_password"
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="30dip"
             android:text="密码"
-            android:layout_alignParentLeft="true"
-            android:gravity="center"
-            android:textSize="17sp"/>
+            android:textSize="16sp"
+            android:textColor="#000000"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="20dip"/>
         <EditText
             android:id="@+id/p3_edit_stu_password"
-            android:layout_width="240dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="30dip"
             android:hint="请输入你的密码"
-            android:background="@drawable/edittext"
-            android:textSize="15sp"/>
-    </RelativeLayout>
+            android:inputType="textPassword"
+            android:background="#00000000"
+            android:textSize="16sp"
+            android:layout_marginLeft="20dip"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:src="@drawable/acu_line"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"/>
 
-
-    <RelativeLayout
-        android:id="@+id/p4_stu_ident"
-        android:layout_width="350dp"
-        android:layout_height="60dp"
-        android:layout_below="@+id/p3_stu_password"
-        android:layout_centerHorizontal="true">
+<!--确认密码-->
         <TextView
             android:id="@+id/p4_text_stu_ident"
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="30dip"
             android:text="确认密码"
-            android:layout_alignParentLeft="true"
-            android:gravity="center"
-            android:textSize="17sp"/>
+            android:gravity="center_vertical"
+            android:textSize="16sp"
+            android:textColor="#000000"
+            android:layout_marginLeft="20dip"/>
         <EditText
             android:id="@+id/p4_edit_stu_ident"
-            android:layout_width="240dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:hint="请确认你的密码"
-            android:background="@drawable/edittext"
-            android:textSize="15sp"/>
-    </RelativeLayout>
+            android:layout_width="wrap_content"
+            android:layout_height="30dip"
+            android:hint="请再输入一次密码"
+            android:inputType="textPassword"
+            android:background="#00000000"
+            android:textSize="16sp"
+            android:layout_marginLeft="20dip"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:src="@drawable/acu_line"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"/>
+
+    <!--注册按钮-->
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        android:layout_marginTop="20dip">
 
     <Button
         android:id="@+id/btn_stu_regist"
-        android:layout_width="250dp"
-        android:layout_height="60dp"
-        android:text="注 册"
-        android:layout_marginTop="350dp"
-        android:textColor="#40a114"
-        android:layout_centerHorizontal="true" />
+        android:layout_width="match_parent"
+        android:layout_height="50dip"
+        android:layout_centerHorizontal="true"
+        android:text="立即注册"
+        android:textColor="#fff"
+        android:textSize="16sp"
+        android:background="@color/colorPrimary"/>
+    </RelativeLayout>
 
-</RelativeLayout>
+</LinearLayout>
