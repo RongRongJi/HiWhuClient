@@ -32,6 +32,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.hiwhu.hiwhuclient.R;
 import com.hiwhuUI.Activity.Map.LocationActivity;
 import com.hiwhuUI.Activity.process.DetailActivity;
@@ -39,6 +40,7 @@ import com.hiwhuUI.Activity.process.DetailActivity;
 import java.io.File;
 import java.net.URLEncoder;
 
+import HttpConnect.GetAllActivity;
 import HttpConnect.GetCurrentActivity;
 import HttpConnect.UploadImg;
 import data.staticData;
@@ -77,7 +79,7 @@ public class com_updateActivity extends AppCompatActivity {
     private RadioButton button_need;
 
     //服务器所需要的数据
-
+    private String activity_id;
     private String imagePath=null;
     private String activitytype = "0";
     private String title = null;
@@ -122,7 +124,7 @@ public class com_updateActivity extends AppCompatActivity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         setContentView(R.layout.activity_com_update);
 
-        final String activity_id = getIntent().getStringExtra("activity_id");
+        activity_id = getIntent().getStringExtra("activity_id");
 
         Button back = (Button)findViewById(R.id.button_backward);
         back.setText("返回");
@@ -651,7 +653,7 @@ public class com_updateActivity extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DetailActivity.start(view.getContext(),10);
+
                 String url;
                 if(activity_id==null){
                     url = staticData.getUrl()+"/AddActivityServlet?";
@@ -696,6 +698,7 @@ public class com_updateActivity extends AppCompatActivity {
                 if(null==imagePath){
                     Toast.makeText(com_updateActivity.this,"请添加图片！",Toast.LENGTH_LONG).show();
                 }else{
+                    DetailActivity.start(view.getContext(),10);
                     File file = new File(imagePath);
                     Log.e("filepath--",imagePath);
                     Upload upload = new Upload(file);
@@ -703,13 +706,66 @@ public class com_updateActivity extends AppCompatActivity {
                 }
             }
         });
+        initInfo();
     }
 
     public void initInfo(){
-        String activity_id = getIntent().getStringExtra("activity_id");
         if(activity_id==null) return;
         else{
             GetCurrentActivity.GetActivityInit(activity_id);
+            EditText actName = (EditText)findViewById(R.id.activityName);
+            actName.setText(staticData.activity.getTitle());
+            String[] tmp = GetAllActivity.HandleTime(staticData.activity.getStartTIme());
+            beginDate.setText(tmp[0]);
+            beginTime.setText(tmp[1]);
+            tmp = GetAllActivity.HandleTime(staticData.activity.getEndTime());
+            endDate.setText(tmp[0]);
+            endTime.setText(tmp[1]);
+            tmp = GetAllActivity.HandleTime(staticData.activity.getRegistrationStartTime());
+            RadioButton need = (RadioButton)findViewById(R.id.button_need);
+            RadioButton neednot = (RadioButton)findViewById(R.id.button_neednot);
+            if(tmp[0].equals("1000-12-31")){
+                neednot.setChecked(true);
+            }else{
+                need.setChecked(true);
+                beginDate_signup.setText(tmp[0]);
+                beginTime_signup.setText(tmp[1]);
+                tmp = GetAllActivity.HandleTime(staticData.activity.getRegistrationEndTime());
+                endDate_signup.setText(tmp[0]);
+                endTime_signup.setText(tmp[1]);
+            }
+            if(staticData.activity.getLocation()!=null) {
+                String[] locations = staticData.activity.getLocation().split("\\|\\|");
+                if(locations.length!=0){
+                    location= locations[0];
+                    latitude = Double.valueOf(locations[1]);
+                    longitude = Double.valueOf(locations[2]);
+                }
+            }
+            activitytype=staticData.activity.getType();
+            text_type = (TextView)findViewById(R.id.text_type);
+            if(activitytype!=null){
+                switch (activitytype){
+                    case "1": text_type.setText("竞赛"); break;
+                    case "2": text_type.setText("体育"); break;
+                    case "3": text_type.setText("文艺"); break;
+                    case "4": text_type.setText("公益"); break;
+                    case "5": text_type.setText("讲座"); break;
+                    case "6": text_type.setText("其他"); break;
+                    default:break;
+                }
+            }
+
+            //imagePath=staticData.activity.getImage();
+            //button_image = (ImageButton)findViewById(R.id.button_image);
+            //Glide.with(this).load(staticData.getUrl()+"/"+imagePath)
+            //        .placeholder(R.drawable.logo)
+            //        .error(R.drawable.logo)
+            //        .into(button_image);
+            //text_image = (TextView)findViewById(R.id.text_image);
+            //text_image.setText("点击修改图片");
+            EditText desc = (EditText)findViewById(R.id.introduction);
+            desc.setText(staticData.activity.getActivityProfile());
         }
     }
 
@@ -732,8 +788,9 @@ public class com_updateActivity extends AppCompatActivity {
                 }else if(UPDATE_SUCCEED == flag){
                     Toast.makeText(com_updateActivity.this,"更新成功！",Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(getApplicationContext(),com_viewActivity.class);
-                    intent.putExtra("activity_id",staticData.getCurrentActivity());
+                    intent.putExtra("activity_id",activity_id);
                     startActivity(intent);
+                    finish();
                 }
             }
         });
