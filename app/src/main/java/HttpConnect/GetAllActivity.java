@@ -59,4 +59,13 @@ public class GetAllActivity {
         GetAllActivity.lock=false;
     }
 
+    public static String[] HandleTime(String time){
+        String times[] = time.split(" ");
+        String result[] = new String[2];
+        result[0]=times[0];
+        String tmp[] = times[1].split(":");
+        result[1]=tmp[0]+":"+tmp[1];
+        return result;
+    }
+
 }

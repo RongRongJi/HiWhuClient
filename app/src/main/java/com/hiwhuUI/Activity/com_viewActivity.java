@@ -78,7 +78,7 @@ public class com_viewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_com_view);
-
+        activity_id = getIntent().getStringExtra("activity_id");
         toolbar = (Toolbar) findViewById(R.id.toolbar_com_view);
         toolbar.setTitle("");
         toolbar_title = (TextView) findViewById(R.id.toolbar_com_view_text);
@@ -141,7 +141,6 @@ public class com_viewActivity extends AppCompatActivity {
                     new Runnable() {
                         @Override
                         public void run() {
-                            activity_id = getIntent().getStringExtra("activity_id");
                             if(activity_id!=null){
                                 GetCurrentActivity.GetActivityInit(activity_id);
                                 //gcar = GetCommentAndReply.GetCollectionInit(activity_id);
@@ -383,8 +382,8 @@ public class com_viewActivity extends AppCompatActivity {
                                 String s = response.body().string();
                                 Log.e("return---", s);
                                 if(s.equals("succeed")){
+                                    activity_id=null;
                                     Jump(true);
-                                    //staticData.setCurrentActivity(null);
                                 }else{
                                     Jump(false);
                                 }
