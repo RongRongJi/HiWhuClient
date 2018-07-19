@@ -246,7 +246,7 @@
                 android:id="@+id/more"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="下拉加载评论"
+                android:text="下拉或点击加载评论"
                 android:textColor="#999999"
                 android:textSize="14sp"
                 android:padding="12dp"

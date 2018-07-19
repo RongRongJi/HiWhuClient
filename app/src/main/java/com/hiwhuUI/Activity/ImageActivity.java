@@ -40,13 +40,14 @@ public class ImageActivity extends AppCompatActivity {
         });
         final Button forward = (Button)findViewById(R.id.button_forward);
         forward.setText("删除");
+        forward.setVisibility(View.GONE);
         //删除图片
         forward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 com_updateActivity.UPDATE_OR_DELETE = 3;
-                textView = (TextView)findViewById(R.id.text_image);
-                textView.setText("点击上传封面图片");
+                //textView = (TextView)findViewById(R.id.text_image);
+                //textView.setText("点击上传封面图片");
                 finish();
             }
         });

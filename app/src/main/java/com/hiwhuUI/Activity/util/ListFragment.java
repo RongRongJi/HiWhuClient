@@ -52,6 +52,8 @@ public class ListFragment extends Fragment {
         return fragment;
     }
 
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -91,6 +93,8 @@ public class ListFragment extends Fragment {
         return view;
 
     }
+
+
 
     private View setActivityCardView(View view, int option){
 

@@ -230,9 +230,14 @@ public class stu_viewActivity extends AppCompatActivity {
                 case 1:
                     initComment();
                     break;
+                case 2:
+                    initComment();
+                    break;
             }
         }
     };
+
+
 
     private void initInfo(){
         btn_signup = findViewById(R.id.bottom_signup);
@@ -358,6 +363,34 @@ public class stu_viewActivity extends AppCompatActivity {
                         canshow = false;
                     }
                 }
+            }
+        });
+
+        more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(pb_bottom.getVisibility()!=View.VISIBLE){
+                    pb_bottom.setVisibility(View.VISIBLE);
+                    more.setVisibility(View.GONE);
+                }
+                new Thread(
+                        new Runnable() {
+                            @Override
+                            public void run() {
+                                //activity_id = getIntent().getStringExtra("activity_id");
+                                //GetCurrentActivity.GetActivityInit(activity_id);
+                                if(activity_id!=null) {
+                                    //activity_id = getIntent().getStringExtra("activity_id");
+                                    //GetCurrentActivity.GetActivityInit(activity_id);
+                                    //currentPage = true;
+                                    gcar = GetCommentAndReply.GetCollectionInit(activity_id);
+                                    Message msg = new Message();
+                                    msg.what = 2;
+                                    handler.sendMessage(msg);
+                                }
+                            }
+                        }
+                ).start();
             }
         });
     }

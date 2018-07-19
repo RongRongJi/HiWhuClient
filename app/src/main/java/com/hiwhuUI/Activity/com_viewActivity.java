@@ -243,40 +243,28 @@ public class com_viewActivity extends AppCompatActivity {
         more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!currentPage){
-                    if(!canshow) {
-                        canshow = true;
-                        return;
-                    }
-                    if(pb_bottom.getVisibility()!=View.VISIBLE){
-                        pb_bottom.setVisibility(View.VISIBLE);
-                        more.setVisibility(View.GONE);
-                        return;
-                    }
-                    canshow = false;
-                    new Thread(
-                            new Runnable() {
-                                @Override
-                                public void run() {
+                if(pb_bottom.getVisibility()!=View.VISIBLE){
+                    pb_bottom.setVisibility(View.VISIBLE);
+                    more.setVisibility(View.GONE);
+                }
+                new Thread(
+                        new Runnable() {
+                            @Override
+                            public void run() {
+                                //activity_id = getIntent().getStringExtra("activity_id");
+                                //GetCurrentActivity.GetActivityInit(activity_id);
+                                if(activity_id!=null) {
                                     //activity_id = getIntent().getStringExtra("activity_id");
                                     //GetCurrentActivity.GetActivityInit(activity_id);
-                                    if(activity_id!=null) {
-                                        //activity_id = getIntent().getStringExtra("activity_id");
-                                        //GetCurrentActivity.GetActivityInit(activity_id);
-                                        currentPage = true;
-                                        gcar = GetCommentAndReply.GetCollectionInit(activity_id);
-                                        Message msg = new Message();
-                                        msg.what = 1;
-                                        handler.sendMessage(msg);
-                                    }
+                                    //currentPage = true;
+                                    gcar = GetCommentAndReply.GetCollectionInit(activity_id);
+                                    Message msg = new Message();
+                                    msg.what = 2;
+                                    handler.sendMessage(msg);
                                 }
                             }
-                    ).start();
-                }
-                else {
-                    //Toast.makeText(com_viewActivity.this,"没有更多评论了",Toast.LENGTH_LONG).show();
-                    canshow = false;
-                }
+                        }
+                ).start();
             }
         });
 
@@ -285,7 +273,7 @@ public class com_viewActivity extends AppCompatActivity {
         nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                if (scrollY <= (v.getChildAt(0).getHeight() - v.getHeight())) {
+                if (scrollY == (v.getChildAt(0).getHeight() - v.getHeight())) {
                     if(!currentPage){
                         if(!canshow) {
                             canshow = true;

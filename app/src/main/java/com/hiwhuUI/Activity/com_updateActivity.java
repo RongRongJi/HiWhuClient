@@ -718,9 +718,13 @@ public class com_updateActivity extends AppCompatActivity {
             String[] tmp = GetAllActivity.HandleTime(staticData.activity.getStartTIme());
             beginDate.setText(tmp[0]);
             beginTime.setText(tmp[1]);
+            begDate=tmp[0];
+            begTime=tmp[1];
             tmp = GetAllActivity.HandleTime(staticData.activity.getEndTime());
             endDate.setText(tmp[0]);
             endTime.setText(tmp[1]);
+            enDate=tmp[0];
+            enTime=tmp[1];
             tmp = GetAllActivity.HandleTime(staticData.activity.getRegistrationStartTime());
             RadioButton need = (RadioButton)findViewById(R.id.button_need);
             RadioButton neednot = (RadioButton)findViewById(R.id.button_neednot);
@@ -730,9 +734,13 @@ public class com_updateActivity extends AppCompatActivity {
                 need.setChecked(true);
                 beginDate_signup.setText(tmp[0]);
                 beginTime_signup.setText(tmp[1]);
+                begDate_signup = tmp[0];
+                begTime_signup = tmp[1];
                 tmp = GetAllActivity.HandleTime(staticData.activity.getRegistrationEndTime());
                 endDate_signup.setText(tmp[0]);
                 endTime_signup.setText(tmp[1]);
+                enDate_signup = tmp[0];
+                enTime_signup = tmp[1];
             }
             if(staticData.activity.getLocation()!=null) {
                 String[] locations = staticData.activity.getLocation().split("\\|\\|");
@@ -756,16 +764,27 @@ public class com_updateActivity extends AppCompatActivity {
                 }
             }
 
-            //imagePath=staticData.activity.getImage();
+            imagePath=staticData.activity.getImage();
             //button_image = (ImageButton)findViewById(R.id.button_image);
             //Glide.with(this).load(staticData.getUrl()+"/"+imagePath)
             //        .placeholder(R.drawable.logo)
             //        .error(R.drawable.logo)
             //        .into(button_image);
-            //text_image = (TextView)findViewById(R.id.text_image);
-            //text_image.setText("点击修改图片");
+            text_image = (TextView)findViewById(R.id.text_image);
+            text_image.setText("点击修改图片");
             EditText desc = (EditText)findViewById(R.id.introduction);
             desc.setText(staticData.activity.getActivityProfile());
+
+
+            activityProfile=staticData.activity.getActivityProfile();
+            title = staticData.activity.getTitle();
+            startTime = begDate+" "+begTime;
+            endTime_String = enDate +" "+enTime;
+            if(button_need.isChecked()){
+                registrationStartTime = begDate_signup+" "+begTime_signup;
+                registrationEndTime = enDate_signup+" "+enTime_signup;
+            }
+
         }
     }
 
