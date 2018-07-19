@@ -50,6 +50,7 @@ public class stu_registActivity extends AppCompatActivity {
         final EditText stuIdtext = (EditText) findViewById(R.id.p1_edit_stu_num);
         final EditText userNametext = (EditText) findViewById(R.id.p2_edit_stu_username);
         final EditText passwordText = (EditText) findViewById(R.id.p3_edit_stu_password);
+        final EditText passwordAgain = (EditText) findViewById(R.id.p4_edit_stu_ident);
         Button button1 = (Button) findViewById(R.id.btn_stu_regist);
 
         button1.setOnClickListener(new View.OnClickListener() {
@@ -59,43 +60,56 @@ public class stu_registActivity extends AppCompatActivity {
                 String studentId = stuIdtext.getText().toString();
                 String username = userNametext.getText().toString();
                 String password = passwordText.getText().toString();
-                try{
-                    username = java.net.URLEncoder.encode(username,"UTF-8");
-                    Log.e("uesrname---",username);
-                    url = url+"?studentID="+studentId+"&userName="+ username +"&password="+password;
-                    Log.e("url----",url);
-                }catch(Exception e){
-                    e.printStackTrace();
+                String RePassword = passwordAgain.getText().toString();
+                if(studentId.length() == 0 && username.length() != 0 && password.equals(RePassword) && password.length()!=0
+                        ||studentId.length() != 0 && username.length() == 0 && password.equals(RePassword) && password.length()!=0
+                        ||studentId.length() != 0 && username.length() != 0 && password.equals(RePassword) && password.length()==0){
+                    Toast.makeText(stu_registActivity.this,"请检查是否还有未填写信息！",Toast.LENGTH_LONG).show();
+                    return;
                 }
-               HttpUtil.sendOkHttpRequest(url,new okhttp3.Callback(){
-                   @Override
-                   public void onResponse(Call call, Response response) throws IOException {
-                       String s = response.body().string();
-                       Log.e("return---",s);
-                       if(s.equals("succeed\r\n")){
-                           Jump(true);
-                       }else{
-                           Jump(false);
-                       }
-                   }
+                else if(studentId.length() != 0 && username.length() != 0 && !password.equals(RePassword)){
+                    Toast.makeText(stu_registActivity.this,"密码输入不一致！",Toast.LENGTH_LONG).show();
+                    return;
+                }
+                else{
+                    try{
+                        username = java.net.URLEncoder.encode(username,"UTF-8");
+                        Log.e("uesrname---",username);
+                        url = url+"?studentID="+studentId+"&userName="+ username +"&password="+password;
+                        Log.e("url----",url);
+                    }catch(Exception e){
+                        e.printStackTrace();
+                    }
+                    HttpUtil.sendOkHttpRequest(url,new okhttp3.Callback(){
+                        @Override
+                        public void onResponse(Call call, Response response) throws IOException {
+                            String s = response.body().string();
+                            Log.e("return---",s);
+                            if(s.contains("succeed")){
+                                Jump(1);
+                            }else{
+                                Jump(0);
+                            }
+                        }
 
-                   @Override
-                   public void onFailure(Call call, IOException e) {
-                   }
-               });
-
+                        @Override
+                        public void onFailure(Call call, IOException e) {
+                        }
+                    });
+                }
             }
         });
     }
 
-    public void Jump(final boolean flag){
+    public void Jump(final int flag){
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if(flag){
+                if(flag == 1){
                     Toast.makeText(stu_registActivity.this,"您已经成功注册！",Toast.LENGTH_LONG).show();
                     finish();
-                }else{
+                }
+                else{
                     Toast.makeText(stu_registActivity.this,"注册失败！",Toast.LENGTH_LONG).show();
                 }
             }

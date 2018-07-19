@@ -28,7 +28,7 @@
             android:layout_marginLeft="20dip" />
         <EditText
             android:id="@+id/name"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="30dip"
             android:hint="请输入社团名称"
             android:background="#00000000"
@@ -53,11 +53,12 @@
         android:layout_marginLeft="20dip"/>
     <EditText
         android:id="@+id/pwd"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="30dip"
         android:hint="请输入你的密码"
         android:background="#00000000"
         android:textSize="16sp"
+        android:inputType="textPassword"
         android:layout_marginLeft="20dip"/>
     <ImageView
         android:layout_width="wrap_content"
@@ -78,9 +79,10 @@
         android:layout_marginLeft="20dip"/>
     <EditText
         android:id="@+id/confirm_pwd"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="30dip"
         android:hint="请再输入一次密码"
+        android:inputType="textPassword"
         android:background="#00000000"
         android:textSize="16sp"
         android:layout_marginLeft="20dip"/>
@@ -103,7 +105,7 @@
             android:layout_marginLeft="20dip" />
         <EditText
             android:id="@+id/tel"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="30dip"
             android:hint="请输入电话号码"
             android:background="#00000000"
@@ -128,7 +130,7 @@
             android:layout_marginLeft="20dip"/>
         <EditText
             android:id="@+id/description"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="80dip"
             android:hint="请描述您的社团"
             android:gravity="top"
