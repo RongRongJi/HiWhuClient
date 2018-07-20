@@ -87,7 +87,7 @@ public class RecyclerAdapter_stuCard extends RecyclerView.Adapter<RecyclerAdapte
                     public void onResponse(Call call, Response response) throws IOException {
                         String s = response.body().string();
                         Log.e("return---",s);
-                        if(s.equals("pass\r\nMessageInsert\r\n")){
+                        if(s.equals("pass\nMessageInsert\n")){
                             lock=1;
                         }else{
                             lock=2;

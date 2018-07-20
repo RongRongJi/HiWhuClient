@@ -138,7 +138,6 @@ public class com_viewActivity extends AppCompatActivity {
         rootFrameLayout.addView(progressBar);
 
     }
-boolean ex = false;
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
