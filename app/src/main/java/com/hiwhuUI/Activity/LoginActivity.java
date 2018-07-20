@@ -29,6 +29,16 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(!this.isTaskRoot()){
+            Intent mainIntent = getIntent();
+            String action = mainIntent.getAction();
+            if(mainIntent.hasCategory(Intent.CATEGORY_LAUNCHER)&&action.equals(Intent.ACTION_MAIN)){
+                finish();
+                return;
+            }
+        }
+
+
         setContentView(R.layout.activity_login);
 
         TextView textView1 = (TextView) findViewById(R.id.text_reg_stu);
