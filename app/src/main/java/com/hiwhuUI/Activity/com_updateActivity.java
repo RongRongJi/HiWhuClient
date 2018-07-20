@@ -40,6 +40,7 @@ import com.hiwhuUI.Activity.Map.LocationActivity;
 import com.hiwhuUI.Activity.process.DetailActivity;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.Calendar;
 import java.util.Date;
@@ -719,7 +720,13 @@ public class com_updateActivity extends AppCompatActivity {
     public void initInfo(){
         if(activity_id==null) return;
         else{
-            GetCurrentActivity.GetActivityInit(activity_id);
+            try{
+                GetCurrentActivity.GetActivityInit(activity_id);
+            }
+            catch (IOException e){
+                Toast.makeText(com_updateActivity.this,"活动不存在",Toast.LENGTH_LONG).show();
+                return;
+            }
             EditText actName = (EditText)findViewById(R.id.activityName);
             actName.setText(staticData.activity.getTitle());
             String[] tmp = GetAllActivity.HandleTime(staticData.activity.getStartTIme());

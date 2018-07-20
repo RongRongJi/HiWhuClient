@@ -11,8 +11,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.hiwhu.hiwhuclient.R;
-import com.hiwhuUI.Activity.com_viewActivity;
 import com.hiwhuUI.Activity.function.RefreshableView;
+import com.hiwhuUI.Activity.stu_viewActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +57,7 @@ public class stuReply extends AppCompatActivity {
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                    Intent intent = new Intent(stuReply.this,com_viewActivity.class);
+                    Intent intent = new Intent(stuReply.this,stu_viewActivity.class);
                     intent.putExtra("activity_id",grc.commentCountList.get(position).getActivityID());
                     startActivity(intent);
                 }

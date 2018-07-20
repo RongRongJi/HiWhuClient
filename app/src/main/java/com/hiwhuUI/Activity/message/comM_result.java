@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.hiwhu.hiwhuclient.R;
+import com.hiwhuUI.Activity.com_viewActivity;
 import com.hiwhuUI.Activity.stu_viewActivity;
 
 import java.util.ArrayList;
@@ -63,7 +64,7 @@ public class comM_result extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                Intent intent = new Intent(comM_result.this,stu_viewActivity.class);
+                Intent intent = new Intent(comM_result.this,com_viewActivity.class);
                 intent.putExtra("activity_id",activityList.get(position).getActivityID());
                 startActivity(intent);
             }

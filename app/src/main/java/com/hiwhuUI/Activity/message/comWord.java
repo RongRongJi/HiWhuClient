@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.hiwhu.hiwhuclient.R;
 import com.hiwhuUI.Activity.com_viewActivity;
 import com.hiwhuUI.Activity.function.RefreshableView;
-import com.hiwhuUI.Activity.stu_viewActivity;
 
 import java.util.ArrayList;
 import java.util.List;

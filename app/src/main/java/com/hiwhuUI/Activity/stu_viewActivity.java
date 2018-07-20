@@ -135,7 +135,7 @@ public class stu_viewActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         String s = response.body().string();
-                        if(s.equals("succeed\r\n")){
+                        if(s.equals("succeed\n")){
                             Jump(true);
                         }else{
                             Jump(false);
@@ -204,7 +204,12 @@ public class stu_viewActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             activity_id = getIntent().getStringExtra("activity_id");
-                            GetCurrentActivity.GetActivityInit(activity_id);
+                            try{
+                                GetCurrentActivity.GetActivityInit(activity_id);
+                            }
+                            catch (IOException e){
+                                return;
+                            }
                             //gcar = GetCommentAndReply.GetCollectionInit(activity_id);
                             Message msg = new Message();
                             msg.what=0;

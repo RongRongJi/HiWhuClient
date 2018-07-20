@@ -138,7 +138,7 @@ public class com_viewActivity extends AppCompatActivity {
         rootFrameLayout.addView(progressBar);
 
     }
-
+boolean ex = false;
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
@@ -149,7 +149,12 @@ public class com_viewActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             if(activity_id!=null){
-                                GetCurrentActivity.GetActivityInit(activity_id);
+                                try {
+                                    GetCurrentActivity.GetActivityInit(activity_id);
+                                }
+                                catch (IOException e){
+                                    return;
+                                }
                                 //gcar = GetCommentAndReply.GetCollectionInit(activity_id);
                                 Message msg = new Message();
                                 msg.what=0;
