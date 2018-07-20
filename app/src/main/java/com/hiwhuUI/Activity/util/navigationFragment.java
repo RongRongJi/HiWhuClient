@@ -99,7 +99,7 @@ public class navigationFragment extends Fragment {
         else if(str.equals("我的")){
             Log.e("error","进入我的");
             if(userType==1){
-                if(staticData.student==null) GetCurrentStudent.GetStudentInit();
+                GetCurrentStudent.GetStudentInit();
                 view = inflater.inflate(R.layout.activity_stu_data, null);
 
                 ImageView back = (ImageView) view.findViewById(R.id.stu_h_back);
@@ -197,7 +197,7 @@ public class navigationFragment extends Fragment {
 
             }
             else if(userType==2){
-                if(staticData.sponsor==null) GetCurrentSponsor.GetSponsorInit();
+                GetCurrentSponsor.GetSponsorInit();
                 view = inflater.inflate(R.layout.activity_com_data, null);
 
                 ImageView back = (ImageView) view.findViewById(R.id.com_h_back);
