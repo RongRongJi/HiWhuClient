@@ -484,7 +484,7 @@ public class stu_viewActivity extends AppCompatActivity {
             return false;
         }
         switch (item.getItemId()){
-            case R.id.map_gd:
+           /* case R.id.map_gd:
                 Intent intent;
                 if (isAvilible(this, "com.autonavi.minimap")) {
                     goToNaviActivity(this,"test",null,LAT_MAP,LONG_MAP,"1","2");
@@ -505,7 +505,7 @@ public class stu_viewActivity extends AppCompatActivity {
                     intent2 = new Intent(Intent.ACTION_VIEW, uri);
                     startActivity(intent2);
                 }
-                return true;
+                return true;*/
             case R.id.map_bd:
                 Intent intent3;
                 if (isAvilible(this, "com.baidu.BaiduMap")) {

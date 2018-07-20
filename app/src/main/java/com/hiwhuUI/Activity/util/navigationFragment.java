@@ -39,7 +39,6 @@ import com.hiwhuUI.Activity.com_describeActivity;
 import com.hiwhuUI.Activity.message.comWord;
 import com.hiwhuUI.Activity.message.stuReply;
 import com.hiwhuUI.Activity.message.stuResult;
-import com.hiwhuUI.Activity.stu_dataActivity;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -53,7 +52,7 @@ import jp.wasabeef.glide.transformations.BlurTransformation;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 import static com.baidu.mapapi.BMapManager.getContext;
-import static com.hiwhuUI.Activity.stu_dataActivity.CHOOSE_PHOTO;
+import static com.hiwhuUI.Activity.com_describeActivity.CHOOSE_PHOTO;
 
 public class navigationFragment extends Fragment {
     public static navigationFragment newInstance(String info) {
@@ -75,7 +74,7 @@ public class navigationFragment extends Fragment {
             Log.e("error","进入主页");
             view = inflater.inflate(R.layout.fragment_navigation, null);
             TabLayout tabs = (TabLayout) view.findViewById(R.id.tabs);
-            tabs.addTab(tabs.newTab().setText("推荐").setTag(0));
+            tabs.addTab(tabs.newTab().setText("所有").setTag(0));
             tabs.addTab(tabs.newTab().setText("竞赛").setTag(1));
             tabs.addTab(tabs.newTab().setText("体育").setTag(2));
             tabs.addTab(tabs.newTab().setText("文艺").setTag(3));
@@ -354,6 +353,7 @@ public class navigationFragment extends Fragment {
                 break;
             default:
                 break;
+
         }
         super.onActivityResult(requestCode, resultCode, data);
     }

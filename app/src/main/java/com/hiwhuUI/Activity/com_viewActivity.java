@@ -77,12 +77,15 @@ public class com_viewActivity extends AppCompatActivity {
     private boolean canshow = false;
     final int REF = 1;//回复评论
     final int DELETE = 3;//删除活动
+    private Menu mMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_com_view);
         activity_id = getIntent().getStringExtra("activity_id");
+
+
         toolbar = (Toolbar) findViewById(R.id.toolbar_com_view);
         toolbar.setTitle("");
         toolbar_title = (TextView) findViewById(R.id.toolbar_com_view_text);
@@ -206,6 +209,12 @@ public class com_viewActivity extends AppCompatActivity {
         }
 
         details.setText(staticData.activity.getActivityProfile());
+
+
+        if (!staticData.activity.getSponsorID().equals(staticData.getSponsorID())) {
+            mMenu.findItem(R.id.activity_edit).setVisible(false);
+            mMenu.findItem(R.id.activity_delete).setVisible(false);
+        }
     }
 
     private void initImage(){
@@ -311,6 +320,8 @@ public class com_viewActivity extends AppCompatActivity {
                 }
             }
         });
+
+
     }
 
     private void initExpandableListView(final List<CommentCard> commentList){
@@ -335,8 +346,7 @@ public class com_viewActivity extends AppCompatActivity {
             }
         });
         if(staticData.getUserType()==2){
-            if(staticData.sponsor==null) GetCurrentSponsor.GetSponsorInit();
-            if(staticData.activity.getSponsorID().equals(staticData.sponsor.getSponsorID())){
+            if(staticData.activity.getSponsorID().equals(staticData.getSponsorID())){
                 listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                     @Override
                     public boolean onItemLongClick(AdapterView<?> parent, View view, int flatPos, long l) {
@@ -386,12 +396,12 @@ public class com_viewActivity extends AppCompatActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-
-        if(!staticData.isSponsorCanOpera()){
-            menu.findItem(R.id.activity_edit).setVisible(false);
-            menu.findItem(R.id.activity_delete).setVisible(false);
-            invalidateOptionsMenu();
-        }
+        mMenu=menu;
+        //if(!staticData.isSponsorCanOpera()){
+        //    menu.findItem(R.id.activity_edit).setVisible(false);
+        //    menu.findItem(R.id.activity_delete).setVisible(false);
+        //    invalidateOptionsMenu();
+        //}
         return super.onPrepareOptionsMenu(menu);
     }
 

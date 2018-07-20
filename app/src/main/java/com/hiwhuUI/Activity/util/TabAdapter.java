@@ -33,7 +33,7 @@ public class TabAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case staticData.TUIJIAN:
-                return "推荐";
+                return "所有";
             case staticData.GONGYI:
                 return "公益";
             case staticData.JIANGZUO:

@@ -15,6 +15,8 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -39,6 +41,8 @@ import com.hiwhuUI.Activity.process.DetailActivity;
 
 import java.io.File;
 import java.net.URLEncoder;
+import java.util.Calendar;
+import java.util.Date;
 
 import HttpConnect.GetAllActivity;
 import HttpConnect.GetCurrentActivity;
@@ -115,6 +119,7 @@ public class com_updateActivity extends AppCompatActivity {
     private int enTime_signup_minute = 10000;
     private Boolean theSameDay = false;
     private Boolean theSameDay_signup = false;
+    private Calendar calendar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,6 +146,8 @@ public class com_updateActivity extends AppCompatActivity {
             actionBar.hide();
         }
 
+        calendar = Calendar.getInstance();
+
         button_image = (ImageButton)findViewById(R.id.button_image);
 
         beginDate = (Button)findViewById(R.id.beginDate);
@@ -156,7 +163,7 @@ public class com_updateActivity extends AppCompatActivity {
                         begDate = String.format("%d-%d-%d",year,month+1,day);
                         beginDate.setText(begDate);
                     }
-                },2018,6,23).show();
+                },calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
 
@@ -240,7 +247,7 @@ public class com_updateActivity extends AppCompatActivity {
                             Toast.makeText(com_updateActivity.this, "请先选择开始时间！", Toast.LENGTH_LONG).show();
                         }
                     }
-                },2018,6,24).show();
+                },calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
 
@@ -366,7 +373,7 @@ public class com_updateActivity extends AppCompatActivity {
                                 Toast.makeText(com_updateActivity.this, "请先选择活动时间！", Toast.LENGTH_LONG).show();
                             }
                         }
-                    }, 2018, 6, 23).show();
+                    }, calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH)).show();
                 }
             }
         });
@@ -572,7 +579,7 @@ public class com_updateActivity extends AppCompatActivity {
                                 Toast.makeText(com_updateActivity.this, "请先选择活动时间！", Toast.LENGTH_LONG).show();
                             }
                         }
-                    }, 2018, 6, 24).show();
+                    }, calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH)).show();
                 }
             }
         });
@@ -850,6 +857,16 @@ public class com_updateActivity extends AppCompatActivity {
 
                 break;
             case R.id.button_address:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    // 检查该权限是否已经获取
+                    // 权限是否已经 授权 GRANTED---授权  DINIED---拒绝
+
+                    int checkPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
+                    if (checkPermission != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 300);
+                        return;
+                    }
+                }
                 Intent intent2 = new Intent(com_updateActivity.this, LocationActivity.class);
                 startActivityForResult(intent2, ADDRESS);
                 break;

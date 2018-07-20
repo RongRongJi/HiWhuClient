@@ -146,7 +146,7 @@ public class SearchPositionActivity extends Activity implements AdapterView.OnIt
                 if (!TextUtils.isEmpty(et_search.getText().toString())) {
                     pb_location_search_load_bar.setVisibility(View.VISIBLE);
                     // 根据输入框的内容，进行搜索
-                    mSuggestionSearch.requestSuggestion(new SuggestionSearchOption().keyword(et_search.getText().toString()).city(""));
+                    mSuggestionSearch.requestSuggestion(new SuggestionSearchOption().keyword(et_search.getText().toString()).city("武汉"));
                 } else {
                     Toast.makeText(mContext, "请输入地点", Toast.LENGTH_LONG).show();
                 }

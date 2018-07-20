@@ -121,8 +121,9 @@ public class LocationActivity extends Activity implements AdapterView.OnItemClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location);
-        initUI();
         judgePermission();
+        initUI();
+
     }
 
 
@@ -133,22 +134,14 @@ public class LocationActivity extends Activity implements AdapterView.OnItemClic
             // 检查该权限是否已经获取
             // 权限是否已经 授权 GRANTED---授权  DINIED---拒绝
 
-            // sd卡权限
-            String[] SdCardPermission = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
-            if (ContextCompat.checkSelfPermission(this, SdCardPermission[0]) != PackageManager.PERMISSION_GRANTED) {
-                // 如果没有授予该权限，就去提示用户请求
-                ActivityCompat.requestPermissions(this, SdCardPermission, 100);
-            }
-
-            //手机状态权限
-            String[] readPhoneStatePermission = {Manifest.permission.READ_PHONE_STATE};
-            if (ContextCompat.checkSelfPermission(this, readPhoneStatePermission[0]) != PackageManager.PERMISSION_GRANTED) {
-                // 如果没有授予该权限，就去提示用户请求
-                ActivityCompat.requestPermissions(this, readPhoneStatePermission, 200);
+            int checkPermission = ContextCompat.checkSelfPermission(LocationActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION);
+            if (checkPermission != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(LocationActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+                return;
             }
 
             //定位权限
-            String[] locationPermission = {Manifest.permission.ACCESS_FINE_LOCATION};
+           /* String[] locationPermission = {Manifest.permission.ACCESS_FINE_LOCATION};
             if (ContextCompat.checkSelfPermission(this, locationPermission[0]) != PackageManager.PERMISSION_GRANTED) {
                 // 如果没有授予该权限，就去提示用户请求
                 ActivityCompat.requestPermissions(this, locationPermission, 300);
@@ -172,7 +165,7 @@ public class LocationActivity extends Activity implements AdapterView.OnItemClic
                 // 如果没有授予该权限，就去提示用户请求
                 ActivityCompat.requestPermissions(this, WRITE_EXTERNAL_STORAGE, 600);
             }
-
+*/
         }else{
             //doSdCardResult();
         }
