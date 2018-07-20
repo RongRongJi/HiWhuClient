@@ -1,18 +1,29 @@
 package com.hiwhuUI.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.hiwhu.hiwhuclient.R;
 import com.hiwhuUI.Activity.util.ListFragment;
 
+import java.util.List;
+
+import HttpConnect.GetActivityBySponsorID;
+import data.staticData;
+import entity.Activity;
+
 public class ListActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
+    private FragmentManager manager = getSupportFragmentManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +36,7 @@ public class ListActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-
+        FragmentTransaction transaction = manager.beginTransaction();
         int id = getIntent().getIntExtra("id", 0);
         switch (id){
             case 1:
@@ -46,11 +56,11 @@ public class ListActivity extends AppCompatActivity {
                 textView.setText("收藏");
                 break;
             case 5:
-                transaction.replace(R.id.container_list, ListFragment.newInstance("审核活动"));
+                transaction.replace(R.id.container_list, ListFragment.newInstance("审核活动"),"5");
                 textView.setText("审核活动");
                 break;
             case 6:
-                transaction.replace(R.id.container_list, ListFragment.newInstance("发布历史"));
+                transaction.replace(R.id.container_list, ListFragment.newInstance("发布历史"),"6");
                 textView.setText("发布历史");
                 break;
             case 7:
@@ -83,5 +93,21 @@ public class ListActivity extends AppCompatActivity {
         else return false;
     }
 
-
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(data==null) return;
+        Fragment f = manager.findFragmentByTag("6");
+        if(f!=null) {
+            data.putExtra("tag",6);
+            f.onActivityResult(requestCode, resultCode, data);
+        }
+        else {
+            f = manager.findFragmentByTag("5");
+            if(f!=null) {
+                data.putExtra("tag",5);
+                f.onActivityResult(requestCode, resultCode, data);
+            }
+        }
+    }
 }

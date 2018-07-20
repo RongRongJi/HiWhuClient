@@ -34,6 +34,7 @@ public class RecyclerAdapter_activityCard extends RecyclerView.Adapter<RecyclerA
     private Context context;
     private List<ActivityCard> cardList;
     private int option; //0-不显示按钮; 1-显示报名按钮; 2-显示审核按钮;
+    private final int DELETE = 3;
 
     static class ViewHolder extends RecyclerView.ViewHolder{
 
@@ -76,16 +77,16 @@ public class RecyclerAdapter_activityCard extends RecyclerView.Adapter<RecyclerA
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-               //DetailActivity.start(v.getContext(),10);
                 if(staticData.getUserType()==1){
-                    Intent intent = new Intent(v.getContext(), stu_viewActivity.class);
+                    Intent intent = new Intent(context, stu_viewActivity.class);
                     intent.putExtra("activity_id",activityCard.getActivity_id());
-                    v.getContext().startActivity(intent);
+                    context.startActivity(intent);
                 }
                 else{
-                    Intent intent = new Intent(v.getContext(), com_viewActivity.class);
+                    Intent intent = new Intent(context, com_viewActivity.class);
                     intent.putExtra("activity_id",activityCard.getActivity_id());
-                    v.getContext().startActivity(intent);
+                    if(staticData.isSponsorCanOpera()) ((ListActivity)context).startActivityForResult(intent,DELETE);
+                    else context.startActivity(intent);
                 }
             }
         });
@@ -126,5 +127,11 @@ public class RecyclerAdapter_activityCard extends RecyclerView.Adapter<RecyclerA
     @Override
     public int getItemCount() {
         return cardList.size();
+    }
+
+    public void resetCardList(List<ActivityCard> list){
+        this.cardList.clear();
+        this.cardList.addAll(list);
+        notifyDataSetChanged();
     }
 }

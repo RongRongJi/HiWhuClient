@@ -1,18 +1,15 @@
 package com.hiwhuUI.Activity.util;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-import android.support.v7.widget.Toolbar;
-import android.widget.Toast;
 
 import com.hiwhu.hiwhuclient.R;
 
@@ -20,11 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import HttpConnect.GetActivityBySponsorID;
-import HttpConnect.GetAllActivity;
 import HttpConnect.GetAllCollectionActivity;
 import HttpConnect.GetAppliedActivity;
 import HttpConnect.GetAppliedStudentByActivityID;
-import HttpConnect.GetCurrentCollection;
 import HttpConnect.GetSearchResult;
 import data.staticData;
 import entity.Activity;
@@ -32,7 +27,14 @@ import entity.ActivityCard;
 import entity.StuCard;
 import entity.Student;
 
+import static android.app.Activity.RESULT_OK;
+
 public class ListFragment extends Fragment {
+
+    final int DELETE = 3;
+    private RecyclerAdapter_activityCard adapter_activityCard = null;
+    private RecyclerAdapter_stuCard adapter_stuCard = null;
+
 
     public static ListFragment newInstance(String info) {
         Bundle args = new Bundle();
@@ -98,68 +100,68 @@ public class ListFragment extends Fragment {
 
     private View setActivityCardView(View view, int option){
 
-        RecyclerAdapter_activityCard recyclerAdapter = null;
+        adapter_stuCard = null;
 
         switch (option){
             //分别获取后台活动数据 list
             case 1://学生待审核的活动列表
                 GetAppliedActivity unchecked = GetAppliedActivity.GetActivityInit(0);
                 List<Activity> uncheckedList = unchecked.activityList;
-                recyclerAdapter = new RecyclerAdapter_activityCard(toActivityCardList(uncheckedList),0);
+                adapter_activityCard = new RecyclerAdapter_activityCard(toActivityCardList(uncheckedList),0);
                 break;
             case 2://学生待参加的活动列表
                 GetAppliedActivity passed = GetAppliedActivity.GetActivityInit(1);
                 List<Activity> waitList = passed.activityList;
-                recyclerAdapter = new RecyclerAdapter_activityCard(toActivityCardList(waitList),0);
+                adapter_activityCard = new RecyclerAdapter_activityCard(toActivityCardList(waitList),0);
                 break;
             case 3://学生参加过的活动
                 GetAppliedActivity joined = GetAppliedActivity.GetActivityInit(2);
                 List<Activity> joinedList = joined.activityList;
-                recyclerAdapter = new RecyclerAdapter_activityCard(toActivityCardList(joinedList),0);
+                adapter_activityCard = new RecyclerAdapter_activityCard(toActivityCardList(joinedList),0);
                 break;
             case 4://学生收藏的活动
                 GetAllCollectionActivity collected = GetAllCollectionActivity.GetActivityInit();
                 List<Activity> collectedList = collected.activityList;
-                recyclerAdapter = new RecyclerAdapter_activityCard(toActivityCardList(collectedList),0);
+                adapter_activityCard = new RecyclerAdapter_activityCard(toActivityCardList(collectedList),0);
                 break;
             case 5://主办方审核活动
                 GetActivityBySponsorID gas = GetActivityBySponsorID.GetActivityInit(staticData.getSponsorID());
                 List<Activity> checkList = gas.registerAcitivtylist;
-                recyclerAdapter = new RecyclerAdapter_activityCard(toActivityCardList(checkList),2);
+                adapter_activityCard = new RecyclerAdapter_activityCard(toActivityCardList(checkList),2);
                 break;
             case 6://主办方的发布历史
                 GetActivityBySponsorID gbs = GetActivityBySponsorID.GetActivityInit(staticData.getSponsorID());
                 List<Activity> historyList = gbs.activityList;
-                recyclerAdapter = new RecyclerAdapter_activityCard(toActivityCardList(historyList),0);
+                adapter_activityCard = new RecyclerAdapter_activityCard(toActivityCardList(historyList),0);
                 break;
             case 8://搜索框
                 String str = getArguments().getString("search");
                 Log.e("search is",str);
                 GetSearchResult gsr = GetSearchResult.GetActivityInit(str);
                 List<Activity> searchList = gsr.activityList;
-                recyclerAdapter = new RecyclerAdapter_activityCard(toActivityCardList(searchList),0);
+                adapter_activityCard = new RecyclerAdapter_activityCard(toActivityCardList(searchList),0);
                 break;
         }
 
 
         RecyclerView recyclerView=(RecyclerView)view.findViewById(R.id.recyclerView_cardList);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext(),LinearLayoutManager.VERTICAL,false));
-        recyclerView.setAdapter(recyclerAdapter);
+        recyclerView.setAdapter(adapter_activityCard);
 
         return view;
     }
 
     private View setStuCardView(View view,String activity_id) {
 
-        RecyclerAdapter_stuCard recyclerAdapter = null;
+        adapter_activityCard = null;
         GetAppliedStudentByActivityID gasba = GetAppliedStudentByActivityID.GetApplyInit(activity_id);
         List<Student> list = gasba.applylist;
 
-        recyclerAdapter = new RecyclerAdapter_stuCard(toStuCardList(list));
+        adapter_stuCard = new RecyclerAdapter_stuCard(toStuCardList(list));
 
         RecyclerView recyclerView=(RecyclerView)view.findViewById(R.id.recyclerView_cardList);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext(),LinearLayoutManager.VERTICAL,false));
-        recyclerView.setAdapter(recyclerAdapter);
+        recyclerView.setAdapter(adapter_stuCard);
         return view;
     }
 
@@ -186,4 +188,25 @@ public class ListFragment extends Fragment {
         return cardList;
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case DELETE:
+                if (resultCode == RESULT_OK) {
+                    int tag = data.getIntExtra("tag",0);
+                    if(tag==6){
+                        GetActivityBySponsorID gbs = GetActivityBySponsorID.GetActivityInit(staticData.getSponsorID());
+                        List<Activity> historyList = gbs.activityList;
+                        adapter_activityCard.resetCardList(toActivityCardList(historyList));
+                    }
+                    else if(tag==5){
+                        GetActivityBySponsorID gas = GetActivityBySponsorID.GetActivityInit(staticData.getSponsorID());
+                        List<Activity> checkList = gas.registerAcitivtylist;
+                        adapter_activityCard.resetCardList(toActivityCardList(checkList));
+                    }
+                }
+                break;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 }

@@ -39,6 +39,7 @@ import java.util.List;
 
 import HttpConnect.GetCommentAndReply;
 import HttpConnect.GetCurrentActivity;
+import HttpConnect.GetCurrentSponsor;
 import HttpConnect.HttpUtil;
 import data.staticData;
 import entity.CommentAndReply;
@@ -75,6 +76,7 @@ public class com_viewActivity extends AppCompatActivity {
     private ProgressBar pb_bottom;
     private boolean canshow = false;
     final int REF = 1;//回复评论
+    final int DELETE = 3;//删除活动
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -332,25 +334,27 @@ public class com_viewActivity extends AppCompatActivity {
                 return true;
             }
         });
-
-        if(staticData.isSponsorCanOpera()){
-            listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-                @Override
-                public boolean onItemLongClick(AdapterView<?> parent, View view, int flatPos, long l) {
-                    //得到点击的父位置，子位置
-                    long packedPos = ((ExpandableListView)parent).getExpandableListPosition(flatPos);
-                    int groupPosition= ExpandableListView.getPackedPositionGroup(packedPos);
-                    int childPosition = ExpandableListView.getPackedPositionChild(packedPos);
-                    if(childPosition == -1){//-1-父项; >=0-子项;
-                        Intent intent = new Intent(com_viewActivity.this,data_editActivity.class);
-                        intent.putExtra("activity_id",activity_id);
-                        intent.putExtra("ref_comment_id",adapter.getGroup(groupPosition).getCommentId());
-                        intent.putExtra("ref_comment_content",adapter.getGroup(groupPosition).getContent());
-                        startActivityForResult(intent,REF);
+        if(staticData.getUserType()==2){
+            if(staticData.sponsor==null) GetCurrentSponsor.GetSponsorInit();
+            if(staticData.activity.getSponsorID().equals(staticData.sponsor.getSponsorID())){
+                listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                    @Override
+                    public boolean onItemLongClick(AdapterView<?> parent, View view, int flatPos, long l) {
+                        //得到点击的父位置，子位置
+                        long packedPos = ((ExpandableListView)parent).getExpandableListPosition(flatPos);
+                        int groupPosition= ExpandableListView.getPackedPositionGroup(packedPos);
+                        int childPosition = ExpandableListView.getPackedPositionChild(packedPos);
+                        if(childPosition == -1){//-1-父项; >=0-子项;
+                            Intent intent = new Intent(com_viewActivity.this,data_editActivity.class);
+                            intent.putExtra("activity_id",activity_id);
+                            intent.putExtra("ref_comment_id",adapter.getGroup(groupPosition).getCommentId());
+                            intent.putExtra("ref_comment_content",adapter.getGroup(groupPosition).getContent());
+                            startActivityForResult(intent,REF);
+                        }
+                        return true;
                     }
-                    return true;
-                }
-            });
+                });
+            }
         }
         pb_bottom.setVisibility(View.GONE);
     }
@@ -361,6 +365,9 @@ public class com_viewActivity extends AppCompatActivity {
             public void run() {
                 if(flag){
                     Toast.makeText(com_viewActivity.this,"活动已删除！",Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent();
+                    intent.putExtra("activity_id",activity_id);
+                    setResult(RESULT_OK,intent);
                     finish();
                 }else{
                     Toast.makeText(com_viewActivity.this,"活动删除异常！",Toast.LENGTH_LONG).show();
