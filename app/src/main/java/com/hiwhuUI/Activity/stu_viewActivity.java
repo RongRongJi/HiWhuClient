@@ -135,7 +135,7 @@ public class stu_viewActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         String s = response.body().string();
-                        if(s.equals("succeed\n")){
+                        if(s.contains("succeed")){
                             Jump(true);
                         }else{
                             Jump(false);
