@@ -37,6 +37,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import HttpConnect.GetAllActivity;
 import HttpConnect.GetCommentAndReply;
 import HttpConnect.GetCurrentActivity;
 import HttpConnect.GetCurrentSponsor;
@@ -192,14 +193,21 @@ public class com_viewActivity extends AppCompatActivity {
         activity_id = getIntent().getStringExtra("activity_id");
 
         name.setText(staticData.activity.getTitle());
-        starttime.setText(staticData.activity.getStartTIme());
-        endtime.setText(staticData.activity.getEndTime());
+        String[] time = GetAllActivity.HandleTime(staticData.activity.getStartTIme());
+        String text = time[0]+" "+time[1];
+        starttime.setText(text);
+        time = GetAllActivity.HandleTime(staticData.activity.getEndTime());
+        endtime.setText(text);
         if(staticData.activity.getRegistrationStartTime().equals("1000-12-31 01:00:00.0")){
             resstarttime.setText("不需要报名");
             resendtime.setText("不需要报名");
         }else{
-            resstarttime.setText(staticData.activity.getRegistrationStartTime());
-            resendtime.setText(staticData.activity.getRegistrationEndTime());
+            time = GetAllActivity.HandleTime(staticData.activity.getRegistrationStartTime());
+            text = time[0]+" "+time[1];
+            resstarttime.setText(text);
+            time = GetAllActivity.HandleTime(staticData.activity.getRegistrationEndTime());
+            text = time[0]+" "+time[1];
+            resendtime.setText(text);
         }
 
         if(staticData.activity.getLocation()!=null){

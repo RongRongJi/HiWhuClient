@@ -271,14 +271,21 @@ public class stu_viewActivity extends AppCompatActivity {
                 break;
         }
         name.setText(staticData.activity.getTitle());
-        starttime.setText(staticData.activity.getStartTIme());
-        endtime.setText(staticData.activity.getEndTime());
+        String[] tmp = GetAllActivity.HandleTime(staticData.activity.getStartTIme());
+        String text = tmp[0]+" "+tmp[1];
+        starttime.setText(text);
+        tmp = GetAllActivity.HandleTime(staticData.activity.getEndTime());
+        endtime.setText(text);
         if(state==2){
             resstarttime.setText("不需要报名");
             resendtime.setText("不需要报名");
         }else{
-            resstarttime.setText(staticData.activity.getRegistrationStartTime());
-            resendtime.setText(staticData.activity.getRegistrationEndTime());
+            tmp = GetAllActivity.HandleTime(staticData.activity.getRegistrationStartTime());
+            text = tmp[0]+" "+tmp[1];
+            resstarttime.setText(text);
+            tmp = GetAllActivity.HandleTime(staticData.activity.getRegistrationEndTime());
+            text = tmp[0]+" "+tmp[1];
+            resendtime.setText(text);
         }
         if(staticData.activity.getLocation()!=null){
             String[] locations = staticData.activity.getLocation().split("\\|\\|");

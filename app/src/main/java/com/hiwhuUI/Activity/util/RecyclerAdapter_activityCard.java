@@ -25,6 +25,7 @@ import com.hiwhuUI.Activity.stu_viewActivity;
 
 import java.util.List;
 
+import HttpConnect.GetAllActivity;
 import HttpConnect.GetCurrentActivity;
 import data.staticData;
 import entity.ActivityCard;

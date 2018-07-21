@@ -2,6 +2,7 @@ package entity;
 
 import java.util.Date;
 
+import HttpConnect.GetAllActivity;
 import data.staticData;
 
 /**
@@ -98,6 +99,10 @@ public class Activity {
     public String getType(){return type;}
 
     public ActivityCard toActivityCard(){
-        return new ActivityCard(getActivityID(),getTitle(), staticData.getUrl()+"/"+getImage(),"时间:"+getStartTIme()+"-"+getEndTime(),"地点:"+getLocation());
+        String[] time = GetAllActivity.HandleTime(getStartTIme());
+        String start = time[0]+" "+time[1];
+        time = GetAllActivity.HandleTime(getEndTime());
+        String end = time[0]+" "+time[1];
+        return new ActivityCard(getActivityID(),getTitle(), staticData.getUrl()+"/"+getImage(),"时间:"+start+"-"+end,"地点:"+getLocation());
     }
 }
