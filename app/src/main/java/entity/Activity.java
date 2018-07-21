@@ -6,7 +6,7 @@ import HttpConnect.GetAllActivity;
 import data.staticData;
 
 /**
- * Created by lenovo on 2018/7/4.
+ * Created by 韩黎明
  */
 
 public class Activity {

@@ -1,5 +1,8 @@
 package entity;
 
+/**
+ * Created by 韩黎明
+ */
 public class StuCard {
 
     private String studentNum;

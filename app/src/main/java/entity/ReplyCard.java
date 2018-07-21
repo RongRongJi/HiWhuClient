@@ -1,5 +1,8 @@
 package entity;
 
+/**
+ * Created by 赵紫微
+ */
 public class ReplyCard {
     private String reply_name;
     private String reply_content;

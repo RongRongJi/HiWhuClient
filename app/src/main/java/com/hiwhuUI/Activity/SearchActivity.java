@@ -1,5 +1,9 @@
 package com.hiwhuUI.Activity;
 
+/**
+ * created by 赵紫微
+ * modified by 刘劭荣
+ */
 import android.app.SearchManager;
 import android.content.Context;
 import android.graphics.Color;

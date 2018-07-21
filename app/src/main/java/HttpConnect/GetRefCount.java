@@ -1,5 +1,7 @@
 package HttpConnect;
-
+/**
+ * created by 刘劭荣
+ */
 import android.util.Log;
 
 import com.google.gson.Gson;

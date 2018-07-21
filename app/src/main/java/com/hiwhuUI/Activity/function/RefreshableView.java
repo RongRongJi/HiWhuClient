@@ -1,5 +1,7 @@
 package com.hiwhuUI.Activity.function;
-
+/**
+ * created by 王清玉
+ */
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;

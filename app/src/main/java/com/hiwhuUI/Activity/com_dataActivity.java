@@ -1,5 +1,9 @@
 package com.hiwhuUI.Activity;
 
+/**
+ * created by 金春利
+ */
+
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,7 +30,6 @@ public class com_dataActivity extends AppCompatActivity {
         Button button1 = (Button) findViewById(R.id.btn_com_data_cancel) ;
         RelativeLayout relativeLayout1 = (RelativeLayout) findViewById(R.id.com_data_describe);
         RelativeLayout relativeLayout2 = (RelativeLayout) findViewById(R.id.com_data_unchecked);
-        //RelativeLayout relativeLayout3 = (RelativeLayout) findViewById(R.id.com_data_review);
         RelativeLayout relativeLayout4 = (RelativeLayout) findViewById(R.id.com_data_history);
         //设置背景磨砂效果
         Glide.with(this).load(R.drawable.stu_data_back)

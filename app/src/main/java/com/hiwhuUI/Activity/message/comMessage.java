@@ -1,5 +1,8 @@
 package com.hiwhuUI.Activity.message;
 
+/** created by 王清玉
+ *
+ **/
 public class comMessage {
         private String name;
         private int imageId;

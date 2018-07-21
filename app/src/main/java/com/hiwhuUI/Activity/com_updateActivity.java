@@ -1,5 +1,10 @@
 package com.hiwhuUI.Activity;
 
+/**
+ * created by 魏文含
+ * modified by 刘劭荣 王清玉
+ */
+
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;

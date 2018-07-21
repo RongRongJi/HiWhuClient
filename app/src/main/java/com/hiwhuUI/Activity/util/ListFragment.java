@@ -1,5 +1,9 @@
 package com.hiwhuUI.Activity.util;
 
+/**
+ * created by 赵紫微
+ * modified by 刘劭荣
+ */
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;

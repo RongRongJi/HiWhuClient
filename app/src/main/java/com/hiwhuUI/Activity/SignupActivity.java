@@ -1,5 +1,9 @@
 package com.hiwhuUI.Activity;
 
+/**
+ * created by 赵紫微
+ * modified by 刘劭荣
+ */
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;

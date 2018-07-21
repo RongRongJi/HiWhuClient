@@ -1,5 +1,9 @@
 package com.hiwhuUI.Activity;
 
+/**
+ * created by 王清玉
+ * modified by 刘劭荣 赵紫微
+ */
 import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.Context;

@@ -1,7 +1,9 @@
 package entity;
 
 import java.util.List;
-
+/**
+ * Created by 赵紫微
+ */
 public class CommentCard {
     private String commentId;
     private String name;

@@ -1,5 +1,7 @@
 package HttpConnect;
-
+/**
+ * created by 刘劭荣
+ */
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;

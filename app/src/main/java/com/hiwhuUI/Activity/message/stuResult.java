@@ -1,10 +1,14 @@
 package com.hiwhuUI.Activity.message;
 
+/** created by 王清玉
+ * modified by 刘劭荣
+ **/
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
@@ -30,6 +34,7 @@ public class stuResult extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         resultList = new ArrayList<>();
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_com_m_result);
         //更改标题栏
         TextView title = (TextView)findViewById(R.id.text_title) ;

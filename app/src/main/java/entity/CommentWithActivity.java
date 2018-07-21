@@ -1,5 +1,8 @@
 package entity;
 
+/**
+ * Created by 韩黎明
+ */
 public class CommentWithActivity {
     private int count;
     private String activityID;

@@ -1,5 +1,9 @@
 package com.hiwhuUI.Activity;
 
+/**
+ * created by 魏文含
+ * modified by 王清玉
+ */
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.ActionBar;

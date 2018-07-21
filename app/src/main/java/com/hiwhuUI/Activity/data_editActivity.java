@@ -1,5 +1,10 @@
 package com.hiwhuUI.Activity;
 
+/**
+ * created by 金春利
+ * modified by 王清玉 赵紫微 刘劭荣
+ */
+
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

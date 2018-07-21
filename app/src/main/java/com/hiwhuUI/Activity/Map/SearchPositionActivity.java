@@ -1,5 +1,7 @@
 package com.hiwhuUI.Activity.Map;
-
+/**
+ * created by 魏文含
+ */
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;

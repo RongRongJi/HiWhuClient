@@ -1,6 +1,9 @@
 package com.hiwhuUI.Activity.util;
 
-
+/**
+ * created by 赵紫微
+ * modified by 刘劭荣 王清玉 金春利
+ */
 import android.Manifest;
 import android.content.ContentResolver;
 import android.content.Intent;

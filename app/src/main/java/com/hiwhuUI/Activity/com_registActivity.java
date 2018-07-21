@@ -1,5 +1,10 @@
 package com.hiwhuUI.Activity;
 
+/**
+ * created by 金春利
+ * modified by 刘劭荣 王清玉
+ */
+
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;

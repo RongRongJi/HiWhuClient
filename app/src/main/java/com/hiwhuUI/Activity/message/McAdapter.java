@@ -1,5 +1,8 @@
 package com.hiwhuUI.Activity.message;
 
+/** created by 王清玉
+ *
+ **/
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;

@@ -56,6 +56,11 @@ import org.w3c.dom.Text;
 
 import static com.hiwhuUI.Activity.process.Colors.colors;
 
+/**
+ * created by 王清玉
+ * modified by 刘劭荣 赵紫微
+ */
+
 public class com_viewActivity extends AppCompatActivity {
     private String activity_id;
     private Toolbar toolbar;

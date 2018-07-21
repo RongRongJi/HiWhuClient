@@ -1,5 +1,8 @@
 package entity;
 
+/**
+ * created by 赵紫微
+ */
 public class ActivityCard {
     private String activity_id;
     private String title;

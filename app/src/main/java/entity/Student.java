@@ -1,7 +1,7 @@
 package entity;
 
 /**
- * Created by lsr on 2018/7/5.
+ * Created by 刘劭荣
  */
 public class Student {
     private String studentID;

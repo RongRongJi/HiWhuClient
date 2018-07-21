@@ -1,9 +1,8 @@
 package entity;
 
 import java.util.List;
-
 /**
- * Created by lenovo on 2018/7/13.
+ * Created by 韩黎明
  */
 public class CommentAndReply {
     private String commentID;

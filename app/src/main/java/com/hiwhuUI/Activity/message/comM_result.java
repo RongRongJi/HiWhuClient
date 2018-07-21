@@ -1,5 +1,8 @@
 package com.hiwhuUI.Activity.message;
 
+/** created by 王清玉
+ * modified by 刘劭荣
+ **/
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;

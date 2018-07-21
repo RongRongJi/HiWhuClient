@@ -1,5 +1,7 @@
 package com.hiwhuUI.Activity.Map;
-
+/**
+ * created by 魏文含
+ */
 import android.app.Application;
 
 import com.baidu.mapapi.SDKInitializer;

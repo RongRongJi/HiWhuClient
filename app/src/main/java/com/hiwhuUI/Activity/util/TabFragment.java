@@ -1,5 +1,9 @@
 package com.hiwhuUI.Activity.util;
 
+/**
+ * created by 赵紫微
+ * modified by 刘劭荣
+ */
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -72,14 +76,6 @@ public class TabFragment extends Fragment {
 
         return view;
     }
-
-    //@Override public void setUserVisibleHint(boolean isVisibleToUser) {
-    //    if(isVisibleToUser&&swipeRefresh!=null){
-    //        swipeRefresh.setRefreshing(true);
-    //    }
-    //}
-
-
 
     private void refreshTab(){
         new Thread(new Runnable() {

@@ -1,5 +1,7 @@
 package com.hiwhuUI.Activity.util;
-
+/**
+ * created by 赵紫微
+ */
 import android.content.Context;
 import android.os.Build;
 import android.support.v4.view.NestedScrollingChildHelper;

@@ -8,7 +8,8 @@ import entity.Sponsor;
 import entity.Student;
 
 /**
- * Created by ASUS on 2018/7/7.
+ * Created by 刘劭荣
+ * modified by 赵紫微
  */
 
 public class staticData {

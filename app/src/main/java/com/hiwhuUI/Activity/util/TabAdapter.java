@@ -1,6 +1,9 @@
 package com.hiwhuUI.Activity.util;
 
-
+/**
+ * created by 赵紫微
+ * modified by 刘劭荣
+ */
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;

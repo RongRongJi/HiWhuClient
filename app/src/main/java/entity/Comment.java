@@ -1,5 +1,7 @@
 package entity;
-
+/**
+ * Created by 韩黎明
+ */
 import java.util.List;
 
 public class Comment {

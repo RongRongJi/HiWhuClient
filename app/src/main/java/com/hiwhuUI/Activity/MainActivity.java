@@ -1,5 +1,9 @@
 package com.hiwhuUI.Activity;
 
+/**
+ * created by 赵紫微
+ * modified by 刘劭荣
+ */
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,14 +12,19 @@ import android.support.design.widget.BottomNavigationView;
 
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.hiwhu.hiwhuclient.R;
 import com.hiwhuUI.Activity.util.navigationFragment;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 import data.staticData;
 
@@ -29,6 +38,7 @@ public class MainActivity extends AppCompatActivity{
     private navigationFragment home;
     private navigationFragment notice;
     private navigationFragment user;
+    private boolean isExit=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,6 +139,9 @@ public class MainActivity extends AppCompatActivity{
                 });
     }
 
+
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // 绑定toolbar跟menu
@@ -137,5 +150,25 @@ public class MainActivity extends AppCompatActivity{
             toolbar.getMenu().findItem(R.id.add).setVisible(false);
         }
         return true;
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_BACK) {
+            if(!isExit) {
+                isExit = true;
+                Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                new Timer().schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        isExit = false;
+                    }
+                }, 2000);
+            } else {
+                moveTaskToBack(false);
+                //finish();
+            }
+        }
+        return false;
     }
 }

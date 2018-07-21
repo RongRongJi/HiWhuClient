@@ -1,5 +1,8 @@
 package com.hiwhuUI.Activity.util;
 
+/**
+ * created by 赵紫微
+ */
 import android.content.Context;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;

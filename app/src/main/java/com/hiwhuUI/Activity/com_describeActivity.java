@@ -1,5 +1,10 @@
 package com.hiwhuUI.Activity;
 
+/**
+ * created by 金春利
+ * modified by 刘劭荣
+ */
+
 import android.Manifest;
 import android.content.ContentResolver;
 import android.content.Intent;
